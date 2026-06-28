@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ quiet: true });
 
-const requiredEnv = ["MONGO_URL", "PORT", "NODE_ENV", "CLIENT_URL", "JWT_SECRET"];
+const requiredEnv = ["MONGO_URL", "NODE_ENV", "CLIENT_URL", "JWT_SECRET"];
 
 const missingEnv = requiredEnv.filter((key) => !process.env[key]);
 
