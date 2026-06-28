@@ -222,7 +222,7 @@ const ExperienceSection = () => {
   if (!loading && (!experiences || experiences.length === 0) && !error) return null;
 
   return (
-    <section id="experience" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-[#F7F7F7] relative overflow-hidden selection:bg-[#3B4FFF] selection:text-white">
+    <section id="experience" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-transparent relative overflow-hidden selection:bg-[#3B4FFF] selection:text-white">
       <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
 
         {/* Editorial Header Section */}

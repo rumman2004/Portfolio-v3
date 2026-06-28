@@ -55,7 +55,7 @@ const ContactSection = () => {
   }, { scope: containerRef, dependencies: [profileLoading, socialLoading] });
 
   return (
-    <section id="contact" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-[#F7F7F7] relative overflow-hidden border-t border-[#1A1A1A]/10">
+    <section id="contact" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-transparent relative overflow-hidden border-t border-[#1A1A1A]/10">
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center">
 

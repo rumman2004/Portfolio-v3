@@ -11,7 +11,7 @@ const Contact       = lazy(() => import('../pages/public/Contact'));
 
 /* ─────────────────────────────────────────────────────────────
    FALLBACK LOADER
-   Matches the portfolio's light #F7F7F7 bg so there's no
+   Matches the portfolio's light #F4F4F4 bg so there's no
    flash-of-dark-background on lazy load.
 ──────────────────────────────────────────────────────────────*/
 const PageLoader = () => (
@@ -22,7 +22,7 @@ const PageLoader = () => (
       alignItems: 'center',
       justifyContent: 'center',
       minHeight: '100vh',
-      background: '#F7F7F7',
+      background: '#F4F4F4',
       gap: 16,
     }}
   >

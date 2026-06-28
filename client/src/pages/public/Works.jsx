@@ -297,7 +297,7 @@ const Works = () => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-[#F7F7F7] selection:bg-[#0448a8] selection:text-white"
+      className="min-h-screen bg-transparent selection:bg-[#0448a8] selection:text-white"
       onMouseMove={handleMouseMove}
     >
       <FontStyles />
@@ -350,7 +350,7 @@ const Works = () => {
       </section>
 
       {/* ── FILTER BAR ── */}
-      <div className="wk-filter-bar sticky top-[64px] z-40 bg-[#F7F7F7]/90 backdrop-blur-md border-y border-black/[0.07] px-6 md:px-12 lg:px-20">
+      <div className="wk-filter-bar sticky top-[64px] z-40 bg-[#F4F4F4]/90 backdrop-blur-md border-y border-black/[0.07] px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto flex items-center gap-2 py-3 overflow-x-auto no-scrollbar">
           {categories.map((cat) => (
             <button

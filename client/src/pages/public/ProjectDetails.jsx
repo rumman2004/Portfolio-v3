@@ -205,7 +205,7 @@ const FALLBACK_RELATED = [
    LOADER
 ──────────────────────────────────────────────────────────────*/
 const PageLoader = () => (
-  <div className="min-h-screen bg-[#F7F7F7] flex items-center justify-center">
+  <div className="min-h-screen bg-transparent flex items-center justify-center">
     <div className="flex flex-col items-center gap-4">
       <div className="w-8 h-8 rounded-full border-2 border-[#0448a8]/20 border-t-[#0448a8] animate-spin" />
       <p style={{ fontFamily: 'Inter, sans-serif' }} className="text-[#888] text-sm tracking-widest uppercase text-xs font-bold">
@@ -241,7 +241,7 @@ const ProjectDetails = () => {
 
   if (error && !projectData) {
     return (
-      <div className="min-h-screen bg-[#F7F7F7] flex flex-col items-center justify-center gap-5 px-6">
+      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center gap-5 px-6">
         <FontStyles />
         <h2 className="pd-font-headline text-3xl text-[#111] uppercase tracking-tight">Project not found</h2>
         <p className="pd-font-inter text-[#888] text-base">This project doesn't exist or has been removed.</p>

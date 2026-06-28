@@ -350,7 +350,7 @@ const ExperienceItem = ({ exp, index, isLast }) => {
       {/* Year column */}
       <div className="flex flex-col items-center relative">
         <div className="w-3 h-3 rounded-full bg-[#0448a8] flex-shrink-0 mt-1"
-             style={{ boxShadow: '0 0 0 3px #F7F7F7, 0 0 0 4.5px #d0d0d0' }} />
+             style={{ boxShadow: '0 0 0 3px #F4F4F4, 0 0 0 4.5px #d0d0d0' }} />
         {!isLast && (
           <div className="flex-1 w-px bg-[#E0E0E0] mt-2 mb-[-24px]" />
         )}
@@ -403,7 +403,7 @@ const ExperienceSection = () => {
   }, { scope: ref, dependencies: [loading] });
 
   return (
-    <section ref={ref} id="experience" className="bg-[#F7F7F7] py-[120px] md:py-[160px]">
+    <section ref={ref} id="experience" className="bg-transparent py-[120px] md:py-[160px]">
       <div className="max-w-5xl mx-auto px-6 md:px-12">
         <SectionRule index={3} label="Work Experience" />
 
@@ -583,7 +583,7 @@ const CertificatesSection = () => {
   }, { scope: ref, dependencies: [loading] });
 
   return (
-    <section ref={ref} id="certificates" className="bg-[#F7F7F7] py-[120px] md:py-[160px]">
+    <section ref={ref} id="certificates" className="bg-transparent py-[120px] md:py-[160px]">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <SectionRule index={5} label="Certificates" />
 

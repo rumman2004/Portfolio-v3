@@ -76,7 +76,7 @@ const ProjectCard = ({ project }) => {
               
                 if (iconSrc) {
                   return (
-                    <div key={i} className="w-8 h-8 rounded-full bg-[#F7F7F7] border border-[#232323]/5 flex items-center justify-center shadow-sm" title={techName}>
+                    <div key={i} className="w-8 h-8 rounded-full bg-transparent border border-[#232323]/5 flex items-center justify-center shadow-sm" title={techName}>
                       <img src={iconSrc} alt={techName} className="w-4 h-4 object-contain" />
                     </div>
                   );
@@ -85,7 +85,7 @@ const ProjectCard = ({ project }) => {
                 return (
                   <span 
                     key={i}
-                    className="px-2 py-1 bg-[#F7F7F7] text-[#232323] text-[10px] md:text-xs font-semibold rounded-md border border-[#232323]/5"
+                    className="px-2 py-1 bg-transparent text-[#232323] text-[10px] md:text-xs font-semibold rounded-md border border-[#232323]/5"
                   >
                     {techName}
                   </span>
