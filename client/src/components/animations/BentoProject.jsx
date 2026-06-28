@@ -153,7 +153,7 @@ const BentoProject = ({ projects = [] }) => {
       <div className="mt-16 flex justify-center relative z-20">
         <Link 
           to="/works"
-          className="group flex min-h-11 items-center justify-center gap-2 bg-[#0448a8] text-white px-8 py-3.5 rounded-full font-semibold text-sm shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-0.5 transition-all duration-200"
+          className="group flex min-h-11 items-center justify-center gap-2 bg-[#0448a8] !text-white px-8 py-3.5 rounded-full font-semibold text-sm shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-0.5 transition-all duration-200"
         >
           View All Projects
           <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
