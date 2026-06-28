@@ -95,7 +95,7 @@ const AboutSection = () => {
             {/* Handwriting */}
             <div 
               ref={scriptRef}
-              className="absolute top-[80%] sm:top-[70%] lg:top-[60%] left-[30%] sm:left-[45%] md:left-[55%] lg:left-[60%] xl:left-[70%] z-30 pointer-events-none"
+              className="absolute top-[35%] sm:top-[50%] lg:top-[60%] left-[25%] sm:left-[45%] md:left-[55%] lg:left-[60%] xl:left-[70%] z-30 pointer-events-none"
             >
               <span className="about-script inline-block font-script text-[5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10rem] text-[#0448a8] -rotate-[8deg] drop-shadow-md leading-none select-none py-10 pr-10">
                 {lastName}
