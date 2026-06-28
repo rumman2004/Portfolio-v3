@@ -95,7 +95,7 @@ const AboutSection = () => {
             {/* Handwriting */}
             <div 
               ref={scriptRef}
-              className="absolute top-[35%] sm:top-[50%] lg:top-[60%] left-[25%] sm:left-[45%] md:left-[55%] lg:left-[60%] xl:left-[70%] z-30 pointer-events-none"
+              className="absolute top-[35%] sm:top-[45%] md:top-[45%] lg:top-[55%] left-[25%] sm:left-[45%] md:left-[55%] lg:left-[60%] xl:left-[70%] z-30 pointer-events-none"
             >
               <span className="about-script inline-block font-script text-[5rem] sm:text-[6rem] md:text-[7.5rem] lg:text-[8.5rem] xl:text-[10rem] text-[#0448a8] -rotate-[8deg] drop-shadow-md leading-none select-none py-10 pr-10">
                 {lastName}
@@ -104,7 +104,7 @@ const AboutSection = () => {
           </div>
           
           {/* About Me Paragraph */}
-          <div className="about-body mt-28 sm:mt-32 md:mt-24 lg:mt-12 max-w-sm sm:max-w-md lg:max-w-lg relative z-40">
+          <div className="about-body mt-28 sm:mt-36 md:mt-40 lg:mt-24 max-w-sm sm:max-w-md lg:max-w-lg relative z-40">
             <p className="font-inter text-[#6B7280] leading-[1.8] md:leading-[1.9] text-sm md:text-base lg:text-[1.05rem] font-light">
               {profile?.about || 'I combine clean frontend architecture with visual systems that feel intentional: generous spacing, sharp hierarchy, fluid interactions, and sections that guide visitors through the work.'}
             </p>
