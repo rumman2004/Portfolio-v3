@@ -1,9 +1,23 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 import Footer from './Footer';
 
 const PublicLayout = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        navigate('/admin');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [navigate]);
+
   return (
     <div className="flex flex-col min-h-screen relative bg-[#F4F4F4] selection:bg-[#4F46E5] selection:text-white">
       {/* Global Soft Grain Texture Overlay */}

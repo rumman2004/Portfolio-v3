@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 import { resolveIcon } from '../../../utils/iconMap';
 import { FaGithub } from 'react-icons/fa6';
@@ -7,6 +8,24 @@ const Footer = () => {
   const year = new Date().getFullYear();
   const { data: profile } = useFetch('/public/profile');
   const { data: socialMedia } = useFetch('/social-media');
+  
+  const navigate = useNavigate();
+  const [clickCount, setClickCount] = useState(0);
+
+  useEffect(() => {
+    if (clickCount > 0) {
+      const timer = setTimeout(() => setClickCount(0), 1000); // reset after 1s
+      return () => clearTimeout(timer);
+    }
+  }, [clickCount]);
+
+  const handleAdminAccess = () => {
+    if (clickCount + 1 >= 3) {
+      navigate('/admin');
+    } else {
+      setClickCount(c => c + 1);
+    }
+  };
 
   const name = profile?.name?.split(' ')[0] || 'Rumman';
   const socialLinks = socialMedia || [];
@@ -37,8 +56,12 @@ const Footer = () => {
       </div>
 
       {/* Left Pill */}
-      <div className="pointer-events-auto backdrop-blur-xl bg-white/90 border border-gray-200 rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] px-5 py-2.5 flex items-center justify-center">
-        <span className="text-sm font-semibold text-gray-700 tracking-wide">
+      <div 
+        onClick={handleAdminAccess}
+        className="pointer-events-auto backdrop-blur-xl bg-white/90 border border-gray-200 rounded-full shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] px-5 py-2.5 flex items-center justify-center select-none cursor-pointer"
+        title="Admin Login"
+      >
+        <span className="text-sm font-semibold text-gray-700 tracking-wide pointer-events-none">
           &copy; {year} {name}.
         </span>
       </div>
