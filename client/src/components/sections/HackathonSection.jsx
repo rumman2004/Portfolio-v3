@@ -25,7 +25,7 @@ const FALLBACK_STATS = [
 
 const HackathonSection = () => {
   const { data: hackathons, loading, error } = useFetch('/hackathon/featured');
-  const { data: statsData } = useFetch('/hackathon/stats');
+  const { data: statsData, loading: statsLoading } = useFetch('/hackathon/stats');
   const containerRef = useRef();
 
   const stats = statsData?.length
@@ -33,6 +33,8 @@ const HackathonSection = () => {
     : FALLBACK_STATS;
 
   useGSAP(() => {
+    if (loading || statsLoading) return;
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
@@ -74,7 +76,7 @@ const HackathonSection = () => {
       });
     });
 
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [loading, statsLoading] });
 
   return (
     <section id="hackathons" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-transparent relative overflow-hidden">
@@ -140,7 +142,7 @@ const HackathonSection = () => {
         <div className="flex justify-center mt-16 relative z-20 w-full">
           <a
             href="/about"
-            className="group flex min-h-11 items-center justify-center gap-2 bg-[#0448a8] text-white px-8 py-3.5 rounded-full font-semibold text-sm shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-0.5 transition-all duration-200"
+            className="group flex min-h-11 items-center justify-center gap-2 bg-[#0448a8] !text-white px-8 py-3.5 rounded-full font-semibold text-sm shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-0.5 transition-all duration-200"
           >
             View All Hackathon Projects
             <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
