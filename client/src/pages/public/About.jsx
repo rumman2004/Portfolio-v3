@@ -168,12 +168,9 @@ const AboutHero = () => {
     <section
       ref={ref}
       id="about"
-      className="relative w-full min-h-[100svh] bg-[#F8F8F8] flex items-center justify-center overflow-hidden py-24
+      className="relative w-full min-h-[100svh] bg-transparent flex items-center justify-center overflow-hidden py-24
                  selection:bg-[#0448a8] selection:text-white"
     >
-      {/* Grain */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.04] mix-blend-multiply z-0"
-           style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png")', backgroundRepeat: 'repeat' }} />
 
       <div className="relative z-10 max-w-[90rem] mx-auto w-full px-8 md:px-16 flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left */}
@@ -276,7 +273,7 @@ const SkillsPanel = () => {
   }, { scope: ref, dependencies: [randomizedSkills] });
 
   return (
-    <section ref={ref} id="skills" className="bg-[#F8F8F8] py-[120px] md:py-[160px] overflow-hidden">
+    <section ref={ref} id="skills" className="bg-transparent py-[120px] md:py-[160px] overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <SectionRule index={2} label="Core Skills" />
 
@@ -462,7 +459,7 @@ const EducationSection = () => {
   }, { scope: ref, dependencies: [loading] });
 
   return (
-    <section ref={ref} id="education" className="bg-white py-[120px] md:py-[160px]">
+    <section ref={ref} id="education" className="bg-transparent py-[120px] md:py-[160px]">
       <div className="max-w-6xl mx-auto px-6 md:px-12">
         <SectionRule index={4} label="Education" />
 
