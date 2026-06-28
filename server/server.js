@@ -10,22 +10,26 @@ if (bootstrappedAdmin) {
   console.log("Admin account created from environment variables.");
 }
 
-const server = app.listen(env.port, () => {
-  console.log(`Server running in ${env.nodeEnv} mode on port ${env.port}`);
-});
-
-const shutdown = (signal) => {
-  console.log(`${signal} received. Closing server...`);
-  server.close(() => {
-    console.log("Server closed.");
-    process.exit(0);
+if (!process.env.VERCEL) {
+  const server = app.listen(env.port, () => {
+    console.log(`Server running in ${env.nodeEnv} mode on port ${env.port}`);
   });
-};
 
-process.on("SIGINT", () => shutdown("SIGINT"));
-process.on("SIGTERM", () => shutdown("SIGTERM"));
+  const shutdown = (signal) => {
+    console.log(`${signal} received. Closing server...`);
+    server.close(() => {
+      console.log("Server closed.");
+      process.exit(0);
+    });
+  };
 
-process.on("unhandledRejection", (error) => {
-  console.error(`Unhandled rejection: ${error.message}`);
-  server.close(() => process.exit(1));
-});
+  process.on("SIGINT", () => shutdown("SIGINT"));
+  process.on("SIGTERM", () => shutdown("SIGTERM"));
+
+  process.on("unhandledRejection", (error) => {
+    console.error(`Unhandled rejection: ${error.message}`);
+    server.close(() => process.exit(1));
+  });
+}
+
+export default app;
