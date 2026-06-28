@@ -104,7 +104,7 @@ const AboutSection = () => {
           </div>
           
           {/* About Me Paragraph */}
-          <div className="about-body mt-12 sm:mt-16 md:mt-12 lg:mt-8 max-w-sm sm:max-w-md lg:max-w-lg relative z-40">
+          <div className="about-body mt-28 sm:mt-32 md:mt-24 lg:mt-12 max-w-sm sm:max-w-md lg:max-w-lg relative z-40">
             <p className="font-inter text-[#6B7280] leading-[1.8] md:leading-[1.9] text-sm md:text-base lg:text-[1.05rem] font-light">
               {profile?.about || 'I combine clean frontend architecture with visual systems that feel intentional: generous spacing, sharp hierarchy, fluid interactions, and sections that guide visitors through the work.'}
             </p>
