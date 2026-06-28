@@ -58,6 +58,14 @@ if (!isProduction) {
   app.use(morgan("dev"));
 }
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Portfolio API is running. Access endpoints at /api",
+    environment: env.nodeEnv,
+  });
+});
+
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
