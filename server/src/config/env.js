@@ -34,6 +34,11 @@ export const env = {
     email: process.env.ADMIN_EMAIL,
     password: process.env.ADMIN_PASSWORD,
   },
+  ai: {
+    geminiKey: process.env.GEMINI_API_KEY,
+    cohereKey: process.env.COHERE_API_KEY,
+    groqKey: process.env.GROQ_API_KEY,
+  },
 };
 
 export const isProduction = env.nodeEnv === "production";

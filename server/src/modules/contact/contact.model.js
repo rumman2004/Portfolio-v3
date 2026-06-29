@@ -37,6 +37,28 @@ const contactSchema = new mongoose.Schema(
       default: "new",
       index: true,
     },
+    replies: [
+      {
+        sender: {
+          type: String,
+          enum: ["admin", "system"],
+          required: true,
+        },
+        message: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+        },
+        aiStatus: {
+          type: String,
+          enum: ["Improved", "Perfect", "No need to improve", "None"],
+          default: "None",
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

@@ -7,165 +7,6 @@ import ProjectObjective from '../../components/common/ProjectObjective';
 import ProjectCaseStudy from '../../components/common/projectCaseStudy';
 
 /* ─────────────────────────────────────────────────────────────
-   FONTS
-──────────────────────────────────────────────────────────────*/
-const FontStyles = () => (
-  <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@600;700&display=swap');
-    .pd-font-headline { font-family: 'Archivo Black', sans-serif; }
-    .pd-font-inter    { font-family: 'Inter', sans-serif; }
-    .pd-font-script   { font-family: 'Caveat', cursive; }
-
-    .pd-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      padding: 10px 18px;
-      border-radius: 12px;
-      background: white;
-      color: #333;
-      border: 1px solid rgba(0,0,0,0.08);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-      transition: all 0.3s ease;
-    }
-    .pd-tag:hover {
-      transform: translateY(-2px);
-      border-color: #0448a8;
-      color: #0448a8;
-      box-shadow: 0 4px 12px rgba(4,72,168,0.1);
-    }
-
-    .pd-meta-row {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      padding: 20px 0;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .pd-meta-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #888;
-    }
-    .pd-meta-value {
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      font-weight: 600;
-      color: #111;
-    }
-
-    .pd-section-title {
-      font-family: 'Archivo Black', sans-serif;
-      font-size: 24px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: #111;
-      margin-bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .pd-back-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #888;
-      transition: color 0.2s, gap 0.2s;
-      text-decoration: none;
-    }
-    .pd-back-btn:hover { color: #111; gap: 12px; }
-    .pd-back-btn:hover .pd-back-arrow { transform: translateX(-3px); }
-    .pd-back-arrow { transition: transform 0.2s ease; }
-
-    .pd-cta-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #0448a8;
-      color: white;
-      padding: 16px 32px;
-      border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      box-shadow: 0 8px 24px rgba(4,72,168,0.25);
-      transition: all 0.3s ease;
-    }
-    .pd-cta-primary:hover { background: #03367d; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(4,72,168,0.3); }
-
-    .pd-cta-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      color: #111;
-      border: 1.5px solid rgba(0,0,0,0.12);
-      padding: 16px 32px;
-      border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-    .pd-cta-secondary:hover { border-color: #111; background: #F8F8F8; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.05); }
-
-    .pd-feature-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 20px;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 15px;
-      color: #444;
-      line-height: 1.6;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .pd-feature-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.06);
-      border-color: rgba(4,72,168,0.1);
-    }
-
-    .pd-case-card {
-      background: white;
-      border-radius: 24px;
-      padding: 40px;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.02);
-      margin-bottom: 32px;
-    }
-
-    /* Related card */
-    .pd-related-card {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .pd-related-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-    }
-  `}</style>
-);
-
-/* ─────────────────────────────────────────────────────────────
    FALLBACK PROJECT (for demo when API is absent)
 ──────────────────────────────────────────────────────────────*/
 const FALLBACK_PROJECT = {
@@ -189,7 +30,8 @@ const FALLBACK_PROJECT = {
   image: { url: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1600&q=85' },
   gallery: [
     'https://images.unsplash.com/photo-1592982537447-6f2a6a0a3835?w=1600&q=85',
-    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=85'
+    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=85',
+    'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1600&q=85'
   ],
   liveUrl: 'https://example.com',
   githubUrl: 'https://github.com',
@@ -205,13 +47,11 @@ const FALLBACK_RELATED = [
    LOADER
 ──────────────────────────────────────────────────────────────*/
 const PageLoader = () => (
-  <div className="min-h-screen bg-transparent flex items-center justify-center">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-8 h-8 rounded-full border-2 border-[#0448a8]/20 border-t-[#0448a8] animate-spin" />
-      <p style={{ fontFamily: 'Inter, sans-serif' }} className="text-[#888] text-sm tracking-widest uppercase text-xs font-bold">
-        Loading project
-      </p>
-    </div>
+  <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center gap-4">
+    <div className="w-10 h-10 rounded-full border-2 border-[#0448a8]/20 border-t-[#0448a8] animate-spin" />
+    <p className="font-inter text-[#6B7280] text-sm tracking-widest uppercase font-bold">
+      Loading project
+    </p>
   </div>
 );
 
@@ -241,128 +81,136 @@ const ProjectDetails = () => {
 
   if (error && !projectData) {
     return (
-      <div className="min-h-screen bg-transparent flex flex-col items-center justify-center gap-5 px-6">
-        <FontStyles />
-        <h2 className="pd-font-headline text-3xl text-[#111] uppercase tracking-tight">Project not found</h2>
-        <p className="pd-font-inter text-[#888] text-base">This project doesn't exist or has been removed.</p>
-        <Link to="/works" className="pd-cta-primary">Back to Works</Link>
+      <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center gap-5 px-6">
+        <h2 className="font-headline text-4xl text-[#1A1A1A] uppercase tracking-tight">Project not found</h2>
+        <p className="font-inter text-[#6B7280] text-lg">This project doesn't exist or has been removed.</p>
+        <Link to="/works" className="mt-4 px-8 py-4 bg-[#0448a8] text-white font-inter font-bold uppercase rounded-full hover:bg-[#03367d] transition-colors">
+          Back to Works
+        </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] selection:bg-[#0448a8] selection:text-white">
-      <FontStyles />
+    <div className="min-h-screen bg-[#F9FAFB] selection:bg-[#0448a8] selection:text-white pb-20 relative">
 
-      {/* ── HERO ── */}
-      <section className="relative bg-white border-b border-black/[0.05] pt-24 pb-16 md:pt-32 md:pb-24">
-        <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
+      {/* ── CLEAN EDITORIAL HERO (LIGHT THEME) ── */}
+      <section className="relative w-full bg-[#F9FAFB] pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden z-10">
+        {/* Subtle Background Glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-[#0448a8]/10 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
           
           {/* Back nav */}
-          <div className="mb-10">
-            <button onClick={() => navigate(-1)} className="pd-back-btn">
-              <ArrowLeft size={14} className="pd-back-arrow" />
-              All Projects
-            </button>
-          </div>
+          <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-2 font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280] hover:text-[#1A1A1A] transition-colors mb-12 md:mb-16">
+            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+            Back to Projects
+          </button>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              {/* Eyebrow */}
-              <div className="flex flex-wrap items-center gap-3 mb-6">
-                <span className="pd-font-inter text-[11px] font-bold tracking-[0.25em] uppercase text-[#0448a8] bg-[#0448a8]/10 px-3 py-1.5 rounded-md">
-                  {project.category}
-                </span>
-                {project.year && (
-                  <>
-                    <span className="w-1 h-1 rounded-full bg-[#ccc]" />
-                    <span className="pd-font-inter text-[11px] font-bold tracking-[0.2em] uppercase text-[#888]">
-                      {project.year}
-                    </span>
-                  </>
-                )}
-              </div>
-
-              {/* Title */}
-              <h1 className="pd-font-headline text-5xl md:text-6xl lg:text-7xl text-[#111] tracking-tighter uppercase leading-[0.9] mb-6">
-                {project.title}<span className="text-[#0448a8]">.</span>
-              </h1>
-
-              {/* Short description */}
-              <p className="pd-font-inter text-[#555] text-lg md:text-xl leading-relaxed max-w-xl mb-10">
-                {project.shortDescription}
-              </p>
-
-              {/* CTA buttons */}
-              <div className="flex flex-wrap gap-4">
-                {project.liveUrl && (
-                  <a href={project.liveUrl} target="_blank" rel="noreferrer" className="pd-cta-primary">
-                    View Live Site <ExternalLink size={16} />
-                  </a>
-                )}
-                {project.githubUrl && (
-                  <a href={project.githubUrl} target="_blank" rel="noreferrer" className="pd-cta-secondary">
-                    Source Code <ArrowUpRight size={16} />
-                  </a>
-                )}
-              </div>
+          <div className="max-w-5xl mx-auto text-center flex flex-col items-center">
+            {/* Eyebrow */}
+            <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
+              <span className="font-inter text-xs font-bold tracking-[0.25em] uppercase text-[#0448a8] bg-[#0448a8]/10 px-4 py-2 rounded-full border border-[#0448a8]/20">
+                {project.category}
+              </span>
+              {project.year && (
+                <>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A1A]/20" />
+                  <span className="font-inter text-sm font-bold tracking-[0.2em] uppercase text-[#6B7280]">
+                    {project.year}
+                  </span>
+                </>
+              )}
             </div>
 
-            {/* Hero Image */}
-            <div className="relative">
-              <div className="aspect-[4/3] rounded-[32px] overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.12)] border border-black/[0.04]">
-                {heroImg ? (
-                  <img src={heroImg} alt={project.title} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full bg-[#E8E8E8] flex items-center justify-center">
-                    <span className="pd-font-headline text-5xl text-[#ccc]">{project.title.charAt(0)}</span>
-                  </div>
-                )}
-              </div>
+            {/* Title */}
+            <h1 className="font-headline text-5xl sm:text-6xl md:text-8xl lg:text-[110px] text-[#1A1A1A] tracking-tighter uppercase leading-[0.9] mb-8 drop-shadow-sm">
+              {project.title}<span className="text-[#0448a8]">.</span>
+            </h1>
+
+            {/* Short description */}
+            <p className="font-inter text-[#6B7280] text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mb-12 font-light">
+              {project.shortDescription}
+            </p>
+
+            {/* CTA buttons */}
+            <div className="flex flex-wrap justify-center gap-5">
+              {project.liveUrl && (
+                <a href={project.liveUrl} target="_blank" rel="noreferrer" className="group flex items-center gap-3 px-8 py-4 bg-[#0448a8] !text-white font-inter font-bold uppercase tracking-wider rounded-full hover:bg-[#03367d] hover:shadow-[0_8px_30px_rgba(4,72,168,0.4)] hover:-translate-y-1 transition-all duration-300">
+                  View Live Site <ExternalLink size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a href={project.githubUrl} target="_blank" rel="noreferrer" className="group flex items-center gap-3 px-8 py-4 bg-white/60 backdrop-blur-md text-[#1A1A1A] border border-[#1A1A1A]/10 font-inter font-bold uppercase tracking-wider rounded-full hover:bg-white hover:border-[#1A1A1A]/20 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                  Source Code <ArrowUpRight size={18} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </a>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── BODY ── */}
-      <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-16 md:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 xl:gap-24">
+      {/* ── 16:9 HERO IMAGE PRESENTATION ── */}
+      <section className="relative w-full z-20 px-4 md:px-12 lg:px-16 xl:px-24 -mt-20 md:-mt-32">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Liquid Glass Frame */}
+          <div className="w-full aspect-video rounded-[24px] md:rounded-[40px] overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.12)] border-[8px] md:border-[16px] border-white/40 backdrop-blur-xl bg-white/50">
+            {heroImg ? (
+              <img 
+                src={heroImg} 
+                alt={project.title} 
+                className="w-full h-full object-cover rounded-[16px] md:rounded-[24px]" 
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center rounded-[16px] md:rounded-[24px] bg-[#E8E8E8]">
+                <span className="font-headline text-8xl text-[#ccc]">{project.title.charAt(0)}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── MAIN CONTENT ── */}
+      <div className="relative z-10 max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-20 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
         
-        {/* Left: Sidebar Meta & Tech Stack */}
+        {/* Left: Sidebar Meta & Tech Stack (Liquid Glass Light) */}
         <div className="lg:col-span-4 order-2 lg:order-1">
-          <div className="sticky top-28 space-y-8">
+          <div className="sticky top-32 space-y-8">
             
-            <div className="bg-white rounded-3xl border border-black/[0.05] p-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
-              <h3 className="pd-font-headline text-xl uppercase tracking-wider mb-6 text-[#111]">Project Info</h3>
+            <div className="bg-white/60 backdrop-blur-xl rounded-[32px] border border-white p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+              <h3 className="font-headline text-2xl uppercase tracking-wider mb-8 text-[#1A1A1A]">Project Info</h3>
               
-              {project.role && (
-                <div className="pd-meta-row" style={{ paddingTop: 0 }}>
-                  <span className="pd-meta-label">Role</span>
-                  <span className="pd-meta-value">{project.role}</span>
-                </div>
-              )}
-              {project.timeline && (
-                <div className="pd-meta-row">
-                  <span className="pd-meta-label">Timeline</span>
-                  <span className="pd-meta-value">{project.timeline}</span>
-                </div>
-              )}
-              {project.category && (
-                <div className="pd-meta-row" style={{ borderBottom: 'none', paddingBottom: 0 }}>
-                  <span className="pd-meta-label">Category</span>
-                  <span className="pd-meta-value">{project.category}</span>
-                </div>
-              )}
+              <div className="space-y-6">
+                {project.role && (
+                  <div className="flex flex-col gap-2 pb-6 border-b border-[#1A1A1A]/10">
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Role</span>
+                    <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.role}</span>
+                  </div>
+                )}
+                {project.timeline && (
+                  <div className="flex flex-col gap-2 pb-6 border-b border-[#1A1A1A]/10">
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Timeline</span>
+                    <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.timeline}</span>
+                  </div>
+                )}
+                {project.category && (
+                  <div className="flex flex-col gap-2">
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Category</span>
+                    <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.category}</span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="bg-white rounded-3xl border border-black/[0.05] p-8 shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
-              <TechnologiesUsed technologies={project.techStack} />
+            <div className="bg-white/60 backdrop-blur-xl rounded-[32px] border border-white p-10 shadow-[0_8px_32px_rgba(0,0,0,0.04)]">
+              <TechnologiesUsed technologies={project.techStack || project.technologies} />
             </div>
 
           </div>
         </div>
 
         {/* Right: Case Study Content */}
-        <div className="lg:col-span-8 order-1 lg:order-2 space-y-10">
+        <div className="lg:col-span-8 order-1 lg:order-2 space-y-16">
 
           {/* Project Objective */}
           <ProjectObjective objective={project.problem || project.objective} />
@@ -374,14 +222,30 @@ const ProjectDetails = () => {
             features={project.features}
           />
 
-          {/* Gallery */}
+          {/* Staggered Gallery */}
           {gallery.length > 0 && (
-            <div className="pt-8">
-              <h2 className="pd-font-headline text-2xl uppercase tracking-wider text-[#111] mb-8">Project Gallery</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="pt-12">
+              <h2 className="font-headline text-4xl uppercase tracking-wider text-[#1A1A1A] mb-12 flex items-center gap-4">
+                <span className="w-12 h-px bg-[#1A1A1A]/20"></span>
+                Gallery
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {gallery.map((src, i) => (
-                  <div key={i} className={`rounded-2xl overflow-hidden border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.04)] ${i === 0 && gallery.length % 2 !== 0 ? 'sm:col-span-2' : ''}`}>
-                    <img src={src?.url || src} alt={`Gallery ${i + 1}`} className="w-full h-auto object-cover hover:scale-[1.02] transition-transform duration-500" />
+                  <div 
+                    key={i} 
+                    className={`group relative rounded-[32px] overflow-hidden border border-[#1A1A1A]/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/60 backdrop-blur-md p-2 ${
+                      i === 0 && gallery.length % 2 !== 0 ? 'md:col-span-2 aspect-[16/9]' : 'aspect-square md:aspect-[4/5]'
+                    } ${i % 2 !== 0 && i !== 0 ? 'md:translate-y-16' : ''}`}
+                  >
+                    <div className="w-full h-full rounded-[24px] overflow-hidden relative">
+                      <img 
+                        src={src?.url || src} 
+                        alt={`Gallery ${i + 1}`} 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -393,45 +257,46 @@ const ProjectDetails = () => {
 
       {/* ── RELATED PROJECTS ── */}
       {related.length > 0 && (
-        <div className="pd-related bg-white border-t border-black/[0.05] py-20 md:py-28">
+        <div className="relative z-10 bg-white/40 backdrop-blur-3xl border-t border-[#1A1A1A]/5 py-24 md:py-32 mt-24">
           <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
 
-            <div className="flex items-end justify-between mb-12">
+            <div className="flex items-end justify-between mb-16">
               <div>
-                <p className="pd-font-inter text-[11px] font-bold tracking-[0.3em] uppercase text-[#888] mb-3">
+                <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#6B7280] mb-4">
                   Keep Exploring
                 </p>
-                <h2 className="pd-font-headline text-3xl md:text-5xl text-[#111] tracking-tighter uppercase">
+                <h2 className="font-headline text-4xl md:text-6xl text-[#1A1A1A] tracking-tighter uppercase">
                   Related Projects<span className="text-[#0448a8]">.</span>
                 </h2>
               </div>
-              <Link to="/works"
-                    className="pd-cta-secondary hidden md:flex">
+              <Link to="/works" className="hidden md:flex px-8 py-4 bg-white/60 backdrop-blur-md text-[#1A1A1A] border border-[#1A1A1A]/10 font-inter font-bold uppercase rounded-full hover:bg-white hover:shadow-md hover:-translate-y-1 transition-all duration-300">
                 View All Work
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
               {related.map((rp, i) => {
                 const rSlug = rp.slug || rp._id;
                 const rImg  = rp.image?.url || rp.heroImage;
                 return (
-                  <Link key={rp._id || i} to={`/works/${rSlug}`} className="block">
-                    <div className="pd-related-card bg-[#F9FAFB] rounded-[24px] border border-black/[0.05] overflow-hidden">
-                      <div className="w-full aspect-[4/3] bg-[#E0E0E0] overflow-hidden">
-                        {rImg
-                          ? <img src={rImg} alt={rp.title} className="w-full h-full object-cover" />
-                          : <div className="w-full h-full flex items-center justify-center">
-                              <span className="pd-font-headline text-4xl text-[#ccc]">{rp.title.charAt(0)}</span>
-                            </div>
-                        }
+                  <Link key={rp._id || i} to={`/works/${rSlug}`} className="group block">
+                    <div className="bg-white/80 backdrop-blur-xl rounded-[32px] border border-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+                      <div className="w-full aspect-[4/3] bg-[#F9FAFB] overflow-hidden relative">
+                        {rImg ? (
+                          <img src={rImg} alt={rp.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center">
+                            <span className="font-headline text-5xl text-[#ccc]">{rp.title.charAt(0)}</span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                       </div>
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-2">
-                          <p className="pd-font-inter text-xs font-bold uppercase tracking-wider text-[#0448a8]">{rp.category}</p>
-                          <ArrowUpRight size={18} className="text-[#888]" />
+                      <div className="p-8">
+                        <div className="flex items-center justify-between mb-3">
+                          <p className="font-inter text-xs font-bold uppercase tracking-[0.15em] text-[#0448a8]">{rp.category}</p>
+                          <ArrowUpRight size={20} className="text-[#6B7280] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
                         </div>
-                        <h3 className="pd-font-headline text-xl text-[#111]">{rp.title}</h3>
+                        <h3 className="font-headline text-2xl text-[#1A1A1A]">{rp.title}</h3>
                       </div>
                     </div>
                   </Link>
@@ -439,8 +304,8 @@ const ProjectDetails = () => {
               })}
             </div>
 
-            <div className="mt-10 flex justify-center md:hidden">
-              <Link to="/works" className="pd-cta-secondary w-full justify-center">
+            <div className="mt-12 flex justify-center md:hidden">
+              <Link to="/works" className="w-full text-center px-8 py-4 bg-white/60 backdrop-blur-md text-[#1A1A1A] border border-[#1A1A1A]/10 font-inter font-bold uppercase rounded-full hover:bg-white hover:shadow-md transition-all duration-300">
                 All Projects
               </Link>
             </div>
@@ -449,25 +314,24 @@ const ProjectDetails = () => {
       )}
 
       {/* ── FOOTER CTA ── */}
-      <div className="bg-[#111] py-20 md:py-28 relative overflow-hidden">
-        {/* Subtle background decoration */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0448a8]/20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+      <div className="bg-[#F9FAFB] py-24 md:py-32 relative overflow-hidden z-10 border-t border-black/5">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#0448a8]/10 blur-[150px] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#0448a8]/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
         
         <div className="max-w-[1200px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 text-center relative z-10">
-          <p className="pd-font-inter text-[12px] font-bold tracking-[0.3em] uppercase text-white/50 mb-6">
+          <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#6B7280] mb-6">
             Next step
           </p>
-          <h2 className="pd-font-headline text-4xl md:text-6xl text-white tracking-tighter uppercase leading-[1.1] mb-10">
+          <h2 className="font-headline text-5xl md:text-7xl text-[#1A1A1A] tracking-tighter uppercase leading-[1.1] mb-12 drop-shadow-sm">
             Have an idea?<br/>Let's build it together<span className="text-[#0448a8]">.</span>
           </h2>
-          <a href="/contact" className="pd-cta-primary text-base px-10 py-5">
-            Get In Touch <ArrowUpRight size={18} />
-          </a>
+          <Link to="/#contact" className="inline-flex items-center gap-3 px-10 py-5 bg-[#0448a8] !text-white font-inter font-bold uppercase tracking-wider rounded-full hover:bg-[#03367d] hover:shadow-[0_10px_40px_rgba(4,72,168,0.4)] hover:-translate-y-1 transition-all duration-300">
+            Get In Touch <ArrowUpRight size={20} />
+          </Link>
         </div>
       </div>
     </div>
   );
-
 };
 
 export default ProjectDetails;

@@ -3,6 +3,7 @@ import {
   deleteContactMessage,
   getContactMessages,
   updateContactStatus,
+  sendAdminReply,
 } from "./contact.services.js";
 
 export const submitContact = async (req, res, next) => {
@@ -55,6 +56,28 @@ export const removeMessage = async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "Message deleted successfully",
+    });
+  } catch (error) {
+    res.status(error.statusCode || 500);
+    next(error);
+  }
+};
+
+export const replyToMessage = async (req, res, next) => {
+  try {
+    const { draftReply } = req.body;
+    if (!draftReply) {
+      const error = new Error("Draft reply is required");
+      error.statusCode = 400;
+      throw error;
+    }
+
+    const updatedMessage = await sendAdminReply(req.params.id, draftReply);
+
+    res.status(200).json({
+      success: true,
+      message: "Reply sent successfully",
+      data: updatedMessage,
     });
   } catch (error) {
     res.status(error.statusCode || 500);

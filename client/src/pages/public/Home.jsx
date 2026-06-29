@@ -7,6 +7,7 @@ import CertificateSection from "../../components/sections/CertificateSection.jsx
 import ProjectSection from "../../components/sections/ProjectSection.jsx";
 import HackathonSection from "../../components/sections/HackathonSection.jsx";
 import ContactSection from "../../components/sections/ContactSection.jsx";
+import GithubActivity from "../../components/sections/GithubActivity.jsx";
 
 const Home = () => {
   return (
@@ -14,6 +15,7 @@ const Home = () => {
       <HeroSection />
       <AboutSection />
       <SkillSection />
+      <GithubActivity />
       <ExperienceSection />
       <EducationSection />
       <CertificateSection />

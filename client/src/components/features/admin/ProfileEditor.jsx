@@ -3,6 +3,7 @@ import Input from '../../UI/Input';
 import Textarea from '../../UI/Textarea';
 import Button from '../../UI/Button';
 import Card from '../../UI/Card';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '../../../hooks/useAuth';
 import api from '../../../services/api'; 
 
@@ -15,7 +16,6 @@ const ProfileEditor = () => {
     email: '',
   });
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -35,12 +35,11 @@ const ProfileEditor = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage(null);
     try {
       await api.put('/admin/profile', formData);
-      setMessage({ type: 'success', text: 'Profile updated successfully!' });
+      toast.success('Profile updated successfully!');
     } catch (err) {
-      setMessage({ type: 'error', text: err.response?.data?.message || 'Failed to update profile' });
+      toast.error(err.response?.data?.message || 'Failed to update profile');
     } finally {
       setLoading(false);
     }
@@ -50,12 +49,6 @@ const ProfileEditor = () => {
     <Card className="max-w-2xl p-6 md:p-8">
       <h2 className="text-2xl font-headline text-gray-800 tracking-tight mb-6">Edit Profile Info</h2>
       
-      {message && (
-        <div className={`mb-6 p-4 rounded-xl border font-medium ${message.type === 'success' ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' : 'bg-red-500/10 border-red-500/20 text-red-600'}`}>
-          {message.text}
-        </div>
-      )}
-
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Input label="Full Name" name="name" value={formData.name} onChange={handleChange} required />

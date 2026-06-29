@@ -3,6 +3,7 @@ import { useFetch } from '../../../hooks/useFetch';
 import { projectServices } from '../../../services/projectServices';
 import { Plus, Edit2, Trash2, LayoutGrid, List, ExternalLink, Loader, X, ImageIcon } from 'lucide-react';
 import { FaGithub } from 'react-icons/fa6';
+import { toast } from 'react-hot-toast';
 import ProjectForm from './ProjectForm';
 import EditProject from './EditProject';
 
@@ -43,10 +44,11 @@ const ProjectsList = () => {
     setIsAdding(true);
     try {
       await projectServices.create(formData);
+      toast.success('Project added successfully!');
       closeDrawer();
       refetch();
     } catch (err) {
-      alert('Failed to add project');
+      toast.error('Failed to add project');
     } finally {
       setIsAdding(false);
     }
@@ -56,9 +58,10 @@ const ProjectsList = () => {
     if (window.confirm("Are you sure you want to delete this project?")) {
       try {
         await projectServices.delete(id);
+        toast.success('Project deleted successfully!');
         refetch();
       } catch (err) {
-        alert("Failed to delete project");
+        toast.error("Failed to delete project");
       }
     }
   };

@@ -104,7 +104,7 @@ const CertificateSection = () => {
           <div className="flex justify-center mt-16 relative z-20 w-full">
             <a
               href="/about"
-              className="group flex items-center justify-center gap-2 bg-[#0448a8] text-white px-8 py-3.5 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-1 transition-all duration-300"
+              className="group flex items-center justify-center gap-2 bg-[#0448a8] !text-white px-8 py-3.5 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-1 transition-all duration-300"
             >
               View All Certificates
               <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

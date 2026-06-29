@@ -4,6 +4,7 @@ import Textarea from '../../UI/Textarea';
 import Button from '../../UI/Button';
 import Card from '../../UI/Card';
 import PageHeader from '../../common/PageHeader';
+import { toast } from 'react-hot-toast';
 import { publicServices } from '../../../services/publicServices';
 
 const Settings = () => {
@@ -24,7 +25,6 @@ const Settings = () => {
   
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [message, setMessage] = useState(null);
 
   const fetchProfile = useCallback(async () => {
     try {
@@ -64,13 +64,11 @@ const Settings = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    setMessage(null);
     try {
       await publicServices.updateProfile(formData);
-      setMessage({ type: 'success', text: 'Settings updated successfully!' });
-      setTimeout(() => setMessage(null), 3000);
+      toast.success('Settings updated successfully!');
     } catch (err) {
-      setMessage({ type: 'error', text: err.response?.data?.message || 'Failed to update settings.' });
+      toast.error(err.response?.data?.message || 'Failed to update settings.');
     } finally {
       setSaving(false);
     }
@@ -96,12 +94,6 @@ const Settings = () => {
         {/* Main Settings Form */}
         <div className="xl:col-span-2 space-y-8">
           
-          {message && (
-            <div className={`p-4 rounded-xl border font-medium flex items-center shadow-sm ${message.type === 'success' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : 'bg-red-50 border-red-200 text-red-700'}`}>
-              {message.text}
-            </div>
-          )}
-
           <form id="settings-form" onSubmit={handleSubmit} className="space-y-8">
             
             {/* Personal Info */}

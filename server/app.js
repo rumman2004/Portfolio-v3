@@ -16,6 +16,7 @@ import socialMediaRoutes from "./src/modules/socialmedia/socialmedia.routes.js";
 import experienceRoutes from "./src/modules/Experience/experience.routes.js";
 import hackathonRoutes from "./src/modules/hackathon/hackathon.routes.js";
 import educationRoutes from "./src/modules/education/education.routes.js";
+import notificationRoutes from "./src/modules/notifications/notifications.routes.js";
 
 const app = express();
 
@@ -84,6 +85,7 @@ app.use("/api/social-media", socialMediaRoutes);
 app.use("/api/experience", experienceRoutes);
 app.use("/api/hackathon", hackathonRoutes);
 app.use("/api/education", educationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

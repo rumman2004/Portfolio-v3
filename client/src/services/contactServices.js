@@ -16,5 +16,9 @@ export const contactServices = {
   deleteMessage: async (id) => {
     const response = await api.delete(`/contact/messages/${id}`);
     return response.data.data;
+  },
+  sendReply: async (id, draftReply) => {
+    const response = await api.post(`/contact/messages/${id}/reply`, { draftReply });
+    return response.data.data;
   }
 };

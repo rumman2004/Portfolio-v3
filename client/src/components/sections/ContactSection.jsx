@@ -29,7 +29,7 @@ const ContactSection = () => {
 
     if (prefersReducedMotion || profileLoading || socialLoading) {
       if (prefersReducedMotion) {
-        gsap.set(['.contact-bg-text', '.contact-headline', '.contact-desc', '.contact-detail', '.contact-form-card', '.social-pill'], {
+        gsap.set(['.contact-bg-text', '.contact-headline', '.contact-desc', '.contact-detail', '.contact-form-card'], {
           opacity: 1, y: 0, x: 0, scale: 1
         });
       }
@@ -49,8 +49,7 @@ const ContactSection = () => {
       .from('.contact-headline', { y: 24, opacity: 0, duration: 0.5, ease: 'power2.out' }, '-=0.25')
       .from('.contact-desc', { opacity: 0, y: 14, duration: 0.42, ease: 'power2.out' }, '-=0.25')
       .from('.contact-detail', { opacity: 0, y: 12, duration: 0.35, stagger: 0.06, ease: 'power2.out' }, '-=0.2')
-      .from('.contact-form-card', { opacity: 0, y: 18, duration: 0.45, ease: 'power2.out' }, '-=0.25')
-      .from('.social-pill', { y: 10, opacity: 0, duration: 0.35, stagger: 0.04, ease: 'power2.out' }, '-=0.2');
+      .from('.contact-form-card', { opacity: 0, y: 18, duration: 0.45, ease: 'power2.out' }, '-=0.25');
 
   }, { scope: containerRef, dependencies: [profileLoading, socialLoading] });
 
@@ -61,7 +60,7 @@ const ContactSection = () => {
 
         {/* Editorial Header Section */}
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
-          
+
           {/* Background Script Typography */}
           <div className="contact-bg-text absolute -top-[6%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-10">
             <span className="font-script text-[22vw] sm:text-[22vw] md:text-[220px] lg:text-9xl text-[#232323] leading-none whitespace-nowrap drop-shadow-sm -rotate-2">
@@ -86,37 +85,75 @@ const ContactSection = () => {
 
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 w-full max-w-6xl justify-center">
+        {/* ── Glass Card Wrapper ── */}
+        <div className="w-full max-w-6xl relative">
+          <div className="rounded-[32px] p-6 md:p-10 lg:p-14 relative transition-all duration-500 bg-white/[0.45] backdrop-blur-[20px] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-white/10 pointer-events-none" />
+            <div className="absolute top-0 left-10 w-24 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-80" />
 
-          {/* Left Column: direct details */}
-          <div className="w-full lg:w-5/12 flex flex-col">
+            <div className="relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-16 justify-between">
 
-            <div className="flex flex-col gap-6">
-              {contactDetails.map(({ icon: Icon, label, value, href }) => (
-                <div key={label} className="contact-detail flex items-start gap-4">
-                  <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#3D4BFF]/10 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-[#3D4BFF]" />
-                  </div>
-                  <div>
-                    <p className="font-inter font-bold text-[#1A1A1A] text-sm">{label}</p>
-                    {href ? (
-                      <a href={href} className="font-inter text-[#6B7280] text-sm hover:text-[#3D4BFF] transition-colors">
-                        {value}
-                      </a>
-                    ) : (
-                      <p className="font-inter text-[#6B7280] text-sm">{value}</p>
-                    )}
-                  </div>
+              {/* Left Column: direct details */}
+              <div className="w-full lg:w-5/12 flex flex-col justify-center">
+                <h3 className="font-headline text-3xl md:text-4xl text-[#1A1A1A] mb-8">
+                  Get in Touch
+                </h3>
+                <div className="flex flex-col gap-4">
+                  {contactDetails.map(({ icon: Icon, label, value, href }) => (
+                    <div key={label} className="contact-detail group flex items-center gap-5 p-4 rounded-2xl hover:bg-white/40 transition-colors border border-transparent hover:border-white/60">
+                      <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white/60 shadow-sm border border-white/80 flex items-center justify-center text-[#0448a8] group-hover:scale-110 transition-transform">
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <div className="flex flex-col">
+                        <p className="font-inter font-medium text-[#6B7280] text-xs uppercase tracking-wider mb-1">{label}</p>
+                        {href ? (
+                          <a href={href} className="font-inter font-bold text-[#1A1A1A] text-base hover:text-[#0448a8] transition-colors line-clamp-1">
+                            {value}
+                          </a>
+                        ) : (
+                          <p className="font-inter font-bold text-[#1A1A1A] text-base line-clamp-1">{value}</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+
+                {/* Social Links rendering */}
+                {socialLinks.length > 0 && (
+                  <div className="mt-10 pt-8 border-t border-[#1A1A1A]/10">
+                    <p className="font-inter font-medium text-[#6B7280] text-xs uppercase tracking-wider mb-4">Also find me on</p>
+                    <div className="flex flex-wrap gap-3">
+                      {socialLinks.map((social) => {
+                        const iconSrc = resolveIcon(social);
+                        return (
+                          <a
+                            key={social._id}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group social-pill flex items-center justify-center w-10 h-10 rounded-full bg-[#1A1A1A] border border-transparent text-white hover:text-white hover:bg-[#0448a8] hover:-translate-y-1 hover:shadow-md transition-all duration-300"
+                            aria-label={social.platform}
+                          >
+                            {iconSrc ? (
+                              <img src={iconSrc} alt={social.platform} className="w-5 h-5 object-contain opacity-100" style={{ filter: 'brightness(0) invert(1)' }} />
+                            ) : (
+                              <FaGithub className="w-5 h-5 opacity-100" />
+                            )}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Right Column: Form */}
+              <div className="w-full lg:w-6/12 relative z-20">
+                <ContactForm />
+              </div>
+
             </div>
           </div>
-
-          {/* Right Column: Form */}
-          <div className="w-full lg:w-7/12">
-            <ContactForm />
-          </div>
-
         </div>
       </div>
     </section>

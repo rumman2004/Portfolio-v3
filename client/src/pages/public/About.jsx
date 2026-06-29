@@ -162,49 +162,58 @@ const AboutHero = () => {
   const nameParts = (profile?.name || 'Rumman Ahmed').split(' ');
   const firstName = nameParts[0] || 'Rumman';
   const lastName = nameParts.slice(1).join(' ') || 'Ahmed.';
-  const aboutText = profile?.about || profile?.shortBio || 'I build fast, reliable web applications from the ground up — with a focus on clean code, scalable architecture, and experiences that grow with the business.';
+  const aboutText = profile?.adminBio || profile?.about || profile?.shortBio || 'I build fast, reliable web applications from the ground up — with a focus on clean code, scalable architecture, and experiences that grow with the business.';
   
   return (
     <section
       ref={ref}
       id="about"
-      className="relative w-full min-h-[100svh] bg-transparent flex items-center justify-center overflow-hidden py-24
+      className="relative w-full min-h-[100svh] bg-transparent flex items-center justify-center overflow-hidden pt-24 pb-40 lg:pb-24
                  selection:bg-[#0448a8] selection:text-white"
     >
 
       <div className="relative z-10 max-w-[90rem] mx-auto w-full px-8 md:px-16 flex flex-col md:flex-row items-center justify-between gap-12">
         {/* Left */}
-        <div className="w-full md:w-[56%] flex flex-col justify-center">
-          <div className="flex items-center gap-4 mb-5">
+        <div className="w-full flex flex-col justify-center">
+          <div className="ah-intro inline-flex items-center gap-3 p-1.5 pr-6 mb-6 rounded-full bg-white/[0.45] backdrop-blur-[20px] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)] w-max">
             {profile?.profileImage && (
-              <img src={profile.profileImage} alt={profile?.name || 'Admin'} className="ah-intro w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-white shadow-sm" />
+              <img src={profile.profileImage} alt={profile?.name || 'Admin'} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-sm" />
             )}
-            <p className="ah-intro font-inter text-base md:text-lg text-[#6B7280] font-medium tracking-wide">
-              I'm a <span className="text-[#0448a8] font-bold">— {role}</span> 
-            </p>
-          </div>
-
-          <div className="relative">
-            <h1 className="ah-headline font-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-[#2B2B2B] leading-[0.92] uppercase select-none">
-              {firstName}
-            </h1>
-            <div className="block md:hidden absolute top-[75%] left-[45%] sm:left-[50%] z-30 pointer-events-none">
-              <span className="ah-script font-script text-6xl sm:text-7xl text-[#0448a8] -rotate-6 block pr-6">{lastName}</span>
+            <div className="flex items-center gap-2 px-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] animate-pulse" />
+              <p className="font-inter text-xs md:text-[13px] text-[#4b5563] font-bold tracking-[0.15em] uppercase">
+                I'M A {role}
+              </p>
             </div>
           </div>
 
-          <div className="ah-body mt-14 md:mt-20 max-w-lg">
-            <p className="font-inter text-[#6B7280] leading-[1.85] text-base md:text-lg font-light">
+          <div className="relative inline-block w-max">
+            <h1 className="ah-headline font-headline text-6xl sm:text-7xl md:text-8xl lg:text-[130px] text-[#2B2B2B] leading-[0.9] uppercase select-none tracking-tight">
+              {firstName}
+            </h1>
+            <div className="absolute top-[60%] sm:top-[70%] left-[55%] md:left-[60%] z-30 pointer-events-none">
+              <span ref={scriptRef} className="ah-script inline-block font-script text-[70px] sm:text-[90px] md:text-[120px] lg:text-[160px] text-[#0448a8] -rotate-[8deg] leading-none select-none py-4 pr-10 drop-shadow-sm">
+                {lastName}
+              </span>
+            </div>
+          </div>
+
+          <div className="ah-body mt-24 md:mt-32 lg:mt-40 max-w-2xl lg:max-w-3xl relative p-6 md:p-8 rounded-3xl bg-white/[0.5] backdrop-blur-[20px] border border-white/70 shadow-[0_8px_32px_rgba(0,0,0,0.03)]">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/70 to-white/10 rounded-3xl pointer-events-none" />
+            <div className="absolute top-0 left-6 w-12 h-px bg-gradient-to-r from-transparent via-white to-transparent opacity-80" />
+            <p className="relative z-10 font-inter text-[#4b5563] leading-[1.8] text-[14px] md:text-[15.5px] font-medium tracking-wide">
               {aboutText}
             </p>
           </div>
 
           {/* Action Buttons */}
-          <div className="ah-tags flex flex-wrap items-center gap-4 mt-8">
-            <a href={profile?.resumeUrl || "#"} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3.5 bg-[#0448a8] text-[#ffffff] font-inter text-sm font-semibold rounded-full hover:bg-[#03367c] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 shadow-[0_8px_20px_rgba(4,72,168,0.25)] hover:shadow-[0_12px_25px_rgba(4,72,168,0.4)]">
-              <FileText size={16} className="text-[#ffffff]" />
-              View Resume
-            </a>
+          <div className="ah-tags flex flex-wrap items-center gap-5 mt-12 relative z-20">
+            {profile?.resumeUrl && (
+              <a href={profile.resumeUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 px-6 py-3.5 bg-[#0448a8] !text-white font-inter text-sm font-semibold rounded-full hover:bg-[#03367c] hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 shadow-[0_8px_20px_rgba(4,72,168,0.25)] hover:shadow-[0_12px_25px_rgba(4,72,168,0.4)]">
+                <FileText size={16} className="text-white" />
+                View Resume
+              </a>
+            )}
             <a href="/contact" className="flex items-center gap-2 px-6 py-3.5 bg-white text-[#111] font-inter text-sm font-semibold rounded-full border border-black/10 hover:border-black/30 hover:bg-black/5 transition-all">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
               Contact Me
@@ -212,15 +221,7 @@ const AboutHero = () => {
           </div>
         </div>
 
-        {/* Right — oversized script */}
-        <div className="hidden md:block w-[44%] relative h-[400px] pointer-events-none z-30">
-          <div ref={scriptRef} className="absolute top-[30%] left-[-25%] lg:left-[-30%] -translate-y-[60%]">
-            <span className="ah-script inline-block font-script text-7xl lg:text-8xl xl:text-9xl text-[#0448a8] -rotate-[8deg] leading-none select-none py-10 pr-10">
-              {lastName}
-            </span>
-          </div>
         </div>
-      </div>
 
       {/* Scroll hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50">
