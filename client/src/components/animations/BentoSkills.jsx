@@ -40,35 +40,35 @@ const SkillTile = ({ skill, index }) => {
 
   return (
     <div
-      className="skill-tile group relative aspect-square min-h-[112px] bg-white border border-black/[0.05] p-3 sm:p-4 flex flex-col items-center justify-center text-center transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:border-[#0448a8]/25 hover:shadow-[0_14px_36px_rgba(4,72,168,0.09)]"
+      className="skill-tile group relative aspect-square min-h-[112px] bg-white/60 hover:bg-white/80 p-3 sm:p-4 flex flex-col items-center justify-center text-center transition-all duration-300"
       title={`${displayName} - ${categoryName}`}
     >
       <span
-        className="absolute left-3 top-3 h-2 w-2 rounded-full"
+        className="absolute left-4 top-4 h-2 w-2 rounded-full shadow-sm"
         style={{ backgroundColor: color }}
         aria-hidden="true"
       />
 
-      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#F7F8FA] border border-black/[0.04] sm:h-12 sm:w-12">
+      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-[16px] bg-white/80 border border-white shadow-sm sm:h-14 sm:w-14">
         {iconSrc ? (
           <img
             src={iconSrc}
             alt=""
-            className="h-6 w-6 object-contain sm:h-7 sm:w-7 transition-transform duration-200 group-hover:scale-105"
+            className="h-7 w-7 object-contain sm:h-8 sm:w-8 transition-transform duration-300 group-hover:scale-110"
             loading="lazy"
             aria-hidden="true"
           />
         ) : (
-          <span className="text-sm font-extrabold text-[#98A2B3]">
+          <span className="text-sm font-headline text-[#6B7280]">
             {displayName.slice(0, 2).toUpperCase()}
           </span>
         )}
       </div>
 
-      <span className="w-full truncate px-1 text-[10px] font-bold uppercase leading-tight text-[#667085] sm:text-[11px]">
+      <span className="w-full truncate px-1 text-[11px] font-bold font-inter uppercase tracking-widest text-[#1A1A1A] sm:text-xs">
         {displayName}
       </span>
-      <span className="mt-1 w-full truncate px-1 text-[10px] font-medium text-[#98A2B3]">
+      <span className="mt-1.5 w-full truncate px-1 text-[10px] font-medium font-inter tracking-wider uppercase text-[#6B7280]">
         {categoryName}
       </span>
     </div>
@@ -123,9 +123,9 @@ const BentoSkills = ({ skills = [] }) => {
   );
 
   return (
-    <div ref={containerRef} className="w-full max-w-6xl mx-auto">
-      <div className="overflow-hidden rounded-2xl border border-[#E5E7EB] bg-[#EEF0F4] p-px shadow-sm">
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-px">
+    <div ref={containerRef} className="w-full max-w-[1400px] mx-auto px-4 md:px-0">
+      <div className="overflow-hidden rounded-[32px] border border-white/80 bg-white/40 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-[1px] bg-black/5">
           {displaySkills.map((skill, index) => (
             <SkillTile
               key={`${skill.name}-${skill.category}-${index}`}

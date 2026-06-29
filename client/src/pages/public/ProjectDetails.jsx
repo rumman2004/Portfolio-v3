@@ -5,6 +5,7 @@ import { ArrowLeft, ExternalLink, ArrowUpRight } from 'lucide-react';
 import TechnologiesUsed from '../../components/common/TechnologiesUsed';
 import ProjectObjective from '../../components/common/ProjectObjective';
 import ProjectCaseStudy from '../../components/common/projectCaseStudy';
+import ProjectCard from '../../components/features/projects/ProjectCard';
 
 /* ─────────────────────────────────────────────────────────────
    FALLBACK PROJECT (for demo when API is absent)
@@ -234,11 +235,11 @@ const ProjectDetails = () => {
                 {gallery.map((src, i) => (
                   <div 
                     key={i} 
-                    className={`group relative rounded-[32px] overflow-hidden border border-[#1A1A1A]/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/60 backdrop-blur-md p-2 ${
-                      i === 0 && gallery.length % 2 !== 0 ? 'md:col-span-2 aspect-[16/9]' : 'aspect-square md:aspect-[4/5]'
-                    } ${i % 2 !== 0 && i !== 0 ? 'md:translate-y-16' : ''}`}
+                    className={`group relative rounded-[12px] overflow-hidden border border-[#1A1A1A]/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] bg-white/60 backdrop-blur-md p-2 ${
+                      i === 0 && gallery.length % 2 !== 0 ? 'md:col-span-2 aspect-video' : 'aspect-video'
+                    } ${i % 2 !== 0 && i !== 0 ? 'md:translate-y-12' : ''}`}
                   >
-                    <div className="w-full h-full rounded-[24px] overflow-hidden relative">
+                    <div className="w-full h-full rounded-[10px] overflow-hidden relative">
                       <img 
                         src={src?.url || src} 
                         alt={`Gallery ${i + 1}`} 
@@ -275,33 +276,9 @@ const ProjectDetails = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {related.map((rp, i) => {
-                const rSlug = rp.slug || rp._id;
-                const rImg  = rp.image?.url || rp.heroImage;
-                return (
-                  <Link key={rp._id || i} to={`/works/${rSlug}`} className="group block">
-                    <div className="bg-white/80 backdrop-blur-xl rounded-[32px] border border-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
-                      <div className="w-full aspect-[4/3] bg-[#F9FAFB] overflow-hidden relative">
-                        {rImg ? (
-                          <img src={rImg} alt={rp.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center">
-                            <span className="font-headline text-5xl text-[#ccc]">{rp.title.charAt(0)}</span>
-                          </div>
-                        )}
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-                      </div>
-                      <div className="p-8">
-                        <div className="flex items-center justify-between mb-3">
-                          <p className="font-inter text-xs font-bold uppercase tracking-[0.15em] text-[#0448a8]">{rp.category}</p>
-                          <ArrowUpRight size={20} className="text-[#6B7280] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                        </div>
-                        <h3 className="font-headline text-2xl text-[#1A1A1A]">{rp.title}</h3>
-                      </div>
-                    </div>
-                  </Link>
-                );
-              })}
+              {related.map((rp, i) => (
+                <ProjectCard key={rp._id || i} project={rp} />
+              ))}
             </div>
 
             <div className="mt-12 flex justify-center md:hidden">
