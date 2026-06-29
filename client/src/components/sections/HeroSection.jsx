@@ -78,15 +78,15 @@ const HeroSection = () => {
             src={heroImage}
             alt={profile?.name || "Rumman"}
             className="w-full h-full object-contain object-bottom drop-shadow-2xl relative z-20"
+            style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 35%)', maskImage: 'linear-gradient(to top, transparent 0%, black 35%)' }}
             onError={(e) => {
               // Fallback to a placeholder if the image fails to load
               e.target.src = `https://ui-avatars.com/api/?name=${firstName}&size=600&background=F4F4F4&color=1A1A1A&font-size=0.33`;
               e.target.className = "w-[300px] h-[300px] rounded-full object-cover mb-20 drop-shadow-xl relative z-20";
+              e.target.style.maskImage = 'none';
+              e.target.style.WebkitMaskImage = 'none';
             }}
           />
-
-          {/* Bottom Gradient Fade for depth */}
-          <div className="absolute bottom-0 left-0 w-full h-[35%] md:h-[40%] bg-gradient-to-t from-[#F4F4F4] via-[#F4F4F4]/80 to-transparent z-30 pointer-events-none"></div>
         </div>
       </div>
 
