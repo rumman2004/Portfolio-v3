@@ -121,10 +121,12 @@ const EducationSection = () => {
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
           
           {/* Background Script Typography */}
-          <div className="edu-bg-text absolute -top-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-0 pointer-events-none select-none opacity-10 flex justify-center">
-            <span className="font-script text-9xl md:text-[220px] lg:text-8xl text-[#232323] leading-none whitespace-nowrap drop-shadow-sm -rotate-2">
+          <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full z-0 pointer-events-none select-none opacity-10 flex justify-center">
+            <div className="edu-bg-text opacity-10">
+              <span className="font-script text-9xl md:text-[220px] lg:text-8xl text-[#232323] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
               Learning
             </span>
+            </div>
           </div>
 
           {/* Main Heading */}

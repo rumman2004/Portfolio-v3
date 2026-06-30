@@ -86,10 +86,12 @@ const HackathonSection = () => {
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
 
           {/* Background Script Typography */}
-          <div className="hack-bg-text absolute -top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-10">
-            <span className="font-script text-[22vw] sm:text-[22vw] md:text-[220px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2">
-              Compete
-            </span>
+          <div className="absolute -top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+            <div className="hack-bg-text opacity-10">
+              <span className="font-script text-[22vw] sm:text-[22vw] md:text-[220px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
+                Compete
+              </span>
+            </div>
           </div>
 
           {/* Main Heading */}

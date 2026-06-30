@@ -54,12 +54,12 @@ const ProjectSection = () => {
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
 
           {/* Background Script Typography — ambient depth layer behind the heading */}
-          <div
-            className="proj-bg-text absolute -top-[5%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-10"
-          >
-            <span className="font-script text-[23vw] sm:text-[22vw] md:text-[230px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2">
-              Creations
-            </span>
+          <div className="absolute -top-[5%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+            <div className="proj-bg-text opacity-10">
+              <span className="font-script text-[23vw] sm:text-[22vw] md:text-[230px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
+                Creations
+              </span>
+            </div>
           </div>
 
 
