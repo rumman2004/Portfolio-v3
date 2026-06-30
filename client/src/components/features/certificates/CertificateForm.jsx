@@ -21,7 +21,7 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
       setFormData({
         title: initialData.title || '',
         issuer: initialData.issuer || '',
-        issuedAt: initialData.issuedAt || '',
+        issuedAt: initialData.issuedAt ? String(initialData.issuedAt).substring(0, 7) : '',
         credentialId: initialData.credentialId || '',
         credentialUrl: initialData.credentialUrl || '',
         isFeatured: initialData.isFeatured || false

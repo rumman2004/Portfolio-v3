@@ -45,9 +45,9 @@ const SkillSection = () => {
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
           
           {/* Background Script Typography */}
-          <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-10">
-            <div className="skill-bg-text opacity-10">
-              <span className="font-script text-[22vw] sm:text-[22vw] md:text-[180px] lg:text-9xl text-[#232323] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
+          <div className="absolute -top-[10%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+            <div className="skill-bg-text">
+              <span className="font-script text-[22vw] sm:text-[22vw] md:text-[180px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
               Capabilities
             </span>
             </div>

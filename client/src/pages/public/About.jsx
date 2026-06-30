@@ -546,27 +546,59 @@ const EducationSection = () => {
 /* ─────────────────────────────────────────────────────────────
    § 05 — CERTIFICATES (light, masonry-style 3-col)
 ──────────────────────────────────────────────────────────────*/
-const CertCard = ({ cert, i }) => (
-  <div className="cert-card bg-white rounded-2xl border border-black/[0.06] p-6 flex flex-col gap-4">
-    <div className="flex items-center justify-between">
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-           style={{ background: `${cert.color}18` }}>
-        <Award size={18} style={{ color: cert.color }} />
+const CertCard = ({ cert, i }) => {
+  const image = cert.imageUrl ?? cert.image;
+  return (
+    <div className="cert-card group bg-white/40 backdrop-blur-md rounded-2xl overflow-hidden shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] border border-white/60 flex flex-col transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.15)] h-full w-full">
+      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-white/10 p-3 sm:p-4 border-b border-white/20">
+        <div className="relative h-full w-full overflow-hidden rounded-lg border border-[#232323]/5 shadow-sm transition-transform duration-500 group-hover:-translate-y-1 group-hover:scale-[1.03] bg-white flex items-center justify-center">
+          {image ? (
+            <img
+              src={image}
+              alt={`${cert.title} certificate`}
+              className="w-full h-full object-contain transition-opacity duration-300"
+              loading="lazy"
+              draggable={false}
+            />
+          ) : (
+             <div className="flex flex-col items-center justify-center h-full w-full bg-slate-50 gap-2">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: `${cert.color}18` }}>
+                  <Award size={24} style={{ color: cert.color }} />
+                </div>
+                <span className="font-inter text-xs font-semibold text-[#888]">{cert.issuer}</span>
+             </div>
+          )}
+        </div>
       </div>
-      <span className="font-inter text-xs font-bold text-[#bbb] tracking-widest">{cert.year}</span>
+
+      <div className="flex flex-col justify-between flex-1 p-5 gap-4 bg-white/30">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+             <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `${cert.color}18` }}>
+               <Award size={14} style={{ color: cert.color }} />
+             </div>
+             <span className="font-inter text-[11px] font-bold text-[#888] tracking-widest uppercase">{cert.year}</span>
+          </div>
+          {(cert.link || cert.credentialUrl) && (
+            <a href={cert.link || cert.credentialUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${cert.title}`} className="flex-shrink-0 w-7 h-7 rounded-full border border-black/10 flex items-center justify-center text-[#555] transition-all duration-150 hover:bg-[#3B4FFF] hover:border-[#3B4FFF] hover:text-white">
+              <svg width="10" height="10" viewBox="0 0 11 11" fill="none"><path d="M1.5 9.5L9.5 1.5M9.5 1.5H3.5M9.5 1.5V7.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          )}
+        </div>
+        <div>
+          <h3 className="font-headline text-lg text-[#111] leading-snug">{cert.title}</h3>
+          <p className="font-inter text-xs text-[#777] mt-1.5">{cert.issuer}</p>
+        </div>
+        <div className="mt-auto pt-4 border-t border-black/5">
+          <span className="font-inter text-[10px] font-bold tracking-widest uppercase flex items-center gap-1.5" style={{ color: cert.color }}>
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: cert.color }} />
+            Verified ✓
+          </span>
+        </div>
+      </div>
     </div>
-    <div>
-      <h3 className="font-headline text-base text-[#111] leading-snug">{cert.title}</h3>
-      <p className="font-inter text-xs text-[#999] mt-1">{cert.issuer}</p>
-    </div>
-    <div className="mt-auto pt-3 border-t border-[#F0F0F0]">
-      <span className="font-inter text-[10px] font-bold tracking-widest uppercase"
-            style={{ color: cert.color }}>
-        Verified ✓
-      </span>
-    </div>
-  </div>
-);
+  );
+};
 
 const CertificatesSection = () => {
   const { data: certificates, loading } = useFetch('/certificates');

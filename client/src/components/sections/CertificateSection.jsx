@@ -50,7 +50,7 @@ const CertificateSection = () => {
         <div className="relative w-full max-w-4xl mb-14 md:mb-20 text-center flex flex-col items-center">
           
           {/* Background Script Typography */}
-          <div className="absolute -top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-10">
+          <div className="absolute -top-[18%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
             <div className="cert-bg-text opacity-10">
               <span className="font-script text-[22vw] sm:text-[22vw] md:text-[220px] lg:text-9xl text-[#d3d0d0] leading-none whitespace-nowrap drop-shadow-sm -rotate-2 block">
               Credentials
@@ -100,23 +100,6 @@ const CertificateSection = () => {
           <Bentocertificate certificates={certificates} />
         )}
         </div>
-
-        {/* View all button */}
-        {!loading && !error && certCount > 0 && (
-          <div className="flex justify-center mt-16 relative z-20 w-full">
-            <a
-              href="/about"
-              className="group flex items-center justify-center gap-2 bg-[#0448a8] !text-white px-8 py-3.5 rounded-full font-semibold text-sm tracking-wide shadow-lg shadow-[#0448a8]/20 hover:bg-[#03367d] hover:-translate-y-1 transition-all duration-300"
-            >
-              View All Certificates
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </a>
-          </div>
-        )}
-
       </div>
     </section>
   );
