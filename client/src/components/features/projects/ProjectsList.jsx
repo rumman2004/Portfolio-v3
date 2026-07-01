@@ -48,7 +48,8 @@ const ProjectsList = () => {
       closeDrawer();
       refetch();
     } catch (err) {
-      toast.error('Failed to add project');
+      console.error("Add error:", err);
+      toast.error(err.response?.data?.message || err.message || 'Failed to add project');
     } finally {
       setIsAdding(false);
     }

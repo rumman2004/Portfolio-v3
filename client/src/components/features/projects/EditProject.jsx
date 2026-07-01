@@ -15,7 +15,8 @@ const EditProject = ({ project, onClose, onUpdated }) => {
       onUpdated();
       onClose();
     } catch (err) {
-      toast.error(err.response?.data?.message || 'Failed to update project');
+      console.error("Update error:", err);
+      toast.error(err.response?.data?.message || err.message || 'Failed to update project');
     } finally {
       setLoading(false);
     }
