@@ -59,6 +59,9 @@ if (!isProduction) {
   app.use(morgan("dev"));
 }
 
+app.get("/favicon.png", (req, res) => res.status(204).end());
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
 app.get("/", (req, res) => {
   res.status(200).json({
     success: true,
