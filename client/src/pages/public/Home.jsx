@@ -8,10 +8,15 @@ import ProjectSection from "../../components/sections/ProjectSection.jsx";
 import HackathonSection from "../../components/sections/HackathonSection.jsx";
 import ContactSection from "../../components/sections/ContactSection.jsx";
 import GithubActivity from "../../components/sections/GithubActivity.jsx";
+import SEO from "../../components/common/SEO.jsx";
 
 const Home = () => {
   return (
     <div>
+      <SEO 
+        title="Home | Rumman Ahmed" 
+        description="Portfolio of Rumman Ahmed, showcasing web development projects and skills." 
+      />
       <HeroSection />
       <AboutSection />
       <SkillSection />

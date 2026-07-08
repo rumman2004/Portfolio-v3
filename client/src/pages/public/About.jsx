@@ -782,11 +782,17 @@ const HackathonsSection = () => {
   );
 };
 
+import SEO from '../../components/common/SEO.jsx';
+
 /* ─────────────────────────────────────────────────────────────
    PAGE ASSEMBLY
 ──────────────────────────────────────────────────────────────*/
 const About = () => (
   <div className="pt-24">
+    <SEO 
+      title="About | Rumman Ahmed" 
+      description="Learn more about Rumman Ahmed's background, experience, and journey in web development." 
+    />
     <FontStyles />
     <AboutHero />
     <SkillsPanel />

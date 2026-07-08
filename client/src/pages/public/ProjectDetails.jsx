@@ -56,6 +56,8 @@ const PageLoader = () => (
   </div>
 );
 
+import SEO from '../../components/common/SEO.jsx';
+
 /* ─────────────────────────────────────────────────────────────
    MAIN COMPONENT
 ──────────────────────────────────────────────────────────────*/
@@ -94,7 +96,11 @@ const ProjectDetails = () => {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] selection:bg-[#0448a8] selection:text-white pb-20 relative">
-
+      <SEO 
+        title={`${project.title} | Rumman Ahmed`} 
+        description={project.shortDescription} 
+        image={heroImg}
+      />
       {/* ── CLEAN EDITORIAL HERO (LIGHT THEME) ── */}
       <section className="relative w-full bg-[#F9FAFB] pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden z-10">
         {/* Subtle Background Glow */}

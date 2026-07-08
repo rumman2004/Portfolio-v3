@@ -225,6 +225,8 @@ const MobileCard = ({ project, index }) => {
   );
 };
 
+import SEO from '../../components/common/SEO.jsx';
+
 /* ─────────────────────────────────────────────────────────────
    MAIN WORKS PAGE
 ──────────────────────────────────────────────────────────────*/
@@ -300,6 +302,10 @@ const Works = () => {
       className="min-h-screen bg-transparent selection:bg-[#0448a8] selection:text-white"
       onMouseMove={handleMouseMove}
     >
+      <SEO 
+        title="Works & Projects | Rumman Ahmed" 
+        description="Explore the latest projects and works developed by Rumman Ahmed." 
+      />
       <FontStyles />
 
       {/* Ghost cursor (desktop only, hidden on touch) */}
