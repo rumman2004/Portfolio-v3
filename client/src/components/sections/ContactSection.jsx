@@ -133,11 +133,11 @@ const ContactSection = () => {
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group social-pill flex items-center justify-center w-10 h-10 rounded-full bg-[#1A1A1A] border border-transparent text-white hover:text-white hover:bg-[#0448a8] hover:-translate-y-1 hover:shadow-md transition-all duration-300"
+                            className="group social-pill flex items-center justify-center w-10 h-10 rounded-full bg-white/30 backdrop-blur-md border border-white/50 shadow-[inset_0px_2px_4px_rgba(255,255,255,0.7),0_4px_10px_rgba(0,0,0,0.05)] text-[#1A1A1A] hover:bg-white/50 hover:border-white/70 hover:-translate-y-1 hover:shadow-[inset_0px_2px_4px_rgba(255,255,255,0.9),0_6px_14px_rgba(0,0,0,0.08)] transition-all duration-300"
                             aria-label={social.platform}
                           >
                             {iconSrc ? (
-                              <img src={iconSrc} alt={social.platform} className="w-5 h-5 object-contain opacity-100" style={{ filter: 'brightness(0) invert(1)' }} />
+                              <img src={iconSrc} alt={social.platform} className="w-5 h-5 object-contain opacity-100 drop-shadow-sm group-hover:scale-110 transition-transform duration-300" />
                             ) : (
                               <FaGithub className="w-5 h-5 opacity-100" />
                             )}
