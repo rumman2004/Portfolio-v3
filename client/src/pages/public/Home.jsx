@@ -13,9 +13,9 @@ import SEO from "../../components/common/SEO.jsx";
 const Home = () => {
   return (
     <div>
-      <SEO 
-        title="Home | Rumman Ahmed" 
-        description="Portfolio of Rumman Ahmed, showcasing web development projects and skills." 
+      <SEO
+        title="Home | Rumman Ahmed"
+        description="Portfolio of Rumman Ahmed, showcasing web development projects and skills."
       />
       <HeroSection />
       <AboutSection />
