@@ -39,6 +39,7 @@ import servers_dotenv from '../assets/skills/servers/dotenv.svg';
 import servers_expressjs from '../assets/skills/servers/expressjs.svg';
 import servers_jwt from '../assets/skills/servers/jwt.svg';
 import servers_nodejs from '../assets/skills/servers/nodejs.svg';
+import Social_discord from '../assets/skills/Social/discord.svg';
 import Social_facebookIcon from '../assets/skills/Social/facebook-icon.svg';
 import Social_githubLight from '../assets/skills/Social/github_light.svg';
 import Social_gmail from '../assets/skills/Social/gmail.svg';
@@ -102,6 +103,7 @@ export const iconMap = {
   'expressjs': servers_expressjs,
   'jwt': servers_jwt,
   'nodejs': servers_nodejs,
+  'discord': Social_discord,
   'facebookicon': Social_facebookIcon,
   'githublight': Social_githubLight,
   'gmail': Social_gmail,
@@ -128,7 +130,7 @@ export const iconMap = {
 };
 
 export const socialIconKeys = [
-  'facebookicon', 'githublight', 'gmail', 'instagramicon', 'linkedin', 
+  'discord', 'facebookicon', 'githublight', 'gmail', 'instagramicon', 'linkedin', 
   'notion', 'pinterest', 'telegram', 'threads', 'whatsappicon', 'x', 'youtube'
 ];
 
