@@ -10,6 +10,7 @@ import threads from './threads.svg';
 import whatsappIcon from './whatsapp-icon.svg';
 import x from './x.svg';
 import youtube from './youtube.svg';
+import discord from './discord.svg';
 
 export {
   facebookIcon,
@@ -23,5 +24,6 @@ export {
   threads,
   whatsappIcon,
   x,
-  youtube
+  youtube,
+  discord,
 };
