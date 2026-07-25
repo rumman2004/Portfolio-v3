@@ -11,7 +11,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
     problem: '', solution: '', results: '', featured: false
   });
 
-  const categories = ['Web App', 'Mobile App', 'UI / UX', 'Branding', 'Backend', 'Other'];
+  const categories = ['Web App', 'Mobile App', 'Desktop App', 'UI / UX', 'Branding', 'Backend', 'Other'];
 
   const [heroFile, setHeroFile] = useState(null);
   const [heroPreview, setHeroPreview] = useState(null);
