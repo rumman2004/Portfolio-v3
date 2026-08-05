@@ -28,6 +28,7 @@ import Code_python from '../assets/skills/Code/python.svg';
 import Database_mongodbIconLight from '../assets/skills/Database/mongodb-icon-light.svg';
 import Database_mysqlIconLight from '../assets/skills/Database/mysql-icon-light.svg';
 import Database_postgresql from '../assets/skills/Database/postgresql.svg';
+import Database_sanity from '../assets/skills/Database/sanity.svg';
 import Database_sqlite from '../assets/skills/Database/sqlite.svg';
 import Database_supabase from '../assets/skills/Database/supabase.svg';
 import designs_canva from '../assets/skills/designs/canva.svg';
@@ -102,6 +103,7 @@ export const iconMap = {
   'mongodbiconlight': Database_mongodbIconLight,
   'mysqliconlight': Database_mysqlIconLight,
   'postgresql': Database_postgresql,
+  'sanity': Database_sanity,
   'sqlite': Database_sqlite,
   'supabase': Database_supabase,
   'designcanva': designs_canva,

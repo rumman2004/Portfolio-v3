@@ -181,6 +181,11 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
+        "name": "sanity",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
         "name": "supabase",
         "bg": "#ffffff",
         "fg": "#111111"
