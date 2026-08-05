@@ -12,6 +12,10 @@ function App() {
   useEffect(() => {
     // Show a random greeting toast when the app loads
     const showGreeting = async () => {
+      // Don't show these notifications in the admin panel
+      if (window.location.pathname.startsWith('/admin')) {
+        return;
+      }
       try {
         const response = await api.get('/notifications/random');
         if (response.data && response.data.success) {

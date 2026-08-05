@@ -96,24 +96,24 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
   };
 
   // Neumorphic Inner classes
-  const insetClass = "bg-[#e6edf5] shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] rounded-2xl p-4";
-  const dropClass = "bg-[#e6edf5] shadow-[6px_6px_12px_#c8d0da,-6px_-6px_12px_#ffffff] rounded-2xl p-6";
+  const insetClass = "bg-md-surface border border-md-outline-variant rounded-3xl p-4";
+  const dropClass = "bg-md-surface shadow-md rounded-3xl border border-md-surface-variant rounded-3xl p-6";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 pb-20">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <div className={dropClass}>
-        <h3 className="font-bold text-gray-700 mb-4 tracking-wide uppercase text-xs">Basic Info</h3>
+        <h3 className="font-bold text-md-on-surface mb-4 tracking-wide uppercase text-xs">Basic Info</h3>
         <div className="space-y-4">
           <Input label="Project Title" name="title" value={formData.title} onChange={handleChange} required />
           
           <div>
-            <label className="block text-xs font-semibold text-gray-600 mb-1 ml-1 uppercase">Category</label>
+            <label className="block text-xs font-semibold text-md-on-surface-variant mb-1 ml-1 uppercase">Category</label>
             <select 
               name="category" 
               value={formData.category} 
               onChange={handleChange} 
               required 
-              className="w-full bg-[#f4f7fb] text-gray-800 rounded-xl px-4 py-3 border-none shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] focus:ring-2 focus:ring-blue-400 outline-none transition-all"
+              className="w-full bg-[#f4f7fb] text-md-on-surface rounded-3xl px-4 py-3 border-none border border-md-outline-variant focus:ring-2 focus:ring-blue-400 outline-none transition-all"
             >
               {categories.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -128,7 +128,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
               onChange={handleChange}
               className="w-5 h-5 rounded border-gray-300 text-blue-500 focus:ring-blue-500" 
             />
-            <label htmlFor="featured" className="text-sm font-medium text-gray-700 cursor-pointer">
+            <label htmlFor="featured" className="text-sm font-medium text-md-on-surface cursor-pointer">
               Featured Project
             </label>
           </div>
@@ -140,8 +140,8 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
           </div>
           
           <div className="mt-4">
-            <label className="block text-xs font-semibold text-gray-600 mb-2 ml-1 uppercase">Tech Stack Icons</label>
-            <div className="flex flex-wrap gap-3 max-h-[200px] overflow-y-auto p-4 bg-[#f4f7fb] rounded-xl shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff]">
+            <label className="block text-xs font-semibold text-md-on-surface-variant mb-2 ml-1 uppercase">Tech Stack Icons</label>
+            <div className="flex flex-wrap gap-3 max-h-[200px] overflow-y-auto p-4 bg-[#f4f7fb] rounded-3xl border border-md-outline-variant">
               {Object.keys(iconMap).map(key => {
                 const selectedTechs = formData.techStack ? formData.techStack.split(',').map(t => t.trim()).filter(Boolean) : [];
                 const isSelected = selectedTechs.includes(key);
@@ -161,10 +161,10 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
                     type="button"
                     key={key}
                     onClick={() => toggleTech(key)}
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${
+                    className={`w-10 h-10 rounded-3xl flex items-center justify-center transition-all flex-shrink-0 ${
                       isSelected 
                         ? 'bg-blue-500 shadow-[inset_2px_2px_5px_rgba(0,0,0,0.2)] scale-95' 
-                        : 'bg-[#e6edf5] shadow-[4px_4px_8px_#c8d0da,-4px_-4px_8px_#ffffff] hover:shadow-[2px_2px_4px_#c8d0da,-2px_-2px_4px_#ffffff]'
+                        : 'bg-md-surface shadow-md rounded-3xl border border-md-surface-variant hover:shadow-md rounded-3xl border border-md-surface-variant'
                     }`}
                     title={key}
                   >
@@ -179,15 +179,15 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
       </div>
 
       <div className={dropClass}>
-        <h3 className="font-bold text-gray-700 mb-4 tracking-wide uppercase text-xs">Images</h3>
+        <h3 className="font-bold text-md-on-surface mb-4 tracking-wide uppercase text-xs">Images</h3>
         
         {/* Hero Image */}
         <div className="mb-6">
-          <label className="block text-sm font-semibold text-gray-600 mb-2">Hero Image</label>
+          <label className="block text-sm font-semibold text-md-on-surface-variant mb-2">Hero Image</label>
           <div className={insetClass + " flex flex-col items-center justify-center relative overflow-hidden"}>
             {heroPreview ? (
               <div className="relative w-full h-40 group">
-                <img src={heroPreview} alt="Hero preview" className="w-full h-full object-cover rounded-xl" />
+                <img src={heroPreview} alt="Hero preview" className="w-full h-full object-cover rounded-3xl" />
                 <button type="button" onClick={() => { setHeroFile(null); setHeroPreview(null); }} className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                   <X size={16} />
                 </button>
@@ -204,7 +204,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
 
         {/* Gallery */}
         <div>
-          <label className="block text-sm font-semibold text-gray-600 mb-2">Gallery (Max 3)</label>
+          <label className="block text-sm font-semibold text-md-on-surface-variant mb-2">Gallery (Max 3)</label>
           <div className={insetClass + " relative flex items-center justify-center mb-4 min-h-[100px]"}>
             <input type="file" multiple accept="image/*" onChange={handleGalleryChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
             <div className="flex items-center gap-2 text-gray-400">
@@ -215,13 +215,13 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
           {(galleryPreviews.length > 0 || existingGallery.length > 0) && (
             <div className="grid grid-cols-3 gap-3">
               {existingGallery.map((url, i) => (
-                <div key={`ex-${i}`} className="relative h-24 rounded-xl overflow-hidden shadow-[4px_4px_8px_#c8d0da,-4px_-4px_8px_#ffffff]">
+                <div key={`ex-${i}`} className="relative h-24 rounded-3xl overflow-hidden shadow-md rounded-3xl border border-md-surface-variant">
                   <img src={url} alt="Gallery" className="w-full h-full object-cover" />
                   <button type="button" onClick={() => removeExistingGallery(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-1 rounded-full"><X size={14} /></button>
                 </div>
               ))}
               {galleryPreviews.map((url, i) => (
-                <div key={`new-${i}`} className="relative h-24 rounded-xl overflow-hidden shadow-[4px_4px_8px_#c8d0da,-4px_-4px_8px_#ffffff]">
+                <div key={`new-${i}`} className="relative h-24 rounded-3xl overflow-hidden shadow-md rounded-3xl border border-md-surface-variant">
                   <img src={url} alt="Gallery" className="w-full h-full object-cover" />
                   <button type="button" onClick={() => removeGalleryFile(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-1 rounded-full"><X size={14} /></button>
                 </div>
@@ -232,7 +232,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
       </div>
 
       <div className={dropClass}>
-        <h3 className="font-bold text-gray-700 mb-4 tracking-wide uppercase text-xs">Details</h3>
+        <h3 className="font-bold text-md-on-surface mb-4 tracking-wide uppercase text-xs">Details</h3>
         <div className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Input label="Your Role" name="role" value={formData.role} onChange={handleChange} />
@@ -245,16 +245,18 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
         </div>
       </div>
 
-      <div className="fixed bottom-0 right-0 w-full md:w-[600px] bg-[#e6edf5] p-4 shadow-[0_-10px_30px_rgba(0,0,0,0.05)] border-t border-white flex justify-end gap-4 z-50">
-        <button type="button" onClick={onCancel} className="px-6 py-2.5 rounded-xl font-bold text-gray-500 hover:text-gray-700 transition-colors">
+      <div className="flex justify-end gap-4 pt-6 border-t border-white/20 mt-8">
+        <button type="button" onClick={onCancel} className="px-6 py-2.5 rounded-full font-bold text-md-on-surface-variant hover:text-md-on-surface hover:bg-white/20 transition-all">
           Cancel
         </button>
-        <button type="submit" disabled={loading} className="px-6 py-2.5 rounded-xl font-bold text-white bg-blue-500 shadow-[4px_4px_10px_rgba(59,130,246,0.3)] hover:bg-blue-600 active:scale-95 transition-all">
+        <button type="submit" disabled={loading} className="px-6 py-2.5 rounded-full font-bold text-md-on-primary bg-md-primary shadow-sm hover:shadow-md hover:opacity-90 active:scale-95 transition-all">
           {loading ? 'Saving...' : (initialData ? 'Update Project' : 'Publish Project')}
         </button>
       </div>
     </form>
   );
 };
+
+
 
 export default ProjectForm;

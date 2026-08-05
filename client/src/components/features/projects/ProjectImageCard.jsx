@@ -10,7 +10,7 @@ const ProjectImageCard = ({ project, index }) => {
     <div className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center group`}>
       
       {/* Image Side */}
-      <div className="w-full md:w-1/2 relative rounded-2xl overflow-hidden shadow-2xl bg-neutral-800 aspect-[4/3]">
+      <div className="w-full md:w-1/2 relative rounded-3xl overflow-hidden shadow-2xl bg-neutral-800 aspect-[4/3]">
         {project.image ? (
           <img 
             src={project.image} 
@@ -56,3 +56,4 @@ const ProjectImageCard = ({ project, index }) => {
 };
 
 export default ProjectImageCard;
+

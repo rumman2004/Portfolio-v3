@@ -30,3 +30,4 @@ const EditProject = ({ project, onClose, onUpdated }) => {
 };
 
 export default EditProject;
+

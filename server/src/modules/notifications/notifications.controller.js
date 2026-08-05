@@ -11,7 +11,9 @@ const getGreetingMessage = () => {
   
   const eyeCatchingMessages = [
     { text: "Welcome to my portfolio! Glad you're here.", icon: "Hand" },
+    { text: "Have you tried my new app? Go listen to ads-free music on Gaan apk, it's totally free!", icon: "Music" },
     { text: "Full-Stack Developer turning ideas into real-world applications.", icon: "Code2" },
+    { text: "Checkout Gaan App in my projects for the ultimate music experience!", icon: "Headphones" },
     { text: "Always building, always learning, always improving.", icon: "Rocket" },
     { text: "Have a project or idea? Let's build it together!", icon: "Users" },
     { text: "Coffee, code, and creativity — my favorite combination.", icon: "Coffee" },
@@ -23,18 +25,13 @@ const getGreetingMessage = () => {
     { text: "Learning something new every single day.", icon: "BookOpen" },
     { text: "Small details create great user experiences.", icon: "Sparkles" },
     { text: "I enjoy building clean, responsive, and user-friendly websites.", icon: "Smartphone" },
-    { text: "Every great project starts with a simple idea.", icon: "Lightbulb" },
-    { text: "Consistency beats perfection.", icon: "Target" },
-    { text: "Let's solve real-world problems with technology.", icon: "Wrench" },
     { text: "Looking for a developer? I'd love to hear from you.", icon: "Mail" },
     { text: "Need help with a website, app, or idea? Let's connect!", icon: "MessageSquare" },
     { text: "Building solutions that make a difference.", icon: "Globe" },
     { text: "Turning coffee into code since day one.", icon: "Zap" },
-    { text: "Passionate about coding, football, anime, and continuous learning.", icon: "Heart" },
     { text: "Thanks for visiting! Feel free to explore my projects.", icon: "PartyPopper" },
     { text: "Something exciting is always under development.", icon: "Construction" },
-    { text: "Dream big. Build bigger.", icon: "Rocket" },
-    { text: "Scroll down and let's create something amazing together!", icon: "ArrowDownCircle" }
+    { text: "Dream big. Build bigger.", icon: "Rocket" }
   ];
   
   const randomMessage = eyeCatchingMessages[Math.floor(Math.random() * eyeCatchingMessages.length)];

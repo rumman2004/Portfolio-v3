@@ -28,7 +28,7 @@ const Dashboard = () => {
       {/* Metrics Row */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {defaultStats.map((stat, idx) => (
-          <div key={idx} className="relative p-3 rounded-2xl bg-md-surface shadow-md border border-md-surface-variant flex flex-col items-center text-center group transition-transform duration-300 hover:-translate-y-1">
+          <div key={idx} className="relative p-3 rounded-3xl bg-md-surface shadow-md border border-md-surface-variant flex flex-col items-center text-center group transition-transform duration-300 hover:-translate-y-1">
             <div className="w-10 h-10 rounded-full bg-md-surface-container-highest flex items-center justify-center mb-2">
               <div className="w-8 h-8 rounded-full bg-md-primary-container shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                 {stat.icon}
@@ -45,7 +45,7 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         
         {/* Project Interest Chart */}
-        <div className="lg:col-span-2 p-4 rounded-2xl bg-md-surface shadow-md border border-md-surface-variant">
+        <div className="lg:col-span-2 p-4 rounded-3xl bg-md-surface shadow-md border border-md-surface-variant">
           <div className="flex items-center gap-2 mb-4">
             <div className="p-2 rounded-full bg-md-secondary-container">
               <Activity className="w-4 h-4 text-blue-500 animate-pulse" />
@@ -53,7 +53,7 @@ const Dashboard = () => {
             <h2 className="text-lg font-bold text-md-on-surface tracking-tight">Project Interest Overview</h2>
           </div>
           
-          <div className="h-44 w-full rounded-xl bg-md-surface-container-low border border-md-surface-variant p-3 flex items-center justify-center">
+          <div className="h-44 w-full rounded-3xl bg-md-surface-container-low border border-md-surface-variant p-3 flex items-center justify-center">
             {chartData.length > 0 ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
@@ -77,7 +77,7 @@ const Dashboard = () => {
         </div>
 
         {/* System Telemetry Panel */}
-        <div className="p-4 rounded-2xl bg-md-surface shadow-md border border-md-surface-variant flex flex-col">
+        <div className="p-4 rounded-3xl bg-md-surface shadow-md border border-md-surface-variant flex flex-col">
           <div className="flex items-center gap-2 mb-4">
             <div className="p-2 rounded-full bg-md-secondary-container">
               <Server className="w-4 h-4 text-purple-500" />
@@ -87,7 +87,7 @@ const Dashboard = () => {
 
           <div className="space-y-3 flex-1">
             {/* DB Connection */}
-            <div className="bg-md-surface-container p-3 rounded-xl">
+            <div className="bg-md-surface-container p-3 rounded-3xl">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center gap-1.5 text-md-on-surface font-bold text-sm">
                   <Database className="w-4 h-4 text-emerald-500" />
@@ -99,7 +99,7 @@ const Dashboard = () => {
             </div>
 
             {/* API Calls */}
-            <div className="bg-md-surface-container p-3 rounded-xl">
+            <div className="bg-md-surface-container p-3 rounded-3xl">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center gap-1.5 text-md-on-surface font-bold text-sm">
                   <Activity className="w-4 h-4 text-blue-500" />
@@ -111,7 +111,7 @@ const Dashboard = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-md-surface-container p-3 rounded-xl">
+            <div className="bg-md-surface-container p-3 rounded-3xl">
               <div className="flex justify-between items-center mb-2">
                 <div className="flex items-center gap-1.5 text-md-on-surface font-bold text-sm">
                   <Share2 className="w-4 h-4 text-amber-500" />
@@ -127,7 +127,7 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Messages Row */}
-      <div className="p-4 rounded-2xl bg-md-surface shadow-md border border-md-surface-variant">
+      <div className="p-4 rounded-3xl bg-md-surface shadow-md border border-md-surface-variant">
         <div className="flex items-center gap-2 mb-3">
           <div className="p-2 rounded-full bg-md-secondary-container">
             <Clock className="w-4 h-4 text-emerald-500" />
@@ -135,7 +135,7 @@ const Dashboard = () => {
           <h2 className="text-lg font-bold text-md-on-surface tracking-tight">Recent Messages</h2>
         </div>
 
-        <div className="bg-md-surface-container-high rounded-xl border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary p-3">
+        <div className="bg-md-surface-container-high rounded-3xl border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary p-3">
           {stats.recentMessages && stats.recentMessages.length > 0 ? (
             <div className="space-y-2">
               {stats.recentMessages.map((msg, i) => (
@@ -170,5 +170,6 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
 
 

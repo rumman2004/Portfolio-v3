@@ -20,7 +20,7 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
   }, []);
 
   const messages = messagesResponse || [];
-  const unreadCount = messages.filter(m => m.status === 'unread').length || (messages.length > 0 ? messages.length : 0);
+  const unreadCount = messages.filter(m => m.status === 'new' || !m.status).length;
 
   return (
     <header className="h-20 bg-md-surface border-b border-md-surface-variant flex items-center justify-between px-4 sm:px-8 sticky top-0 z-40">

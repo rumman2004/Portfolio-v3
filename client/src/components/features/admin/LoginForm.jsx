@@ -69,7 +69,7 @@ const LoginForm = () => {
       <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/40 via-transparent to-white/10 pointer-events-none" style={{ transform: 'translateZ(1px)' }}></div>
 
       <div className="text-center mb-8 relative z-10 flex flex-col items-center" style={{ transform: 'translateZ(30px)' }}>
-        <div className="w-16 h-16 bg-md-surface/50 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg border border-white/60 mb-5">
+        <div className="w-16 h-16 bg-md-surface/50 backdrop-blur-md rounded-3xl flex items-center justify-center shadow-lg border border-white/60 mb-5">
           <Fingerprint className="w-10 h-10 text-md-primary" strokeWidth={1.5} />
         </div>
         <h2 className="text-4xl font-extrabold text-md-on-surface tracking-tight drop-shadow-sm font-['Inter']">
@@ -82,7 +82,7 @@ const LoginForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-6 relative z-10" style={{ transform: 'translateZ(40px)' }}>
         {error && (
-          <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm text-center font-medium shadow-sm">
+          <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-600 px-4 py-3 rounded-3xl text-sm text-center font-medium shadow-sm">
             {error}
           </div>
         )}
@@ -98,7 +98,7 @@ const LoginForm = () => {
             onChange={handleChange}
             required
             placeholder="admin@example.com"
-            className="w-full bg-md-surface/40 border border-white/50 rounded-2xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
+            className="w-full bg-md-surface/40 border border-white/50 rounded-3xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
           />
         </div>
 
@@ -113,17 +113,17 @@ const LoginForm = () => {
             onChange={handleChange}
             required
             placeholder="••••••••"
-            className="w-full bg-md-surface/40 border border-white/50 rounded-2xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
+            className="w-full bg-md-surface/40 border border-white/50 rounded-3xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
           />
         </div>
 
         <button 
           type="submit" 
           disabled={loading}
-          className="w-full mt-8 bg-gradient-to-r from-[#4F46E5] to-[#3B82F6] text-gray-800 font-['Inter'] text-lg font-semibold px-6 py-4 rounded-2xl hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-[#4F46E5]/30 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center border border-white/20"
+          className="w-full mt-8 bg-gradient-to-r from-[#4F46E5] to-[#3B82F6] text-md-on-surface font-['Inter'] text-lg font-semibold px-6 py-4 rounded-3xl hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-[#4F46E5]/30 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center border border-white/20"
         >
           {loading ? (
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-800" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-md-on-surface" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -137,4 +137,5 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+
 

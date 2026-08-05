@@ -32,3 +32,4 @@ const HackathonCard = ({ hackathon }) => {
 };
 
 export default HackathonCard;
+

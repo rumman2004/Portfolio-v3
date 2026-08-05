@@ -29,3 +29,4 @@ const EditCertificate = ({ certificate, onClose, onUpdated }) => {
 };
 
 export default EditCertificate;
+

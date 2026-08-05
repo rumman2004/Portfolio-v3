@@ -5,7 +5,7 @@ import { Award, ExternalLink } from 'lucide-react';
 
 const CertificateCard = ({ certificate }) => {
   return (
-    <Card className="flex flex-col h-full group border border-gray-200 hover:border-gray-300 bg-white shadow-sm" hover glass={false}>
+    <Card className="flex flex-col h-full group border border-gray-200 hover:border-gray-300 bg-md-surface shadow-sm" hover glass={false}>
       {certificate.image ? (
         <div className="h-48 w-full overflow-hidden bg-gray-50 border-b border-gray-100 p-4 flex items-center justify-center">
           <img 
@@ -24,7 +24,7 @@ const CertificateCard = ({ certificate }) => {
         <h4 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-amber-500 transition-colors">
           {certificate.name}
         </h4>
-        <p className="text-gray-600 text-sm mb-4">{certificate.issuer}</p>
+        <p className="text-md-on-surface-variant text-sm mb-4">{certificate.issuer}</p>
         
         <div className="mt-auto flex items-center justify-between">
           <span className="text-sm font-medium text-gray-500">{certificate.date}</span>
@@ -43,3 +43,4 @@ const CertificateCard = ({ certificate }) => {
 };
 
 export default CertificateCard;
+

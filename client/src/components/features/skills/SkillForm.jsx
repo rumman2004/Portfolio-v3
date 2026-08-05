@@ -37,20 +37,20 @@ const SkillForm = ({ initialData, onSubmit, loading }) => {
       <Input label="Skill Name" name="name" value={formData.name} onChange={handleChange} required placeholder="e.g. React" />
       
       <div>
-        <label className="block text-sm font-semibold text-gray-600 mb-2 ml-1 tracking-wide">Category</label>
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">Category</label>
         <select 
           name="category" 
           value={formData.category} 
           onChange={handleChange} 
           required 
-          className="w-full bg-[#e6edf5] rounded-xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none transition-all duration-300 shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] focus:shadow-[inset_4px_4px_8px_#c8d0da,inset_-4px_-4px_8px_#ffffff] border-none font-inter"
+          className="w-full bg-md-surface rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-400 focus:outline-none transition-all duration-300 border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary font-inter"
         >
           {categories.map(c => <option key={c} value={c}>{c}</option>)}
         </select>
       </div>
       
       <div>
-        <label className="block text-sm font-semibold text-gray-600 mb-2 ml-1 tracking-wide">Icon / Image</label>
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">Icon / Image</label>
         <IconPicker onSelect={handleImageSelect} selectedImage={formData.icon} category="skill" />
         <Input name="icon" value={formData.icon} onChange={handleChange} placeholder="Or paste image URL here" className="mt-2" />
       </div>
@@ -64,9 +64,9 @@ const SkillForm = ({ initialData, onSubmit, loading }) => {
             name="isFeatured" 
             checked={formData.isFeatured} 
             onChange={handleChange}
-            className="w-5 h-5 rounded border-gray-300 bg-white text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
+            className="w-5 h-5 rounded border-gray-300 bg-md-surface text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
           />
-          <label htmlFor="isFeatured" className="text-sm font-semibold text-gray-600 cursor-pointer">
+          <label htmlFor="isFeatured" className="text-sm font-semibold text-md-on-surface-variant cursor-pointer">
             Featured Skill
           </label>
         </div>
@@ -82,3 +82,4 @@ const SkillForm = ({ initialData, onSubmit, loading }) => {
 };
 
 export default SkillForm;
+

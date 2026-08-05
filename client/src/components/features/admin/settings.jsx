@@ -137,7 +137,7 @@ const Settings = () => {
           <Card className="p-6">
             <h3 className="text-lg font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">Publish & Status</h3>
             
-            <div className="mb-6 flex items-center gap-3 p-4 bg-[#f8fafc] rounded-xl border border-gray-200 shadow-sm">
+            <div className="mb-6 flex items-center gap-3 p-4 bg-[#f8fafc] rounded-3xl border border-gray-200 shadow-sm">
               <input 
                 type="checkbox" 
                 id="isAvailable" 
@@ -146,7 +146,7 @@ const Settings = () => {
                 onChange={handleChange}
                 className="w-5 h-5 rounded border-gray-300 bg-md-surface text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
               />
-              <label htmlFor="isAvailable" className="text-sm font-semibold text-gray-700 cursor-pointer">
+              <label htmlFor="isAvailable" className="text-sm font-semibold text-md-on-surface cursor-pointer">
                 Available for Hire
               </label>
             </div>
@@ -184,4 +184,5 @@ const Settings = () => {
 };
 
 export default Settings;
+
 

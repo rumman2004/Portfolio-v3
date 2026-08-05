@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   LayoutDashboard, 
@@ -29,22 +29,45 @@ const navItems = [
 ];
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
-  const isCollapsed = !isSidebarOpen;
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isCollapsed = !isSidebarOpen && (!isHovered || !isDesktop);
 
   return (
     <>
       {/* Mobile Backdrop */}
-      {isSidebarOpen && (
+      {isSidebarOpen && !isDesktop && (
         <div 
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}
 
+      {/* Desktop Spacer (preserves layout space since sidebar is fixed) */}
+      {isDesktop && (
+        <div className={`shrink-0 transition-[width] duration-300 ${isSidebarOpen ? 'w-64' : 'w-20'}`} />
+      )}
+
       {/* Sidebar Container */}
       <aside 
-        className={`h-screen bg-md-surface-container-low flex flex-col fixed lg:relative left-0 top-0 z-50 transition-[width,transform] duration-300 ease-out overflow-hidden shrink-0
-          ${isSidebarOpen ? 'w-72 sm:w-64 translate-x-0' : 'w-72 -translate-x-full lg:w-20 lg:translate-x-0'}
+        onMouseEnter={() => isDesktop && setIsHovered(true)}
+        onMouseLeave={() => isDesktop && setIsHovered(false)}
+        className={`h-screen bg-md-surface-container-low flex flex-col fixed left-0 top-0 z-50 transition-[width,transform] duration-300 ease-out overflow-hidden shrink-0
+          ${isDesktop 
+            ? isSidebarOpen || isHovered 
+              ? 'w-64 translate-x-0 shadow-2xl' 
+              : 'w-20 translate-x-0'
+            : isSidebarOpen 
+              ? 'w-72 sm:w-64 translate-x-0' 
+              : 'w-72 -translate-x-full'
+          }
         `}
         aria-label="Admin navigation"
       >

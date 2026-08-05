@@ -17,8 +17,8 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
         { opacity: 1, duration: 0.3, ease: 'power2.out' }
       );
       gsap.fromTo(modalRef.current,
-        { x: '100%' },
-        { x: '0%', duration: 0.5, ease: 'power3.out' }
+        { y: '-50px', opacity: 0 },
+        { y: '0px', opacity: 1, duration: 0.5, ease: 'power3.out' }
       );
     }
   }, { dependencies: [isOpen] });
@@ -30,7 +30,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
       return;
     }
     const tl = gsap.timeline({ onComplete: onClose });
-    tl.to(modalRef.current, { x: '100%', duration: 0.4, ease: 'power3.inOut' })
+    tl.to(modalRef.current, { y: '-50px', opacity: 0, duration: 0.3, ease: 'power3.inOut' })
       .to(overlayRef.current, { opacity: 0, duration: 0.3, ease: 'power2.in' }, "-=0.2");
   }, [onClose]);
 
@@ -46,7 +46,7 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex justify-end">
+    <div className="fixed inset-0 z-[100] flex justify-center items-start pt-4 sm:pt-10 px-4 pb-10">
       {/* Backdrop */}
       <div 
         ref={overlayRef}
@@ -54,30 +54,30 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
         onClick={handleClose}
       ></div>
 
-      {/* Drawer */}
+      {/* Modal Box */}
       <div 
         ref={modalRef}
-        className={`relative w-full ${maxWidth.replace('max-w-', 'sm:w-')} md:w-[600px] max-w-full h-full bg-md-surface shadow-[-10px_0_30px_rgba(0,0,0,0.1)] flex flex-col`}
+        className={`relative w-full ${maxWidth} max-h-full liquid-glass border border-white/40 shadow-2xl rounded-3xl flex flex-col opacity-0`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="drawer-title"
+        aria-labelledby="modal-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 md:p-8 shrink-0">
-          <h2 id="drawer-title" className="min-w-0 text-2xl font-headline text-md-on-surface tracking-tight break-words">
+        <div className="flex items-center justify-between p-6 md:p-8 shrink-0 border-b border-white/20">
+          <h2 id="modal-title" className="min-w-0 text-2xl font-headline text-md-on-surface tracking-tight break-words">
             {title}
           </h2>
           <button 
             onClick={handleClose}
-            className="p-2 bg-md-surface shadow-md border border-md-surface-variant rounded-full text-md-on-surface-variant hover:text-red-500 active:border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary transition-all"
-            aria-label="Close drawer"
+            className="w-10 h-10 rounded-full flex items-center justify-center text-md-on-surface-variant hover:bg-white/30 hover:text-md-error transition-colors"
+            aria-label="Close modal"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Content */}
-        <div className="flex-1 min-w-0 overflow-y-auto px-6 md:px-8 pb-8 custom-scrollbar">
+        <div className="flex-1 min-w-0 overflow-y-auto p-6 md:p-8 custom-scrollbar">
           {children}
         </div>
       </div>

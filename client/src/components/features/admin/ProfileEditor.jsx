@@ -47,7 +47,7 @@ const ProfileEditor = () => {
 
   return (
     <Card className="max-w-2xl p-6 md:p-8">
-      <h2 className="text-2xl font-headline text-gray-800 tracking-tight mb-6">Edit Profile Info</h2>
+      <h2 className="text-2xl font-headline text-md-on-surface tracking-tight mb-6">Edit Profile Info</h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -70,4 +70,5 @@ const ProfileEditor = () => {
 };
 
 export default ProfileEditor;
+
 

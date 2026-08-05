@@ -19,3 +19,4 @@ const ProjectList = ({ projects = [], layout = 'grid' }) => {
 };
 
 export default ProjectList;
+

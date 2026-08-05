@@ -31,7 +31,7 @@ const ContactForm = () => {
           <div className="w-10 h-10 rounded-full bg-[#0448a8]/10 flex items-center justify-center">
             <Send className="w-4 h-4 text-[#0448a8]" />
           </div>
-          <h3 className="font-headline text-2xl md:text-3xl text-[#1A1A1A]">Send a Message</h3>
+          <h3 className="font-headline text-2xl md:text-3xl text-md-on-surface">Send a Message</h3>
         </div>
         <p className="font-inter text-[#4b5563] text-sm ml-13">Fill out the form below and I'll get back to you as soon as possible.</p>
       </div>
@@ -39,7 +39,7 @@ const ContactForm = () => {
       {status.type && (
         <div
           role="status"
-          className={`mb-8 p-4 rounded-xl font-inter text-sm font-medium border ${
+          className={`mb-8 p-4 rounded-3xl font-inter text-sm font-medium border ${
             status.type === 'success'
               ? 'bg-emerald-50 border-emerald-200 text-emerald-700'
               : 'bg-red-50 border-red-200 text-red-700'
@@ -56,18 +56,18 @@ const ContactForm = () => {
             <input
               id="name" type="text" name="name" value={formData.name} onChange={handleChange} required
               placeholder="Your Name"
-              className="w-full bg-white/40 border border-white/60 rounded-2xl py-3.5 pl-4 pr-11 text-[#1A1A1A] font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-white/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
+              className="w-full bg-md-surface/40 border border-white/60 rounded-3xl py-3.5 pl-4 pr-11 text-md-on-surface font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-md-surface/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
             />
-            <User className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280] group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
+            <User className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-md-on-surface-variant group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
           </div>
           <div className="relative group">
             <label htmlFor="email" className="sr-only">Your Email</label>
             <input
               id="email" type="email" name="email" value={formData.email} onChange={handleChange} required
               placeholder="Your Email"
-              className="w-full bg-white/40 border border-white/60 rounded-2xl py-3.5 pl-4 pr-11 text-[#1A1A1A] font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-white/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
+              className="w-full bg-md-surface/40 border border-white/60 rounded-3xl py-3.5 pl-4 pr-11 text-md-on-surface font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-md-surface/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
             />
-            <Mail className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280] group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
+            <Mail className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-md-on-surface-variant group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
           </div>
         </div>
 
@@ -76,9 +76,9 @@ const ContactForm = () => {
           <input
             id="subject" type="text" name="subject" value={formData.subject} onChange={handleChange} required
             placeholder="Subject"
-            className="w-full bg-white/40 border border-white/60 rounded-2xl py-3.5 pl-4 pr-11 text-[#1A1A1A] font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-white/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
+            className="w-full bg-md-surface/40 border border-white/60 rounded-3xl py-3.5 pl-4 pr-11 text-md-on-surface font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-md-surface/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md"
           />
-          <FileText className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#6B7280] group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
+          <FileText className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-md-on-surface-variant group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
         </div>
 
         <div className="relative group">
@@ -86,15 +86,15 @@ const ContactForm = () => {
           <textarea
             id="message" name="message" rows="5" value={formData.message} onChange={handleChange} required
             placeholder="Your Message"
-            className="w-full bg-white/40 border border-white/60 rounded-2xl py-3.5 pl-4 pr-11 text-[#1A1A1A] font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-white/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md resize-none"
+            className="w-full bg-md-surface/40 border border-white/60 rounded-3xl py-3.5 pl-4 pr-11 text-md-on-surface font-inter placeholder-[#6B7280] focus:outline-none focus:border-[#0448a8] focus:bg-md-surface/60 focus:shadow-[0_0_15px_rgba(4,72,168,0.1)] transition-all backdrop-blur-md resize-none"
           />
-          <PenLine className="absolute right-4 top-4 w-4 h-4 text-[#6B7280] group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
+          <PenLine className="absolute right-4 top-4 w-4 h-4 text-md-on-surface-variant group-focus-within:text-[#0448a8] transition-colors pointer-events-none" />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="group w-full min-h-[52px] flex items-center justify-center gap-2 px-8 bg-[#0448a8] text-white font-inter font-bold uppercase rounded-2xl hover:bg-[#03367d] hover:shadow-[0_4px_20px_rgba(4,72,168,0.3)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="group w-full min-h-[52px] flex items-center justify-center gap-2 px-8 bg-[#0448a8] text-white font-inter font-bold uppercase rounded-3xl hover:bg-[#03367d] hover:shadow-[0_4px_20px_rgba(4,72,168,0.3)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? (
             <>
@@ -114,3 +114,4 @@ const ContactForm = () => {
 };
 
 export default ContactForm;
+

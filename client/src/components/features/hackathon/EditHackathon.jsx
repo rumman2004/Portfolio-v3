@@ -29,3 +29,4 @@ const EditHackathon = ({ hackathon, onClose, onUpdated }) => {
 };
 
 export default EditHackathon;
+

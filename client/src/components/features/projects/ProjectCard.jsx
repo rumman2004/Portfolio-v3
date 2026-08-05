@@ -6,7 +6,7 @@ import { iconMap } from '../../../utils/iconMap';
 const ProjectCard = ({ project }) => {
   return (
     <Link to={`/works/${project.slug || project._id || project.id}`} className="group block h-full">
-      <div className="h-full flex flex-col bg-white/60 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[32px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 relative">
+      <div className="h-full flex flex-col bg-md-surface/60 backdrop-blur-xl border border-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] rounded-[32px] overflow-hidden hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all duration-500 relative">
         
         {/* Glow Effect on Hover */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -38,14 +38,14 @@ const ProjectCard = ({ project }) => {
             <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#0448a8]">
               {project.category || 'Project'}
             </span>
-            <ArrowUpRight size={20} className="text-[#6B7280] group-hover:text-[#1A1A1A] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+            <ArrowUpRight size={20} className="text-md-on-surface-variant group-hover:text-md-on-surface group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
           </div>
 
-          <h3 className="font-headline text-2xl text-[#1A1A1A] mb-3 group-hover:text-[#0448a8] transition-colors">
+          <h3 className="font-headline text-2xl text-md-on-surface mb-3 group-hover:text-[#0448a8] transition-colors">
             {project.title}
           </h3>
           
-          <p className="font-inter text-[#6B7280] text-sm leading-relaxed mb-6 line-clamp-3 flex-grow font-light">
+          <p className="font-inter text-md-on-surface-variant text-sm leading-relaxed mb-6 line-clamp-3 flex-grow font-light">
             {project.shortDescription || project.description}
           </p>
 
@@ -57,14 +57,14 @@ const ProjectCard = ({ project }) => {
               const iconSrc = iconMap[normalizedName];
 
               return (
-                <span key={idx} className="flex items-center gap-1.5 font-inter text-xs font-medium text-[#6B7280] bg-[#1A1A1A]/5 px-3 py-1.5 rounded-full border border-[#1A1A1A]/5">
+                <span key={idx} className="flex items-center gap-1.5 font-inter text-xs font-medium text-md-on-surface-variant bg-[#1A1A1A]/5 px-3 py-1.5 rounded-full border border-[#1A1A1A]/5">
                   {iconSrc && <img src={iconSrc} alt={val} className="w-3.5 h-3.5 object-contain" />}
                   <span className="capitalize">{val.replace('light', '').replace('dark', '')}</span>
                 </span>
               );
             })}
             {(project.techStack || project.technologies)?.length > 3 && (
-              <span className="flex items-center font-inter text-xs font-medium text-[#6B7280] bg-[#1A1A1A]/5 px-3 py-1.5 rounded-full border border-[#1A1A1A]/5">
+              <span className="flex items-center font-inter text-xs font-medium text-md-on-surface-variant bg-[#1A1A1A]/5 px-3 py-1.5 rounded-full border border-[#1A1A1A]/5">
                 +{(project.techStack || project.technologies).length - 3}
               </span>
             )}
@@ -80,3 +80,4 @@ const ProjectCard = ({ project }) => {
 };
 
 export default ProjectCard;
+

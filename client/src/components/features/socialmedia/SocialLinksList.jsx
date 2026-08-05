@@ -44,30 +44,7 @@ const SocialLinksList = () => {
     }
   };
 
-  const columns = [
-    { 
-      header: 'Icon', 
-      accessor: 'icon', 
-      render: (link) => {
-        const iconSrc = resolveIcon(link);
-        return (
-          <div className="w-10 h-10 bg-[#e6edf5] shadow-[inset_2px_2px_4px_#c8d0da,inset_-2px_-2px_4px_#ffffff] rounded-lg p-2 flex items-center justify-center">
-            {iconSrc ? <img src={iconSrc} alt={link.platform} className="max-w-full max-h-full object-contain" /> : <span className="text-gray-500 text-[10px] font-bold text-center leading-tight">{(link.platform || '?').slice(0, 3).toUpperCase()}</span>}
-          </div>
-        );
-      } 
-    },
-    { header: 'Platform', accessor: 'platform', render: (link) => <span className="font-bold text-gray-800">{link.platform}</span> },
-    { 
-      header: 'URL', 
-      accessor: 'url', 
-      render: (link) => (
-        <a href={link.url} target="_blank" rel="noreferrer" className="text-blue-400 hover:underline max-w-xs truncate block">
-          {link.url}
-        </a>
-      )
-    },
-  ];
+
 
   return (
     <div>
@@ -81,14 +58,40 @@ const SocialLinksList = () => {
         }
       />
       
-      <DataTable 
-        columns={columns} 
-        data={links} 
-        loading={loading} 
-        onEdit={(record) => setSelectedRecord(record)}
-        onDelete={handleDelete}
-        emptyMessage="No social links found."
-      />
+      {loading ? (
+        <div className="flex justify-center p-12"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-md-primary"></div></div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pb-12">
+          {links?.length > 0 ? links.map((link) => {
+            const iconSrc = resolveIcon(link);
+            return (
+              <div key={link._id || link.id} className="bg-md-surface border border-md-outline-variant rounded-2xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-all hover:border-md-primary group">
+                <div className="w-12 h-12 shrink-0 bg-md-surface-container rounded-xl flex items-center justify-center p-2.5">
+                  {iconSrc ? <img src={iconSrc} alt={link.platform} className="w-full h-full object-contain" /> : <span className="text-md-on-surface-variant text-[10px] font-bold">{(link.platform || '?').slice(0, 3).toUpperCase()}</span>}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-md-on-surface text-base truncate">{link.platform}</h3>
+                  <a href={link.url} target="_blank" rel="noreferrer" className="text-sm text-md-primary hover:text-md-on-primary-container hover:underline truncate block">
+                    {link.url}
+                  </a>
+                </div>
+                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button onClick={() => setSelectedRecord(link)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-primary transition-colors">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
+                  </button>
+                  <button onClick={() => handleDelete(link._id || link.id)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-error transition-colors">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                  </button>
+                </div>
+              </div>
+            );
+          }) : (
+            <div className="col-span-full text-center py-12 text-md-on-surface-variant font-medium">
+               No social links found. Click "Add Link" to create one.
+            </div>
+          )}
+        </div>
+      )}
 
       <Modal isOpen={isAddModalOpen || !!selectedRecord} onClose={() => { setIsAddModalOpen(false); setSelectedRecord(null); }} title={selectedRecord ? "Edit Link" : "Add Link"}>
         <SocialLinkForm initialData={selectedRecord} onSubmit={handleSubmit} loading={isSubmitting} />
@@ -98,3 +101,4 @@ const SocialLinksList = () => {
 };
 
 export default SocialLinksList;
+

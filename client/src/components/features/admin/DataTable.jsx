@@ -12,8 +12,8 @@ const DataTable = ({
 }) => {
   if (loading) return <Loader />;
 
-  const dropClass = "bg-md-surface shadow-md rounded-2xl border border-md-surface-variant rounded-2xl";
-  const btnClass = "flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-blue-500 shadow-md rounded-2xl border border-md-surface-variant active:border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary transition-all";
+  const dropClass = "bg-md-surface shadow-sm rounded-2xl border border-md-outline-variant";
+  const btnClass = "w-10 h-10 rounded-full flex items-center justify-center text-md-on-surface-variant hover:text-md-primary hover:bg-md-surface-container-highest transition-colors";
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -31,8 +31,8 @@ const DataTable = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 flex-1 min-w-0">
             {columns.map((col, colIdx) => (
               <div key={colIdx} className="flex flex-col min-w-0">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1">{col.header}</span>
-                <div className="text-gray-800 font-medium min-w-0 break-words">
+                <span className="text-xs font-bold text-md-on-surface-variant uppercase tracking-wider mb-1">{col.header}</span>
+                <div className="text-md-on-surface font-medium min-w-0 break-words">
                   {col.render ? col.render(row) : row[col.accessor]}
                 </div>
               </div>
@@ -40,7 +40,7 @@ const DataTable = ({
           </div>
 
           {(onEdit || onDelete) && (
-            <div className="flex items-center gap-3 shrink-0 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-none border-white/50">
+            <div className="flex items-center gap-2 shrink-0 mt-4 md:mt-0 pt-4 md:pt-0 border-t md:border-none border-md-surface-variant">
               {onEdit && (
                 <button 
                   onClick={() => onEdit(row)} 
@@ -68,4 +68,5 @@ const DataTable = ({
 };
 
 export default DataTable;
+
 

@@ -42,7 +42,7 @@ const EducationForm = ({ initialData, onSubmit, loading }) => {
       </div>
 
       <div className="w-full">
-        <label htmlFor="description" className="block text-sm font-semibold text-gray-600 mb-2 ml-1 tracking-wide">
+        <label htmlFor="description" className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">
           Description
         </label>
         <textarea
@@ -52,7 +52,7 @@ const EducationForm = ({ initialData, onSubmit, loading }) => {
           value={formData.description}
           onChange={handleChange}
           placeholder="Briefly describe what you studied..."
-          className="w-full bg-[#e6edf5] rounded-xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none transition-all duration-300 shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] focus:shadow-[inset_4px_4px_8px_#c8d0da,inset_-4px_-4px_8px_#ffffff] border-none resize-y"
+          className="w-full bg-md-surface rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-400 focus:outline-none transition-all duration-300 border border-md-outline-variant focus:border border-md-outline-variant border-none resize-y"
         />
       </div>
 
@@ -66,3 +66,4 @@ const EducationForm = ({ initialData, onSubmit, loading }) => {
 };
 
 export default EducationForm;
+

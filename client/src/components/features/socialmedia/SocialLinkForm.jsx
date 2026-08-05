@@ -31,7 +31,7 @@ const SocialLinkForm = ({ initialData, onSubmit, loading }) => {
       <Input label="Platform Name" name="platform" value={formData.platform} onChange={handleChange} required placeholder="e.g. GitHub" />
       <Input label="URL" type="url" name="url" value={formData.url} onChange={handleChange} required placeholder="https://github.com/..." />
       <div>
-        <label className="block text-sm font-semibold text-gray-600 mb-1.5 ml-1 tracking-wide">Social Icon</label>
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-1.5 ml-1 tracking-wide">Social Icon</label>
         <IconPicker onSelect={handleIconSelect} selectedImage={formData.icon} category="social" />
         <Input name="icon" value={formData.icon} onChange={handleChange} placeholder="Icon key name" className="mt-2" />
       </div>
@@ -45,3 +45,4 @@ const SocialLinkForm = ({ initialData, onSubmit, loading }) => {
 };
 
 export default SocialLinkForm;
+

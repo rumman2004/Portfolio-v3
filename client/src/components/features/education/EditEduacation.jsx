@@ -29,3 +29,4 @@ const EditEduacation = ({ education, onClose, onUpdated }) => {
 };
 
 export default EditEduacation;
+

@@ -22,7 +22,7 @@ const Input = forwardRef(({
           ref={ref}
           id={inputId}
           type={type}
-          className={`w-full bg-md-surface rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-400 focus:outline-none transition-all duration-300 border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary focus:border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary ${error ? 'border border-red-500' : 'border-none'}`}
+          className={`w-full bg-white/50 backdrop-blur-sm shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border-white/60 rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-500 focus:outline-none transition-all duration-300 border focus:ring-2 focus:bg-white/70 ${error ? 'border-md-error focus:border-md-error focus:ring-md-error' : 'focus:border-md-primary focus:ring-md-primary/20'}`}
           {...props}
         />
       </div>

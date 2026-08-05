@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import Textarea from '../../UI/Textarea';
-import { Upload, X } from 'lucide-react';
 import { useFetch } from '../../../hooks/useFetch';
 import { iconMap } from '../../../utils/iconMap';
 
@@ -18,10 +17,6 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
     projectId: '',
     isFeatured: false
   });
-
-  const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-
   // Fetch projects for the dropdown
   const { data: projectsData } = useFetch('/projects');
   const projects = Array.isArray(projectsData) ? projectsData : (projectsData?.data || []);
@@ -34,11 +29,10 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
         organization: initialData.organization || '',
         description: initialData.description || '',
         link: initialData.link || '',
-        projectId: initialData.projectId || '',
+        projectId: initialData.projectId?._id || (typeof initialData.projectId === 'string' ? initialData.projectId : ''),
         isFeatured: initialData.isFeatured || false,
         date: initialData.date ? initialData.date.substring(0, 7) : ''
       });
-      if (initialData.image) setImagePreview(initialData.image);
     }
   }, [initialData]);
 
@@ -47,30 +41,13 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
     setFormData({ ...formData, [e.target.name]: value });
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setImageFile(file);
-      setImagePreview(URL.createObjectURL(file));
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData();
-    Object.keys(formData).forEach(key => {
-      if (key === 'technologies') {
-        const techArray = formData.technologies.split(',').map(t => t.trim()).filter(Boolean);
-        techArray.forEach(t => data.append('technologies[]', t));
-      } else {
-        data.append(key, formData[key]);
-      }
-    });
-
-    if (imageFile) {
-      data.append('image', imageFile);
-    }
-    
+    const techArray = formData.technologies.split(',').map(t => t.trim()).filter(Boolean);
+    const data = {
+      ...formData,
+      technologies: techArray
+    };
     onSubmit(data);
   };
 
@@ -89,8 +66,8 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
       <Input label="External Link" type="url" name="link" value={formData.link} onChange={handleChange} placeholder="https://..." />
 
       <div className="mt-4">
-        <label className="block text-sm font-semibold text-gray-600 mb-2 ml-1 tracking-wide">Tech Stack Icons</label>
-        <div className="flex flex-wrap gap-3 max-h-[200px] overflow-y-auto p-4 bg-[#f8fafc] rounded-xl border border-gray-200 shadow-inner">
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">Tech Stack Icons</label>
+        <div className="flex flex-wrap gap-3 max-h-[200px] overflow-y-auto p-4 bg-[#f8fafc] rounded-3xl border border-gray-200 shadow-inner">
           {Object.keys(iconMap).map(key => {
             const selectedTechs = formData.technologies ? formData.technologies.split(',').map(t => t.trim()).filter(Boolean) : [];
             const isSelected = selectedTechs.includes(key);
@@ -110,10 +87,10 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
                 type="button"
                 key={key}
                 onClick={() => toggleTech(key)}
-                className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all flex-shrink-0 ${
+                className={`w-10 h-10 rounded-3xl flex items-center justify-center transition-all flex-shrink-0 ${
                   isSelected 
                     ? 'bg-blue-500 shadow-inner ring-2 ring-blue-500 scale-95' 
-                    : 'bg-white border border-gray-200 hover:border-gray-400 shadow-sm'
+                    : 'bg-md-surface border border-gray-200 hover:border-gray-400 shadow-sm'
                 }`}
                 title={key}
               >
@@ -126,12 +103,12 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
       </div>
 
       <div>
-        <label className="block text-sm font-semibold text-gray-600 mb-1.5 ml-1 tracking-wide">Linked Project</label>
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-1.5 ml-1 tracking-wide">Linked Project</label>
         <select 
           name="projectId" 
           value={formData.projectId} 
           onChange={handleChange} 
-          className="w-full bg-[#e6edf5] rounded-xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none transition-all duration-300 shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] focus:shadow-[inset_4px_4px_8px_#c8d0da,inset_-4px_-4px_8px_#ffffff] border-none font-inter"
+          className="w-full bg-md-surface rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-400 focus:outline-none transition-all duration-300 border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary font-inter"
         >
           <option value="">-- None --</option>
           {projects.map(p => <option key={p._id} value={p._id}>{p.title}</option>)}
@@ -147,31 +124,11 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
           name="isFeatured" 
           checked={formData.isFeatured} 
           onChange={handleChange}
-          className="w-5 h-5 rounded border-gray-300 bg-white text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
+          className="w-5 h-5 rounded border-gray-300 bg-md-surface text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
         />
-        <label htmlFor="isFeatured" className="text-sm font-semibold text-gray-600 cursor-pointer">
+        <label htmlFor="isFeatured" className="text-sm font-semibold text-md-on-surface-variant cursor-pointer">
           Featured Hackathon
         </label>
-      </div>
-
-      <div className="mb-6">
-        <label className="block text-sm font-semibold text-gray-600 mb-1.5 ml-1 tracking-wide">Hackathon Image</label>
-        <div className="bg-[#f8fafc] border border-gray-200 shadow-inner rounded-xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
-          {imagePreview ? (
-            <div className="relative w-full h-40 group">
-              <img src={imagePreview} alt="preview" className="w-full h-full object-contain rounded-lg" />
-              <button type="button" onClick={() => { setImageFile(null); setImagePreview(null); }} className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                <X size={16} />
-              </button>
-            </div>
-          ) : (
-            <div className="py-6 flex flex-col items-center text-gray-400">
-              <Upload size={24} className="mb-2" />
-              <span className="text-sm font-medium">Click to upload image</span>
-            </div>
-          )}
-          <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-        </div>
       </div>
 
       <div className="flex justify-end pt-4 border-t border-gray-200">
@@ -184,3 +141,5 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
 };
 
 export default HackathonForm;
+
+

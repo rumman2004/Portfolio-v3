@@ -72,16 +72,16 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
           name="isFeatured" 
           checked={formData.isFeatured} 
           onChange={handleChange}
-          className="w-5 h-5 rounded border-gray-300 bg-white text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
+          className="w-5 h-5 rounded border-gray-300 bg-md-surface text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
         />
-        <label htmlFor="isFeatured" className="text-sm font-semibold text-gray-600 cursor-pointer">
+        <label htmlFor="isFeatured" className="text-sm font-semibold text-md-on-surface-variant cursor-pointer">
           Featured Certificate
         </label>
       </div>
       
       <div className="mb-6">
-        <label className="block text-sm font-semibold text-gray-600 mb-1.5 ml-1 tracking-wide">Certificate Image</label>
-        <div className="bg-[#f8fafc] border border-gray-200 shadow-inner rounded-xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-1.5 ml-1 tracking-wide">Certificate Image</label>
+        <div className="bg-[#f8fafc] border border-gray-200 shadow-inner rounded-3xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
           {imagePreview ? (
             <div className="relative w-full h-40 group">
               <img src={imagePreview} alt="Certificate preview" className="w-full h-full object-contain rounded-lg" />
@@ -109,3 +109,4 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
 };
 
 export default CertificateForm;
+

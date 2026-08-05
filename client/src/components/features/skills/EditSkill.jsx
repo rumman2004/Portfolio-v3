@@ -29,3 +29,4 @@ const EditSkill = ({ skill, onClose, onUpdated }) => {
 };
 
 export default EditSkill;
+
