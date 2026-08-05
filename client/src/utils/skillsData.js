@@ -10,12 +10,12 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
-        "name": "claude-ai-icon",
+        "name": "claude",
         "bg": "#ffffff",
         "fg": "#111111"
       },
       {
-        "name": "codex_light",
+        "name": "codex",
         "bg": "#ffffff",
         "fg": "#111111"
       },
@@ -38,6 +38,11 @@ export const FALLBACK_CATEGORIES = [
     "tools": [
       {
         "name": "after-effects",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "drive",
         "bg": "#ffffff",
         "fg": "#111111"
       },
@@ -72,6 +77,11 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
+        "name": "spotify",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
         "name": "steam",
         "bg": "#ffffff",
         "fg": "#111111"
@@ -83,6 +93,11 @@ export const FALLBACK_CATEGORIES = [
       },
       {
         "name": "xbox",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "youtube_music",
         "bg": "#ffffff",
         "fg": "#111111"
       }
@@ -114,7 +129,17 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
+        "name": "java",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
         "name": "javascript",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "kotlin",
         "bg": "#ffffff",
         "fg": "#111111"
       },
@@ -151,6 +176,11 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
+        "name": "sqlite",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
         "name": "supabase",
         "bg": "#ffffff",
         "fg": "#111111"
@@ -164,6 +194,11 @@ export const FALLBACK_CATEGORIES = [
     "tools": [
       {
         "name": "canva",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "dribbble",
         "bg": "#ffffff",
         "fg": "#111111"
       },
@@ -341,7 +376,22 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
+        "name": "cloudflare",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "cloudinary",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
         "name": "figma",
+        "bg": "#ffffff",
+        "fg": "#111111"
+      },
+      {
+        "name": "firebase",
         "bg": "#ffffff",
         "fg": "#111111"
       },

@@ -4,27 +4,34 @@ import Ai_codexLight from '../assets/skills/Ai/codex_light.svg';
 import Ai_gemini from '../assets/skills/Ai/gemini.svg';
 import Ai_opencode from '../assets/skills/Ai/opencode.svg';
 import apps_afterEffects from '../assets/skills/apps/after-effects.svg';
+import apps_drive from '../assets/skills/apps/drive.svg';
 import apps_EpicGamesLight from '../assets/skills/apps/Epic Games_light.svg';
 import apps_lightroom from '../assets/skills/apps/lightroom.svg';
 import apps_microsoftPowerpoint from '../assets/skills/apps/microsoft-powerpoint.svg';
 import apps_obs from '../assets/skills/apps/obs.svg';
 import apps_photoshop from '../assets/skills/apps/photoshop.svg';
 import apps_premiere from '../assets/skills/apps/premiere.svg';
+import apps_spotify from '../assets/skills/apps/spotify.svg';
 import apps_steam from '../assets/skills/apps/steam.svg';
 import apps_vscode from '../assets/skills/apps/vscode.svg';
 import apps_xbox from '../assets/skills/apps/xbox.svg';
+import apps_youtubeMusic from '../assets/skills/apps/youtube_music.svg';
 import Code_cPlusplus from '../assets/skills/Code/c-plusplus.svg';
 import Code_c from '../assets/skills/Code/c.svg';
 import Code_cssOld from '../assets/skills/Code/css_old.svg';
 import Code_html5 from '../assets/skills/Code/html5.svg';
+import Code_java from '../assets/skills/Code/java.svg';
 import Code_javascript from '../assets/skills/Code/javascript.svg';
+import Code_kotlin from '../assets/skills/Code/kotlin.svg';
 import Code_php from '../assets/skills/Code/php.svg';
 import Code_python from '../assets/skills/Code/python.svg';
 import Database_mongodbIconLight from '../assets/skills/Database/mongodb-icon-light.svg';
 import Database_mysqlIconLight from '../assets/skills/Database/mysql-icon-light.svg';
 import Database_postgresql from '../assets/skills/Database/postgresql.svg';
+import Database_sqlite from '../assets/skills/Database/sqlite.svg';
 import Database_supabase from '../assets/skills/Database/supabase.svg';
 import designs_canva from '../assets/skills/designs/canva.svg';
+import designs_dribbble from '../assets/skills/designs/dribbble.svg';
 import designs_figma from '../assets/skills/designs/figma.svg';
 import designs_nextjsIconDark from '../assets/skills/designs/nextjs_icon_dark.svg';
 import designs_pinterest from '../assets/skills/designs/pinterest.svg';
@@ -55,7 +62,10 @@ import Social_youtube from '../assets/skills/Social/youtube.svg';
 import Tools_androidIcon from '../assets/skills/Tools/android-icon.svg';
 import Tools_awsLight from '../assets/skills/Tools/aws_light.svg';
 import Tools_canva from '../assets/skills/Tools/canva.svg';
+import Tools_cloudflare from '../assets/skills/Tools/cloudflare.svg';
+import Tools_cloudinary from '../assets/skills/Tools/cloudinary.svg';
 import Tools_figma from '../assets/skills/Tools/figma.svg';
+import Tools_firebase from '../assets/skills/Tools/firebase.svg';
 import Tools_googleCloud from '../assets/skills/Tools/google-cloud.svg';
 import Tools_lovable from '../assets/skills/Tools/lovable.svg';
 import Tools_stripe from '../assets/skills/Tools/stripe.svg';
@@ -68,27 +78,35 @@ export const iconMap = {
   'gemini': Ai_gemini,
   'opencode': Ai_opencode,
   'aftereffects': apps_afterEffects,
+  'drive': apps_drive,
   'epicgameslight': apps_EpicGamesLight,
   'lightroom': apps_lightroom,
   'microsoftpowerpoint': apps_microsoftPowerpoint,
   'obs': apps_obs,
   'photoshop': apps_photoshop,
   'premiere': apps_premiere,
+  'spotify': apps_spotify,
   'steam': apps_steam,
   'vscode': apps_vscode,
   'xbox': apps_xbox,
+  'youtubemusic': apps_youtubeMusic,
   'cplusplus': Code_cPlusplus,
   'c': Code_c,
   'cssold': Code_cssOld,
   'html5': Code_html5,
+  'java': Code_java,
   'javascript': Code_javascript,
+  'kotlin': Code_kotlin,
   'php': Code_php,
   'python': Code_python,
   'mongodbiconlight': Database_mongodbIconLight,
   'mysqliconlight': Database_mysqlIconLight,
   'postgresql': Database_postgresql,
+  'sqlite': Database_sqlite,
   'supabase': Database_supabase,
   'designcanva': designs_canva,
+  'designdribbble': designs_dribbble,
+  'dribbble': designs_dribbble,
   'designfigma': designs_figma,
   'nextjsicondark': designs_nextjsIconDark,
   'designpinterest': designs_pinterest,
@@ -121,6 +139,9 @@ export const iconMap = {
   'awslight': Tools_awsLight,
   'canva': Tools_canva,
   'toolscanva': Tools_canva,
+  'cloudflare': Tools_cloudflare,
+  'cloudinary': Tools_cloudinary,
+  'firebase': Tools_firebase,
   'figma': Tools_figma,
   'toolsfigma': Tools_figma,
   'googlecloud': Tools_googleCloud,
