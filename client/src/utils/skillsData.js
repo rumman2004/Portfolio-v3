@@ -324,11 +324,6 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
-        "name": "pinterest",
-        "bg": "#ffffff",
-        "fg": "#111111"
-      },
-      {
         "name": "telegram",
         "bg": "#ffffff",
         "fg": "#111111"
@@ -371,22 +366,12 @@ export const FALLBACK_CATEGORIES = [
         "fg": "#111111"
       },
       {
-        "name": "canva",
-        "bg": "#ffffff",
-        "fg": "#111111"
-      },
-      {
         "name": "cloudflare",
         "bg": "#ffffff",
         "fg": "#111111"
       },
       {
         "name": "cloudinary",
-        "bg": "#ffffff",
-        "fg": "#111111"
-      },
-      {
-        "name": "figma",
         "bg": "#ffffff",
         "fg": "#111111"
       },
