@@ -6,8 +6,8 @@ import opencode from './opencode.svg';
 
 export {
   antigravity,
-  claudeAiIcon,
-  codexLight,
+  claude,
+  codex,
   gemini,
   opencode
 };
