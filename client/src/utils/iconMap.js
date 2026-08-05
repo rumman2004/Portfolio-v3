@@ -1,6 +1,6 @@
 import Ai_antigravity from '../assets/skills/Ai/antigravity.svg';
-import Ai_claudeAiIcon from '../assets/skills/Ai/claude-ai-icon.svg';
-import Ai_codexLight from '../assets/skills/Ai/codex_light.svg';
+import Ai_claude from '../assets/skills/Ai/claude-ai-icon.svg';
+import Ai_codex from '../assets/skills/Ai/codex_light.svg';
 import Ai_gemini from '../assets/skills/Ai/gemini.svg';
 import Ai_opencode from '../assets/skills/Ai/opencode.svg';
 import apps_afterEffects from '../assets/skills/apps/after-effects.svg';
@@ -73,8 +73,10 @@ import Tools_vite from '../assets/skills/Tools/vite.svg';
 
 export const iconMap = {
   'antigravity': Ai_antigravity,
-  'claudeaiicon': Ai_claudeAiIcon,
-  'codexlight': Ai_codexLight,
+  'claude': Ai_claude,
+  'claudeaiicon': Ai_claude,
+  'codex': Ai_codex,
+  'codexlight': Ai_codex,
   'gemini': Ai_gemini,
   'opencode': Ai_opencode,
   'aftereffects': apps_afterEffects,
