@@ -13,7 +13,7 @@ const Textarea = forwardRef(({
   return (
     <div className={`w-full ${className}`}>
       {label && (
-        <label htmlFor={inputId} className="block text-sm font-semibold text-gray-600 mb-2 ml-1 tracking-wide">
+        <label htmlFor={inputId} className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">
           {label}
         </label>
       )}
@@ -22,7 +22,7 @@ const Textarea = forwardRef(({
           ref={ref}
           id={inputId}
           rows={rows}
-          className={`w-full bg-[#e6edf5] rounded-xl px-4 py-3 text-gray-700 placeholder-gray-400 focus:outline-none transition-all duration-300 shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] focus:shadow-[inset_4px_4px_8px_#c8d0da,inset_-4px_-4px_8px_#ffffff] resize-y ${error ? 'border border-red-500' : 'border-none'}`}
+          className={`w-full bg-md-surface rounded-3xl px-4 py-3 text-md-on-surface placeholder-gray-400 focus:outline-none transition-all duration-300 border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary focus:border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary resize-y ${error ? 'border border-red-500' : 'border-none'}`}
           {...props}
         />
       </div>
@@ -41,3 +41,4 @@ const Textarea = forwardRef(({
 Textarea.displayName = 'Textarea';
 
 export default Textarea;
+

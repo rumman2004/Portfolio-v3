@@ -62,17 +62,17 @@ const LoginForm = () => {
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full bg-white/30 backdrop-blur-2xl p-8 sm:p-10 rounded-[2.5rem] border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] transform-gpu relative font-sans will-change-transform"
+      className="w-full bg-md-surface/30 backdrop-blur-2xl p-8 sm:p-10 rounded-[2.5rem] border border-white/50 shadow-[0_8px_32px_0_rgba(31,38,135,0.1)] transform-gpu relative font-sans will-change-transform"
       style={{ transformStyle: 'preserve-3d' }}
     >
       {/* 3D Glass Inner Reflection */}
       <div className="absolute inset-0 rounded-[2.5rem] bg-gradient-to-br from-white/40 via-transparent to-white/10 pointer-events-none" style={{ transform: 'translateZ(1px)' }}></div>
 
       <div className="text-center mb-8 relative z-10 flex flex-col items-center" style={{ transform: 'translateZ(30px)' }}>
-        <div className="w-16 h-16 bg-white/50 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg border border-white/60 mb-5">
-          <Fingerprint className="w-10 h-10 text-[#4F46E5]" strokeWidth={1.5} />
+        <div className="w-16 h-16 bg-md-surface/50 backdrop-blur-md rounded-2xl flex items-center justify-center shadow-lg border border-white/60 mb-5">
+          <Fingerprint className="w-10 h-10 text-md-primary" strokeWidth={1.5} />
         </div>
-        <h2 className="text-4xl font-extrabold text-[#1A1A1A] tracking-tight drop-shadow-sm font-['Inter']">
+        <h2 className="text-4xl font-extrabold text-md-on-surface tracking-tight drop-shadow-sm font-['Inter']">
           Admin Area
         </h2>
         <p className="text-[#4b5563] mt-2 font-medium font-['Inter'] text-lg">
@@ -88,7 +88,7 @@ const LoginForm = () => {
         )}
 
         <div className="group relative">
-          <label className="block text-sm font-semibold text-[#1A1A1A] mb-2 ml-1 font-['Inter']">
+          <label className="block text-sm font-semibold text-md-on-surface mb-2 ml-1 font-['Inter']">
             Email
           </label>
           <input
@@ -98,12 +98,12 @@ const LoginForm = () => {
             onChange={handleChange}
             required
             placeholder="admin@example.com"
-            className="w-full bg-white/40 border border-white/50 rounded-2xl px-5 py-4 text-[#1A1A1A] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-white/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-white/50"
+            className="w-full bg-md-surface/40 border border-white/50 rounded-2xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
           />
         </div>
 
         <div className="group relative">
-          <label className="block text-sm font-semibold text-[#1A1A1A] mb-2 ml-1 font-['Inter']">
+          <label className="block text-sm font-semibold text-md-on-surface mb-2 ml-1 font-['Inter']">
             Password
           </label>
           <input
@@ -113,7 +113,7 @@ const LoginForm = () => {
             onChange={handleChange}
             required
             placeholder="••••••••"
-            className="w-full bg-white/40 border border-white/50 rounded-2xl px-5 py-4 text-[#1A1A1A] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-white/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-white/50"
+            className="w-full bg-md-surface/40 border border-white/50 rounded-2xl px-5 py-4 text-md-on-surface placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 focus:bg-md-surface/60 transition-all duration-300 font-['Inter'] shadow-sm backdrop-blur-md hover:bg-md-surface/50"
           />
         </div>
 
@@ -137,3 +137,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+

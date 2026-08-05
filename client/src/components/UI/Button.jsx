@@ -17,30 +17,29 @@ const Button = ({
 
   const variants = {
     primary: `
-      text-white
-      bg-gradient-to-br from-indigo-500 via-indigo-400 to-indigo-300
-      border-white/30
-      shadow-[0_4px_15px_rgba(99,102,241,0.35),0_1px_0_rgba(255,255,255,0.25)_inset]
-      hover:shadow-[0_8px_25px_rgba(99,102,241,0.45),0_1px_0_rgba(255,255,255,0.3)_inset]
+      text-md-on-primary
+      bg-md-primary
+      border-transparent
+      shadow-md
+      hover:shadow-lg
       hover:-translate-y-px
     `,
     secondary: `
-      text-indigo-600
-      bg-white/30 backdrop-blur-md
-      border-white/60
-      shadow-[0_4px_16px_rgba(99,102,241,0.08),0_1px_0_rgba(255,255,255,0.7)_inset]
-      hover:bg-white/50 hover:text-indigo-700
+      text-md-on-secondary-container
+      bg-md-secondary-container
+      border-transparent
+      hover:bg-md-surface-variant
     `,
     danger: `
-      text-red-500
-      bg-white/30 backdrop-blur-md
-      border-white/60
-      shadow-[0_4px_16px_rgba(239,68,68,0.08),0_1px_0_rgba(255,255,255,0.7)_inset]
-      hover:bg-red-50/60 hover:text-red-600
+      text-md-on-error-container
+      bg-md-error-container
+      border-transparent
+      hover:bg-md-error
+      hover:text-md-on-error
     `,
     ghost: `
-      text-gray-500 bg-transparent border-transparent
-      hover:bg-white/40 hover:text-gray-800
+      text-md-on-surface-variant bg-transparent border-transparent
+      hover:bg-white/40 hover:text-md-on-surface
     `,
   };
 

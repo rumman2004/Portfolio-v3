@@ -12,8 +12,8 @@ const DataTable = ({
 }) => {
   if (loading) return <Loader />;
 
-  const dropClass = "bg-[#e6edf5] shadow-[6px_6px_12px_#c8d0da,-6px_-6px_12px_#ffffff] rounded-2xl";
-  const btnClass = "flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-blue-500 shadow-[4px_4px_8px_#c8d0da,-4px_-4px_8px_#ffffff] active:shadow-[inset_2px_2px_5px_#c8d0da,inset_-2px_-2px_5px_#ffffff] transition-all";
+  const dropClass = "bg-md-surface shadow-md rounded-2xl border border-md-surface-variant rounded-2xl";
+  const btnClass = "flex items-center justify-center p-2 rounded-xl text-gray-500 hover:text-blue-500 shadow-md rounded-2xl border border-md-surface-variant active:border border-md-outline-variant focus:border-md-primary focus:ring-1 focus:ring-md-primary transition-all";
 
   if (!Array.isArray(data) || data.length === 0) {
     return (
@@ -68,3 +68,4 @@ const DataTable = ({
 };
 
 export default DataTable;
+

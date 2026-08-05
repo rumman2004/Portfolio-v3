@@ -9,7 +9,7 @@ const Loader = ({ fullScreen = false, text = 'Loading...' }) => {
         <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
         <div className="w-3 h-3 bg-blue-500 rounded-full animate-bounce"></div>
       </div>
-      {text && <p className="text-gray-500 font-medium animate-pulse">{text}</p>}
+      {text && <p className="text-md-on-surface-variant font-medium animate-pulse">{text}</p>}
     </div>
   );
 
@@ -29,3 +29,4 @@ const Loader = ({ fullScreen = false, text = 'Loading...' }) => {
 };
 
 export default Loader;
+

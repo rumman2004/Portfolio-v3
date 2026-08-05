@@ -8,6 +8,39 @@
   --font-script: "Caveat", cursive;
   --font-bebas: "Bebas Neue", sans-serif;
   --font-signature: "Mr Dafoe", cursive;
+
+  /* Material Design 3 Color Tokens (Light Theme Base) */
+  --color-md-primary: #4F46E5; /* Indigo based to match previous admin styles mostly */
+  --color-md-on-primary: #ffffff;
+  --color-md-primary-container: #e0e7ff;
+  --color-md-on-primary-container: #312e81;
+  
+  --color-md-secondary: #64748b;
+  --color-md-on-secondary: #ffffff;
+  --color-md-secondary-container: #f1f5f9;
+  --color-md-on-secondary-container: #0f172a;
+  
+  --color-md-error: #ba1a1a;
+  --color-md-on-error: #ffffff;
+  --color-md-error-container: #ffdad6;
+  --color-md-on-error-container: #410002;
+
+  --color-md-background: #f8fafc;
+  --color-md-on-background: #0f172a;
+  
+  --color-md-surface: #f8fafc;
+  --color-md-on-surface: #1e293b;
+  --color-md-surface-variant: #e2e8f0;
+  --color-md-on-surface-variant: #475569;
+  
+  --color-md-outline: #94a3b8;
+  --color-md-outline-variant: #cbd5e1;
+
+  --color-md-surface-container-highest: #e2e8f0;
+  --color-md-surface-container-high: #e8edd5;
+  --color-md-surface-container: #f1f5f9;
+  --color-md-surface-container-low: #f8fafc;
+  --color-md-surface-container-lowest: #ffffff;
 }
 
 *,

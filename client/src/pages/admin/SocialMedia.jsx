@@ -11,3 +11,4 @@ const SocialMediaPage = () => {
 };
 
 export default SocialMediaPage;
+

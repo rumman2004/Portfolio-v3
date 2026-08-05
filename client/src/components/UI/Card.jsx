@@ -12,7 +12,7 @@ const Card = ({
 
   return (
     <div 
-      className={`rounded-2xl shadow-xl overflow-hidden ${glassStyles} ${hoverStyles} ${className}`}
+      className={`rounded-3xl shadow-xl overflow-hidden ${glassStyles} ${hoverStyles} ${className}`}
       {...props}
     >
       {children}
@@ -21,3 +21,4 @@ const Card = ({
 };
 
 export default Card;
+

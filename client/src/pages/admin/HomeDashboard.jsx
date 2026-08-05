@@ -5,16 +5,16 @@ import Dashboard from '../../components/features/admin/Dashboard';
 const HomeDashboard = () => {
   return (
     <AdminLayout>
-      <div className="text-[#1A1A1A] max-w-7xl mx-auto space-y-6 pb-12">
+      <div className="text-md-on-background max-w-7xl mx-auto space-y-6 pb-12">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
           <div>
-            <h1 className="text-4xl font-extrabold tracking-tight drop-shadow-sm font-sans text-gray-800">Command Center</h1>
-            <p className="text-[#6B7280] font-medium mt-1">System Overview & Monitoring</p>
+            <h1 className="text-4xl font-extrabold tracking-tight font-sans text-md-on-surface">Command Center</h1>
+            <p className="text-md-on-surface-variant font-medium mt-1">System Overview & Monitoring</p>
           </div>
           
-          {/* Skeumorphic Refresh Button */}
+          {/* MD3 Elevated Refresh Button */}
           <button 
-            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#e6edf5] text-[#4F46E5] font-bold shadow-[5px_5px_10px_#c8d0da,-5px_-5px_10px_#ffffff] hover:shadow-[inset_3px_3px_6px_#c8d0da,inset_-3px_-3px_6px_#ffffff] transition-all duration-300 active:scale-95"
+            className="flex items-center gap-2 px-6 min-h-[48px] rounded-full bg-md-surface-container-low text-md-primary font-medium shadow-md hover:shadow-lg hover:bg-md-surface-container-highest transition-all duration-300 active:scale-95"
             onClick={() => window.location.reload()}
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,3 +31,4 @@ const HomeDashboard = () => {
 };
 
 export default HomeDashboard;
+

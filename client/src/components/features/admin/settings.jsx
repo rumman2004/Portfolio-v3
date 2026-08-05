@@ -144,7 +144,7 @@ const Settings = () => {
                 name="isAvailable" 
                 checked={formData.isAvailable} 
                 onChange={handleChange}
-                className="w-5 h-5 rounded border-gray-300 bg-white text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
+                className="w-5 h-5 rounded border-gray-300 bg-md-surface text-blue-500 focus:ring-blue-500 focus:ring-offset-white shadow-sm" 
               />
               <label htmlFor="isAvailable" className="text-sm font-semibold text-gray-700 cursor-pointer">
                 Available for Hire
@@ -184,3 +184,4 @@ const Settings = () => {
 };
 
 export default Settings;
+

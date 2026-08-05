@@ -19,7 +19,7 @@ const AdminLayout = ({ children }) => {
   }, []);
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#F6F8FB] text-[#111827] relative font-sans">
+    <div className="flex h-screen overflow-hidden bg-md-background text-md-on-background relative font-sans">
       <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       
       <div className="flex-1 flex flex-col h-screen overflow-hidden relative z-10 w-full min-w-0 transition-all duration-300">
