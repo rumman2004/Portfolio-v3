@@ -6,6 +6,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ArrowRight, LayoutGrid, List } from 'lucide-react';
 import { resolveIcon } from '../../utils/iconMap';
+import ProjectCard from '../../components/features/projects/ProjectCard';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -169,62 +170,6 @@ const WorkRow = ({ project, index, onEnter, onLeave }) => {
   );
 };
 
-/* ─────────────────────────────────────────────────────────────
-   MOBILE CARD VIEW
-──────────────────────────────────────────────────────────────*/
-const MobileCard = ({ project, index }) => {
-  const slug = project.slug || project._id;
-  const imgSrc = project.image?.url || project.heroImage;
-
-  return (
-    <Link to={`/works/${slug}`} className="block">
-      <div className="wk-mobile-card bg-white rounded-2xl border border-black/[0.07] overflow-hidden">
-        {/* Image */}
-        <div className="w-full aspect-[16/9] bg-[#E8E8E8] overflow-hidden relative">
-          {imgSrc
-            ? <img src={imgSrc} alt={project.title} className="w-full h-full object-cover" />
-            : <div className="w-full h-full flex items-center justify-center">
-                <span className="wk-font-headline text-4xl text-[#ccc]">{project.title.charAt(0)}</span>
-              </div>
-          }
-          <div className="absolute bottom-3 left-3">
-            <span className="wk-font-inter text-[10px] font-bold tracking-widest uppercase text-[#0448a8] bg-white/90 px-3 py-1.5 rounded-full backdrop-blur-sm shadow-sm">
-              {project.filterCategory || project.category}
-            </span>
-          </div>
-        </div>
-        {/* Content */}
-        <div className="p-5">
-          <div className="flex items-start justify-between gap-3 mb-2">
-            <h2 className="wk-font-headline text-xl text-[#111] leading-tight">{project.title}</h2>
-            <ArrowUpRight size={16} className="text-[#0448a8] mt-0.5 flex-shrink-0" />
-          </div>
-          <p className="wk-font-inter text-[#767676] text-xs leading-relaxed mb-4 line-clamp-2">
-            {project.shortDescription}
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {(() => {
-              let techs = project.techStack || project.technologies || [];
-              if (techs.length === 1 && techs[0].includes(',')) {
-                techs = techs[0].split(',').map(t => t.trim()).filter(Boolean);
-              }
-              return techs.slice(0, 4).map((t, i) => {
-                 const iconSrc = resolveIcon({ name: t });
-                 return (
-                   <span key={i} className="wk-tech flex items-center gap-1.5 capitalize">
-                     {iconSrc && <img src={iconSrc} alt={t} className="w-3.5 h-3.5 object-contain" />}
-                     {t.replace(/light$|icondark$|iconlight$|icon$/i, '')}
-                   </span>
-                 );
-              });
-            })()}
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-};
-
 import SEO from '../../components/common/SEO.jsx';
 
 /* ─────────────────────────────────────────────────────────────
@@ -233,7 +178,7 @@ import SEO from '../../components/common/SEO.jsx';
 const Works = () => {
   const { data: projects, loading, error } = useFetch('/projects');
   const [activeCategory, setActiveCategory] = useState('All');
-  const [viewMode, setViewMode] = useState('list');
+  const [viewMode, setViewMode] = useState('grid');
   const containerRef = useRef();
   const ghostRef = useRef();
   const rafRef = useRef();
@@ -425,7 +370,7 @@ const Works = () => {
               ) : (
                 <div className="py-8 grid grid-cols-2 lg:grid-cols-3 gap-6">
                   {filtered.map((project, i) => (
-                    <MobileCard key={project._id || i} project={project} index={i} />
+                    <ProjectCard key={project._id || i} project={project} />
                   ))}
                 </div>
               )}
@@ -434,7 +379,7 @@ const Works = () => {
             {/* Mobile View (Always Grid) */}
             <div className="md:hidden px-4 py-8 grid grid-cols-1 gap-5">
               {filtered.map((project, i) => (
-                <MobileCard key={project._id || i} project={project} index={i} />
+                <ProjectCard key={project._id || i} project={project} />
               ))}
             </div>
           </>
