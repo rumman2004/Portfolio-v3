@@ -69,7 +69,7 @@ const CertificateSection = () => {
             </span>
           </h2>
 
-          <p className="cert-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="cert-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             {!loading && !error && certCount > 0
               ? `${certCount} verified credential${certCount !== 1 ? 's' : ''} — a record of continuous learning, professional growth, and staying current with industry standards.`
               : 'A collection of certifications that represent my commitment to continuous learning, professional growth, and staying up-to-date with industry standards.'}
@@ -86,13 +86,13 @@ const CertificateSection = () => {
             <span className="font-inter text-[#111] text-sm font-semibold">
               The credentials couldn't be loaded
             </span>
-            <span className="font-inter text-[#888] text-xs">
+            <span className="font-inter text-[#767676] text-xs">
               Refresh the page, or check back shortly.
             </span>
           </div>
         ) : certCount === 0 ? (
           <div className="h-[220px] w-full bg-white rounded-xl border border-[#E5E5E5] flex items-center justify-center">
-            <span className="font-inter text-[#888] text-sm">
+            <span className="font-inter text-[#767676] text-sm">
               No certifications listed yet — check back soon.
             </span>
           </div>

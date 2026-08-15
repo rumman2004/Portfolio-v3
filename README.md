@@ -29,6 +29,9 @@
 ## ✨ Features
 
 - 🎨 **Liquid Glass Aesthetic**: A highly modern UI featuring frosted glassmorphism, dynamic glowing borders, and stunning soft shadows.
+- 🌀 **3D Orbital Bento Layout**: A visually striking, interactive 3D skill orbit that reacts to scroll and hover, dynamically rendering tech stack icons in concentric rings.
+- 🔔 **Dynamic Live Activity**: Smoothly animated macOS-style notification drop-downs for continuous skill updates using premium spring physics.
+- 📊 **Enhanced GitHub Activity**: High-contrast, dynamic contribution graph with smooth GSAP color transitions and year-selection functionality.
 - ⚡ **Seamless Animations**: Fully powered by GSAP and ScrollTrigger for buttery smooth parallax scrolling, text reveals, and micro-interactions.
 - 📱 **Fully Responsive**: Flawless experience across desktops, tablets, and mobile devices with intelligent adaptable layouts (like mobile-specific Bento Grids).
 - 🛠️ **Custom Admin Dashboard**: Secure, hidden admin portal built entirely from scratch to easily manage projects, skills, education, experience, and direct messages.

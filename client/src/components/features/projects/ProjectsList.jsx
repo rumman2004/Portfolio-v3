@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
 import { projectServices } from '../../../services/projectServices';
-import { Plus, Edit2, Trash2, LayoutGrid, List, ExternalLink, Loader, X, ImageIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, LayoutGrid, List, ExternalLink, X, ImageIcon } from 'lucide-react';
+import Loader from '../../UI/Loader';
 import { FaGithub } from 'react-icons/fa6';
 import { toast } from 'react-hot-toast';
 import ProjectForm from './ProjectForm';
@@ -108,9 +109,7 @@ const ProjectsList = () => {
       </div>
 
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
-        </div>
+        <Loader />
       ) : projects?.length === 0 ? (
         <div className={insetClass + " py-20 flex flex-col items-center text-center max-w-2xl mx-auto"}>
           <div className="w-16 h-16 bg-md-surface shadow-md rounded-3xl border border-md-surface-variant rounded-3xl flex items-center justify-center mb-4">

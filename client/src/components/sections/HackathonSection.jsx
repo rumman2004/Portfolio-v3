@@ -105,7 +105,7 @@ const HackathonSection = () => {
             </span>
           </h2>
 
-          <p className="hack-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="hack-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             Milestones from intense weekends of innovation, problem-solving, and building impactful solutions.
           </p>
 
@@ -120,7 +120,7 @@ const HackathonSection = () => {
                   <span className="stat-value font-headline text-3xl md:text-4xl text-[#1A1A1A]" data-value={value}>
                     0
                   </span>
-                  <span className="font-inter text-xs md:text-sm text-[#6B7280] leading-snug">{label}</span>
+                  <span className="font-inter text-xs md:text-sm text-[#595959] leading-snug">{label}</span>
                 </div>
               ))}
             </div>
@@ -132,7 +132,7 @@ const HackathonSection = () => {
           {error ? (
             <div className="h-[280px] bg-[#F8F8F8] border border-[#1A1A1A]/10 rounded-2xl flex flex-col items-center justify-center gap-2 text-center px-6">
               <span className="font-inter text-[#1A1A1A] text-base font-semibold">The achievements couldn't be loaded</span>
-              <span className="font-inter text-[#6B7280] text-sm">Refresh the page, or check back shortly.</span>
+              <span className="font-inter text-[#595959] text-sm">Refresh the page, or check back shortly.</span>
             </div>
           ) : (
             <BentoHackathon hackathons={hackathons || []} loading={loading} />

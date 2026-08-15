@@ -248,7 +248,7 @@ const ExperienceSection = () => {
             </span>
           </h2>
 
-          <p className="exp-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="exp-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             A journey of collaboration, creativity, and continuous growth through meaningful projects and roles.
           </p>
 
@@ -261,7 +261,7 @@ const ExperienceSection = () => {
         ) : error ? (
           <div className="bg-white rounded-2xl border border-black/[0.07] p-8 text-center">
             <p className="text-sm font-semibold text-[#111]">Couldn't load experience data.</p>
-            <p className="text-xs text-[#888] mt-1">Refresh the page or check back shortly.</p>
+            <p className="text-xs text-[#767676] mt-1">Refresh the page or check back shortly.</p>
           </div>
         ) : (
           <div className="relative">

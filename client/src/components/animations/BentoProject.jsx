@@ -83,7 +83,7 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
       draggable={false}
       tabIndex={isActive ? 0 : -1}
       aria-hidden={!isActive}
-      aria-label={isActive ? `Open project: ${project.title}` : `Show project: ${project.title}`}
+      aria-label={`${project.category || 'Portfolio'} ${project.title}. ${project.shortDescription || project.description || 'A modern digital experience.'}`}
       className="group flex h-full w-full select-none flex-col overflow-hidden rounded-2xl border border-[#232323]/10 bg-white shadow-sm transition-shadow duration-300 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2"
     >
       {/* Image */}
@@ -108,7 +108,7 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
       <div className="flex flex-grow flex-col bg-white p-4 sm:p-5">
         <div className="mb-2 flex items-center gap-2">
           <span className="h-1.5 w-1.5 rounded-full bg-[#0448a8]" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#8A8A8A]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#595959]">
             {project.category || 'Portfolio'}
           </span>
         </div>
@@ -117,7 +117,7 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
           {project.title}
         </h3>
 
-        <p className="mb-4 line-clamp-2 text-xs leading-relaxed text-[#8A8A8A] sm:text-sm">
+        <p className="mb-4 line-clamp-2 text-xs leading-relaxed text-[#595959] sm:text-sm">
           {project.shortDescription || project.description || 'A modern digital experience showcasing clean code and meaningful design.'}
         </p>
 
@@ -390,7 +390,7 @@ const BentoProject = ({ projects = [] }) => {
           ))
         ) : (
           <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center">
-            <span className="text-lg font-medium text-[#8A8A8A]">No projects found.</span>
+            <span className="text-lg font-medium text-[#595959]">No projects found.</span>
           </div>
         )}
       </div>
@@ -416,16 +416,20 @@ const BentoProject = ({ projects = [] }) => {
                 onClick={() => goToIndex(idx)}
                 aria-label={`Go to project ${idx + 1} of ${displayProjects.length}: ${project.title}`}
                 aria-current={idx === currentIndex}
-                className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2 ${
-                  idx === currentIndex ? 'w-7 bg-[#0448a8]/20' : 'w-1.5 bg-[#232323]/20 hover:bg-[#232323]/40'
-                }`}
+                className="group flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center focus:outline-none"
               >
-                {idx === currentIndex && (
-                  <span
-                    ref={(el) => { dotFillRefs.current[idx] = el; }}
-                    className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 rounded-full bg-[#0448a8]"
-                  />
-                )}
+                <div
+                  className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 group-focus-visible:ring-2 group-focus-visible:ring-[#0448a8] group-focus-visible:ring-offset-2 ${
+                    idx === currentIndex ? 'w-7 bg-[#0448a8]/20' : 'w-1.5 bg-[#232323]/20 group-hover:bg-[#232323]/40'
+                  }`}
+                >
+                  {idx === currentIndex && (
+                    <span
+                      ref={(el) => { dotFillRefs.current[idx] = el; }}
+                      className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 rounded-full bg-[#0448a8]"
+                    />
+                  )}
+                </div>
               </button>
             ))}
           </div>

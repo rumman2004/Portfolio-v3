@@ -47,6 +47,7 @@ export const useFetch = (url, autoFetch = true) => {
 
     setLoading(true);
     setError(null);
+    const startTime = Date.now();
     try {
       const response = await api.get(fetchUrl);
       const resultData = response.data.data !== undefined ? response.data.data : response.data;
@@ -61,6 +62,10 @@ export const useFetch = (url, autoFetch = true) => {
     } catch (err) {
       setError(err.response?.data?.message || err.message || 'An error occurred while fetching data');
     } finally {
+      const elapsed = Date.now() - startTime;
+      if (elapsed < 300) {
+        await new Promise(resolve => setTimeout(resolve, 300 - elapsed));
+      }
       setLoading(false);
     }
   }, [url]);

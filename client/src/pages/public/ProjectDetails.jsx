@@ -47,15 +47,7 @@ const FALLBACK_RELATED = [
 /* ─────────────────────────────────────────────────────────────
    LOADER
 ──────────────────────────────────────────────────────────────*/
-const PageLoader = () => (
-  <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center gap-4">
-    <div className="w-10 h-10 rounded-full border-2 border-[#0448a8]/20 border-t-[#0448a8] animate-spin" />
-    <p className="font-inter text-[#6B7280] text-sm tracking-widest uppercase font-bold">
-      Loading project
-    </p>
-  </div>
-);
-
+import Loader from '../../components/UI/Loader';
 import SEO from '../../components/common/SEO.jsx';
 
 /* ─────────────────────────────────────────────────────────────
@@ -80,13 +72,13 @@ const ProjectDetails = () => {
     ? allProjects.filter(p => (p.slug || p._id) !== id).slice(0, 3)
     : FALLBACK_RELATED;
 
-  if (loading) return <PageLoader />;
+  if (loading) return <Loader fullScreen={true} text="Loading project..." />;
 
   if (error && !projectData) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center gap-5 px-6">
         <h2 className="font-headline text-4xl text-[#1A1A1A] uppercase tracking-tight">Project not found</h2>
-        <p className="font-inter text-[#6B7280] text-lg">This project doesn't exist or has been removed.</p>
+        <p className="font-inter text-[#595959] text-lg">This project doesn't exist or has been removed.</p>
         <Link to="/works" className="mt-4 px-8 py-4 bg-[#0448a8] text-white font-inter font-bold uppercase rounded-full hover:bg-[#03367d] transition-colors">
           Back to Works
         </Link>
@@ -109,7 +101,7 @@ const ProjectDetails = () => {
         <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
           
           {/* Back nav */}
-          <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-2 font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280] hover:text-[#1A1A1A] transition-colors mb-12 md:mb-16">
+          <button onClick={() => navigate(-1)} className="group inline-flex items-center gap-2 font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#595959] hover:text-[#1A1A1A] transition-colors mb-12 md:mb-16">
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to Projects
           </button>
@@ -123,7 +115,7 @@ const ProjectDetails = () => {
               {project.year && (
                 <>
                   <span className="w-1.5 h-1.5 rounded-full bg-[#1A1A1A]/20" />
-                  <span className="font-inter text-sm font-bold tracking-[0.2em] uppercase text-[#6B7280]">
+                  <span className="font-inter text-sm font-bold tracking-[0.2em] uppercase text-[#595959]">
                     {project.year}
                   </span>
                 </>
@@ -136,7 +128,7 @@ const ProjectDetails = () => {
             </h1>
 
             {/* Short description */}
-            <p className="font-inter text-[#6B7280] text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mb-12 font-light">
+            <p className="font-inter text-[#595959] text-lg sm:text-xl md:text-2xl leading-relaxed max-w-3xl mb-12 font-light">
               {project.shortDescription}
             </p>
 
@@ -190,19 +182,19 @@ const ProjectDetails = () => {
               <div className="space-y-6">
                 {project.role && (
                   <div className="flex flex-col gap-2 pb-6 border-b border-[#1A1A1A]/10">
-                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Role</span>
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#595959]">Role</span>
                     <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.role}</span>
                   </div>
                 )}
                 {project.timeline && (
                   <div className="flex flex-col gap-2 pb-6 border-b border-[#1A1A1A]/10">
-                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Timeline</span>
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#595959]">Timeline</span>
                     <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.timeline}</span>
                   </div>
                 )}
                 {project.category && (
                   <div className="flex flex-col gap-2">
-                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#6B7280]">Category</span>
+                    <span className="font-inter text-xs font-bold tracking-[0.2em] uppercase text-[#595959]">Category</span>
                     <span className="font-inter text-base font-semibold text-[#1A1A1A]">{project.category}</span>
                   </div>
                 )}
@@ -269,7 +261,7 @@ const ProjectDetails = () => {
 
             <div className="flex items-end justify-between mb-16">
               <div>
-                <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#6B7280] mb-4">
+                <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#595959] mb-4">
                   Keep Exploring
                 </p>
                 <h2 className="font-headline text-4xl md:text-6xl text-[#1A1A1A] tracking-tighter uppercase">
@@ -302,7 +294,7 @@ const ProjectDetails = () => {
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#0448a8]/5 blur-[100px] rounded-full -translate-x-1/2 translate-y-1/2 pointer-events-none" />
         
         <div className="max-w-[1200px] w-full mx-auto px-6 md:px-12 lg:px-16 xl:px-24 text-center relative z-10">
-          <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#6B7280] mb-6">
+          <p className="font-inter text-sm font-bold tracking-[0.3em] uppercase text-[#595959] mb-6">
             Next step
           </p>
           <h2 className="font-headline text-5xl md:text-7xl text-[#1A1A1A] tracking-tighter uppercase leading-[1.1] mb-12 drop-shadow-sm">

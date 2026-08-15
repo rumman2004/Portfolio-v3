@@ -25,7 +25,7 @@ const ProjectCaseStudy = ({ solution, results, features }) => {
       {/* The Solution */}
       {hasSolution && (
         <SectionCard icon={Lightbulb} iconBg="bg-[#0448a8]/10" iconColor="text-[#0448a8]" title="The Solution">
-          <p className="font-inter text-[#6B7280] text-lg leading-[1.8] whitespace-pre-line">
+          <p className="font-inter text-[#595959] text-lg leading-[1.8] whitespace-pre-line">
             {solution}
           </p>
         </SectionCard>
@@ -34,7 +34,7 @@ const ProjectCaseStudy = ({ solution, results, features }) => {
       {/* Results & Impact */}
       {hasResults && (
         <SectionCard icon={TrendingUp} iconBg="bg-green-500/10" iconColor="text-green-600" title="Results & Impact">
-          <p className="font-inter text-[#6B7280] text-lg leading-[1.8] whitespace-pre-line">
+          <p className="font-inter text-[#595959] text-lg leading-[1.8] whitespace-pre-line">
             {results}
           </p>
         </SectionCard>

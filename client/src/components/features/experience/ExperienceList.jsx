@@ -5,7 +5,8 @@ import Modal from '../../UI/Modal';
 import Button from '../../UI/Button';
 import ExperienceForm from './ExperienceForm';
 import { experienceServices } from '../../../services/experienceServices';
-import { Plus, Edit2, Trash2, Briefcase, Calendar, Loader } from 'lucide-react';
+import { Plus, Edit2, Trash2, Briefcase, Calendar } from 'lucide-react';
+import Loader from '../../UI/Loader';
 import { toast } from 'react-hot-toast';
 
 const ExperienceList = () => {
@@ -68,9 +69,7 @@ const ExperienceList = () => {
       />
       
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <Loader className="w-8 h-8 text-blue-500 animate-spin" />
-        </div>
+        <Loader />
       ) : experiences?.length === 0 ? (
         <div className="bg-white/40 backdrop-blur-md border border-white/60 rounded-3xl p-10 flex flex-col items-center text-center">
           <div className="w-16 h-16 bg-white/60 shadow-sm rounded-full flex items-center justify-center mb-4">

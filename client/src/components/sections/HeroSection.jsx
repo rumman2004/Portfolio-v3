@@ -25,7 +25,14 @@ const HeroSection = () => {
   const firstName = nameParts[0] || 'Rumman';
   const lastName = nameParts.slice(1).join(' ') || 'Ahmed';
   const role = profile?.headline || profile?.role || 'Creative Developer';
-  const heroImage = profile?.heroImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png";
+  // Optimize Cloudinary URL by injecting responsive transform params
+  const optimizeCloudinary = (url) => {
+    if (url && url.includes('cloudinary.com') && !url.includes('w_600')) {
+      return url.replace('/upload/', '/upload/w_600,f_auto,q_auto/');
+    }
+    return url;
+  };
+  const heroImage = optimizeCloudinary(profile?.heroImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png");
 
   return (
     <section
@@ -77,6 +84,8 @@ const HeroSection = () => {
           <img
             src={heroImage}
             alt={profile?.name || "Rumman"}
+            fetchPriority="high"
+            crossOrigin="anonymous"
             className="w-full h-full object-contain object-bottom drop-shadow-2xl relative z-20"
             style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 35%)', maskImage: 'linear-gradient(to top, transparent 0%, black 35%)' }}
             onError={(e) => {
@@ -98,7 +107,7 @@ const HeroSection = () => {
           <p className="font-inter text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-[#1A1A1A] font-bold leading-tight">
             {firstName} {lastName && <span className="text-[#0448a8]">{lastName}</span>}
           </p>
-          <p className="font-inter text-sm sm:text-base text-[#6B7280] font-medium mt-1.5 leading-snug">
+          <p className="font-inter text-sm sm:text-base text-[#595959] font-medium mt-1.5 leading-snug">
             {role}
           </p>
         </div>

@@ -138,7 +138,7 @@ const AboutSection = () => {
             
             <div className="flex items-center gap-4 mb-6 sm:mb-8 relative z-10">
               <div className="w-12 h-[2px] bg-gradient-to-r from-[#0448a8] to-transparent"></div>
-              <h4 className="text-sm font-bold text-[#1A1A1A] uppercase tracking-[0.2em]">About Me</h4>
+              <h2 className="text-sm font-bold text-[#1A1A1A] uppercase tracking-[0.2em]">About Me</h2>
             </div>
             
             <div className="space-y-4 sm:space-y-5 relative z-10">

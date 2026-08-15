@@ -81,7 +81,7 @@ const ContactSection = () => {
             </span>
           </h2>
 
-          <p className="contact-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="contact-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             Have a project in mind or want to collaborate? I'd love to hear from you. Let's create something amazing together.
           </p>
 
@@ -107,7 +107,7 @@ const ContactSection = () => {
                         <Icon className="w-5 h-5" />
                       </div>
                       <div className="flex flex-col">
-                        <p className="font-inter font-medium text-[#6B7280] text-xs uppercase tracking-wider mb-1">{label}</p>
+                        <p className="font-inter font-medium text-[#595959] text-xs uppercase tracking-wider mb-1">{label}</p>
                         {href ? (
                           <a href={href} className="font-inter font-bold text-[#1A1A1A] text-base hover:text-[#0448a8] transition-colors line-clamp-1">
                             {value}
@@ -123,7 +123,7 @@ const ContactSection = () => {
                 {/* Social Links rendering */}
                 {socialLinks.length > 0 && (
                   <div className="mt-10 pt-8 border-t border-[#1A1A1A]/10">
-                    <p className="font-inter font-medium text-[#6B7280] text-xs uppercase tracking-wider mb-4">Also find me on</p>
+                    <p className="font-inter font-medium text-[#595959] text-xs uppercase tracking-wider mb-4">Also find me on</p>
                     <div className="flex flex-wrap gap-3">
                       {socialLinks.map((social) => {
                         const iconSrc = resolveIcon(social);

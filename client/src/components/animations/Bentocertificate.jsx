@@ -180,7 +180,7 @@ const CertificateCard = ({ cert, isActive, onActivate }) => {
         </div>
 
         <div className="flex items-center justify-between border-t border-[#ECECEC] pt-3 mt-auto">
-          <span className="font-inter text-[12px] text-[#888]">
+          <span className="font-inter text-[12px] text-[#595959]">
             {[issuer, year].filter(Boolean).join(' • ')}
           </span>
           <a
@@ -449,7 +449,7 @@ const Bentocertificate = ({ certificates = [] }) => {
           ))
         ) : (
           <div className="absolute left-1/2 top-1/2 w-full -translate-x-1/2 -translate-y-1/2 text-center">
-            <span className="text-lg font-medium text-[#8A8A8A]">No certificates found.</span>
+            <span className="text-lg font-medium text-[#595959]">No certificates found.</span>
           </div>
         )}
       </div>
@@ -473,16 +473,20 @@ const Bentocertificate = ({ certificates = [] }) => {
                 onClick={() => goToIndex(idx)}
                 aria-label={`Go to certificate ${idx + 1}`}
                 aria-current={idx === currentIndex}
-                className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B4FFF] focus-visible:ring-offset-2 ${
-                  idx === currentIndex ? 'w-7 bg-[#3B4FFF]/20' : 'w-1.5 bg-[#E8E8E8] hover:bg-[#CCC]'
-                }`}
+                className="group flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center focus:outline-none"
               >
-                {idx === currentIndex && (
-                  <span
-                    ref={(el) => { dotFillRefs.current[idx] = el; }}
-                    className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 rounded-full bg-[#3B4FFF]"
-                  />
-                )}
+                <div
+                  className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 group-focus-visible:ring-2 group-focus-visible:ring-[#3B4FFF] group-focus-visible:ring-offset-2 ${
+                    idx === currentIndex ? 'w-7 bg-[#3B4FFF]/20' : 'w-1.5 bg-[#E8E8E8] group-hover:bg-[#CCC]'
+                  }`}
+                >
+                  {idx === currentIndex && (
+                    <span
+                      ref={(el) => { dotFillRefs.current[idx] = el; }}
+                      className="absolute inset-y-0 left-0 w-full origin-left scale-x-0 rounded-full bg-[#3B4FFF]"
+                    />
+                  )}
+                </div>
               </button>
             ))}
           </div>

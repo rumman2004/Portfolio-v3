@@ -76,7 +76,7 @@ const ProjectSection = () => {
           </h2>
 
           {/* Short introductory paragraph */}
-          <p className="proj-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="proj-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             A curated selection of projects showcasing strategy, design, and development across web, mobile, and branding experiences.
           </p>
 
@@ -91,11 +91,11 @@ const ProjectSection = () => {
           ) : error ? (
             <div className="h-[320px] w-full max-w-5xl bg-white border border-[#232323]/10 flex flex-col items-center justify-center gap-2 text-center px-6 rounded-3xl">
               <span className="font-inter text-[#232323] text-base font-semibold">The work couldn't be loaded</span>
-              <span className="font-inter text-[#8A8A8A] text-sm">Refresh the page, or check back shortly.</span>
+              <span className="font-inter text-[#767676] text-sm">Refresh the page, or check back shortly.</span>
             </div>
           ) : projectCount === 0 ? (
             <div className="h-[320px] w-full max-w-5xl bg-white border border-[#232323]/10 flex items-center justify-center rounded-3xl">
-              <span className="font-inter text-[#8A8A8A] text-base">New work is on the way — check back soon.</span>
+              <span className="font-inter text-[#767676] text-base">New work is on the way — check back soon.</span>
             </div>
           ) : (
             <div className="w-full">

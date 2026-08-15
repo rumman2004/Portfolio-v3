@@ -66,7 +66,7 @@ const BentoHackathon = ({ hackathons = [], loading = false }) => {
         <HackathonGridSkeleton />
       ) : !hackathons.length ? (
         <div className="h-[220px] bg-[#F8F8F8] border border-[#1A1A1A]/10 rounded-2xl flex items-center justify-center">
-          <span className="font-inter text-[#6B7280] text-base">No hackathon projects listed yet — check back soon.</span>
+          <span className="font-inter text-[#595959] text-base">No hackathon projects listed yet — check back soon.</span>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -93,16 +93,16 @@ const BentoHackathon = ({ hackathons = [], loading = false }) => {
                 </div>
 
                 <h3 className="font-inter font-bold text-[#1A1A1A] text-lg mb-2">{hack.title}</h3>
-                <p className="font-inter text-[#6B7280] text-sm leading-relaxed mb-6">{hack.description}</p>
+                <p className="font-inter text-[#595959] text-sm leading-relaxed mb-6">{hack.description}</p>
 
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-4 border-t border-[#1A1A1A]/10">
                   {hack.date && (
-                    <span className="inline-flex items-center gap-1.5 font-inter text-xs text-[#6B7280]">
+                    <span className="inline-flex items-center gap-1.5 font-inter text-xs text-[#595959]">
                       <Calendar className="w-3.5 h-3.5" aria-hidden="true" /> {formatDate(hack.date)}
                     </span>
                   )}
                   {hack.organization && (
-                    <span className="inline-flex items-center gap-1.5 font-inter text-xs text-[#6B7280]">
+                    <span className="inline-flex items-center gap-1.5 font-inter text-xs text-[#595959]">
                       <MapPin className="w-3.5 h-3.5" aria-hidden="true" /> {hack.organization}
                     </span>
                   )}

@@ -151,7 +151,7 @@ const Nav = () => {
       <header className="lg-nav">
         <div className="lg-glass">
           {/* Logo */}
-          <Link to="/" className="lg-logo lg-logo-wrap" style={{ display: 'none' }}>
+          <Link to="/" aria-label="Home" className="lg-logo lg-logo-wrap" style={{ display: 'none' }}>
             RUMMAN<span>.</span>
           </Link>
 
@@ -161,17 +161,18 @@ const Nav = () => {
               <Link
                 key={to}
                 to={to}
+                aria-label={label}
                 className={`lg-link${location.pathname === to ? ' active' : ''}`}
               >
-                <Icon className="lg-link-icon" size={18} />
+                <Icon className="lg-link-icon" size={18} aria-hidden="true" />
                 <span className="lg-link-label">{label}</span>
               </Link>
             ))}
           </nav>
 
           {/* CTA */}
-          <Link to="/contact" className="lg-cta">
-            <MessageSquare className="lg-cta-icon" size={17} />
+          <Link to="/contact" aria-label="Let's Talk" className="lg-cta">
+            <MessageSquare className="lg-cta-icon" size={17} aria-hidden="true" />
             <span className="lg-cta-label">Let's Talk</span>
           </Link>
         </div>

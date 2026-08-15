@@ -140,7 +140,7 @@ const EducationSection = () => {
             </span>
           </h2>
 
-          <p className="edu-desc font-inter text-[#6B7280] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
+          <p className="edu-desc font-inter text-[#595959] text-base md:text-lg font-medium max-w-2xl mt-6 relative z-10 leading-relaxed">
             My academic journey that laid the foundation for my skills, creativity, and problem-solving mindset.
           </p>
 

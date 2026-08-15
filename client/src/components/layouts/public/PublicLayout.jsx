@@ -22,8 +22,8 @@ const PublicLayout = () => {
     <div className="flex flex-col min-h-screen relative bg-[#F4F4F4] selection:bg-[#4F46E5] selection:text-white">
       {/* Global Soft Grain Texture Overlay */}
       <div 
-        className="fixed inset-0 pointer-events-none opacity-[0.05] mix-blend-multiply z-[0]"
-        style={{ backgroundImage: 'url("https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Dissolve_Noise_Texture.png")', backgroundRepeat: 'repeat' }}
+        className="fixed inset-0 pointer-events-none opacity-[0.4] mix-blend-multiply z-[0]"
+        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.15%22/%3E%3C/svg%3E")', backgroundRepeat: 'repeat' }}
       ></div>
 
       <div className="relative z-10 flex flex-col min-h-screen">

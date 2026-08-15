@@ -199,7 +199,7 @@ const MobileCard = ({ project, index }) => {
             <h2 className="wk-font-headline text-xl text-[#111] leading-tight">{project.title}</h2>
             <ArrowUpRight size={16} className="text-[#0448a8] mt-0.5 flex-shrink-0" />
           </div>
-          <p className="wk-font-inter text-[#888] text-xs leading-relaxed mb-4 line-clamp-2">
+          <p className="wk-font-inter text-[#767676] text-xs leading-relaxed mb-4 line-clamp-2">
             {project.shortDescription}
           </p>
           <div className="flex flex-wrap gap-1.5">
@@ -324,7 +324,7 @@ const Works = () => {
             Portfolio
           </span>
           <span className="wk-hero-tag w-1 h-1 rounded-full bg-[#ccc]" aria-hidden="true" />
-          <span className="wk-hero-tag wk-font-inter text-[10px] font-bold tracking-[0.3em] uppercase text-[#888]">
+          <span className="wk-hero-tag wk-font-inter text-[10px] font-bold tracking-[0.3em] uppercase text-[#767676]">
             {new Date().getFullYear()}
           </span>
         </div>
@@ -350,7 +350,7 @@ const Works = () => {
         </div>
 
         {/* Sub */}
-        <p className="wk-hero-sub wk-font-inter text-[#888] text-base md:text-lg leading-relaxed max-w-xl mt-8">
+        <p className="wk-hero-sub wk-font-inter text-[#767676] text-base md:text-lg leading-relaxed max-w-xl mt-8">
           A curated index of web, mobile, and design work — each project built from a clear brief and shipped with intention.
         </p>
       </section>
@@ -373,13 +373,13 @@ const Works = () => {
           <div className="hidden md:flex items-center gap-2 ml-4 pl-4 border-l border-black/[0.1]">
             <button
               onClick={() => setViewMode('list')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-black/5 text-black' : 'text-[#888] hover:text-black hover:bg-black/5'}`}
+              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'list' ? 'bg-black/5 text-black' : 'text-[#767676] hover:text-black hover:bg-black/5'}`}
             >
               <List size={18} />
             </button>
             <button
               onClick={() => setViewMode('grid')}
-              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-black/5 text-black' : 'text-[#888] hover:text-black hover:bg-black/5'}`}
+              className={`p-1.5 rounded-lg transition-colors ${viewMode === 'grid' ? 'bg-black/5 text-black' : 'text-[#767676] hover:text-black hover:bg-black/5'}`}
             >
               <LayoutGrid size={18} />
             </button>
@@ -400,11 +400,11 @@ const Works = () => {
         ) : error ? (
           <div className="px-6 py-20 text-center">
             <p className="wk-font-inter text-[#111] font-semibold text-base">Couldn't load projects.</p>
-            <p className="wk-font-inter text-[#888] text-sm mt-1">Refresh the page or check back shortly.</p>
+            <p className="wk-font-inter text-[#767676] text-sm mt-1">Refresh the page or check back shortly.</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="px-6 py-20 text-center">
-            <p className="wk-font-inter text-[#888] text-base">No projects in this category yet.</p>
+            <p className="wk-font-inter text-[#767676] text-base">No projects in this category yet.</p>
           </div>
         ) : (
           <>

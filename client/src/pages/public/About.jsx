@@ -225,7 +225,7 @@ const AboutHero = () => {
 
       {/* Scroll hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50">
-        <span className="font-inter text-[9px] uppercase tracking-[0.35em] text-[#6B7280] font-bold">Scroll</span>
+        <span className="font-inter text-[9px] uppercase tracking-[0.35em] text-[#595959] font-bold">Scroll</span>
         <div className="w-px h-14 bg-gradient-to-b from-[#6B7280] to-transparent" />
       </div>
     </section>
@@ -282,7 +282,7 @@ const SkillsPanel = () => {
           <h2 className="font-headline text-5xl md:text-7xl text-[#111] tracking-tighter uppercase leading-none mb-6">
             Technologies<span className="text-[#0448a8]">.</span>
           </h2>
-          <p className="font-inter text-[#888] text-base md:text-lg max-w-xl leading-relaxed">
+          <p className="font-inter text-[#767676] text-base md:text-lg max-w-xl leading-relaxed">
             A diverse toolkit built through freelance projects, late-night builds, and a genuine
             obsession with making things work well.
           </p>
@@ -365,7 +365,7 @@ const ExperienceItem = ({ exp, index, isLast }) => {
             <h3 className="font-headline text-xl md:text-2xl text-[#111] leading-snug">
               {exp.position ?? exp.title}
             </h3>
-            <p className="font-inter text-[#888] text-sm mt-1">{exp.company}</p>
+            <p className="font-inter text-[#767676] text-sm mt-1">{exp.company}</p>
             <div className="flex items-center gap-1.5 mt-3 text-[#555] text-xs font-inter">
               <MapPin size={11} className="text-[#0448a8]" />
               {exp.location ?? 'Remote'}
@@ -409,7 +409,7 @@ const ExperienceSection = () => {
           <h2 className="font-headline text-5xl md:text-7xl text-[#111] tracking-tighter uppercase leading-none">
             Experience<span className="text-[#0448a8]">.</span>
           </h2>
-          <p className="font-inter text-[#888] text-base max-w-xs leading-relaxed">
+          <p className="font-inter text-[#767676] text-base max-w-xs leading-relaxed">
             A journey of collaboration, creativity, and continuous growth.
           </p>
         </div>
@@ -471,7 +471,7 @@ const EducationSection = () => {
               Education<span className="text-[#0448a8]">.</span>
             </h2>
           </div>
-          <p className="font-inter text-[#888] text-base max-w-xs leading-relaxed">
+          <p className="font-inter text-[#767676] text-base max-w-xs leading-relaxed">
             The academic foundation behind my skills, creativity, and problem-solving.
           </p>
         </div>
@@ -516,7 +516,7 @@ const EducationSection = () => {
                         {item.institution}
                       </div>
 
-                      <p className="font-inter text-[#888] text-sm mt-1">{item.field}</p>
+                      <p className="font-inter text-[#767676] text-sm mt-1">{item.field}</p>
                       
                       {item.location && (
                         <div className="flex items-center gap-1.5 mt-2 text-xs font-inter text-[#777]">
@@ -565,7 +565,7 @@ const CertCard = ({ cert, i }) => {
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ background: `${cert.color}18` }}>
                   <Award size={24} style={{ color: cert.color }} />
                 </div>
-                <span className="font-inter text-xs font-semibold text-[#888]">{cert.issuer}</span>
+                <span className="font-inter text-xs font-semibold text-[#767676]">{cert.issuer}</span>
              </div>
           )}
         </div>
@@ -577,7 +577,7 @@ const CertCard = ({ cert, i }) => {
              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: `${cert.color}18` }}>
                <Award size={14} style={{ color: cert.color }} />
              </div>
-             <span className="font-inter text-[11px] font-bold text-[#888] tracking-widest uppercase">{cert.year}</span>
+             <span className="font-inter text-[11px] font-bold text-[#767676] tracking-widest uppercase">{cert.year}</span>
           </div>
           {(cert.link || cert.credentialUrl) && (
             <a href={cert.link || cert.credentialUrl} target="_blank" rel="noopener noreferrer" aria-label={`Open ${cert.title}`} className="flex-shrink-0 w-7 h-7 rounded-full border border-black/10 flex items-center justify-center text-[#555] transition-all duration-150 hover:bg-[#3B4FFF] hover:border-[#3B4FFF] hover:text-white">
@@ -624,7 +624,7 @@ const CertificatesSection = () => {
               Credentials<span className="text-[#0448a8]">.</span>
             </h2>
           </div>
-          <p className="font-inter text-[#888] text-base max-w-xs leading-relaxed">
+          <p className="font-inter text-[#767676] text-base max-w-xs leading-relaxed">
             {list.length} verified credentials — a record of continuous learning.
           </p>
         </div>
