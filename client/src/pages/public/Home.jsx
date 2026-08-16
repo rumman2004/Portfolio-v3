@@ -1,3 +1,5 @@
+import React, { useEffect } from "react";
+import { useMascot } from "../../context/MascotContext";
 import HeroSection from "../../components/sections/HeroSection.jsx";
 import AboutSection from "../../components/sections/AboutSection.jsx";
 import SkillSection from "../../components/sections/SkillSection.jsx";
@@ -11,6 +13,12 @@ import GithubActivity from "../../components/sections/GithubActivity.jsx";
 import SEO from "../../components/common/SEO.jsx";
 
 const Home = () => {
+  const { notifyMascot } = useMascot();
+
+  useEffect(() => {
+    notifyMascot("Welcome to my digital space! Scroll down to see what I've been up to!", "happy");
+  }, [notifyMascot]);
+
   return (
     <div>
       <SEO

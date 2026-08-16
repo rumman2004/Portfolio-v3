@@ -95,44 +95,49 @@ const NotifSkillPanel = () => {
         return [nextSkill, ...prev].slice(0, VISIBLE_MAX);
       });
       setIdx(i => i + 1);
-    }, 1800); // 1.8s delay between drops
+    }, 2200); // Slower interval for a premium feel
     return () => clearTimeout(timer);
   }, [idx]);
 
   return (
-    <div className="flex flex-col gap-2 justify-end" style={{ minHeight: '260px' }}>
-      {visible.map((skill, i) => {
+    <div 
+      className="flex flex-col relative pt-2" 
+      style={{ 
+        height: '330px',
+        maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
+      }}
+    >
+      {visible.map((skill) => {
         const iconUrl = resolveIcon(skill);
         return (
-          <div
-            key={skill.uid}
-            className="flex items-center gap-3.5 bg-white/50 backdrop-blur-xl border border-white/60 rounded-2xl px-5 py-3.5 shadow-lg shadow-slate-200/50"
-            style={{
-              animation: i === 0 ? 'notif-drop 0.45s cubic-bezier(.22,1,.36,1) both' : 'none',
-            }}
-          >
-            <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-white/60 border border-white/80 shadow-sm flex items-center justify-center p-1.5 backdrop-blur-md">
-              {iconUrl ? (
-                <img
-                  src={iconUrl}
-                  alt={skill.name}
-                  className="w-full h-full object-contain"
-                  onError={e => { e.target.style.display = 'none'; }}
-                />
-              ) : (
-                <span className="text-xs font-bold text-gray-400">{skill.name[0]}</span>
-              )}
+          <div key={skill.uid} className="notif-item min-w-0 w-full">
+            <div style={{ minHeight: 0 }} className="min-w-0 w-full">
+              <div className="flex items-center gap-2.5 sm:gap-4 bg-white/70 backdrop-blur-2xl border border-white/80 rounded-[16px] sm:rounded-[20px] px-3 sm:px-5 py-3 sm:py-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)] mb-3 mx-0 sm:mx-2 transition-transform duration-300 hover:bg-white hover:scale-[1.02] cursor-default">
+                <div className="flex-shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-[12px] sm:rounded-[14px] bg-white border border-gray-100 shadow-sm flex items-center justify-center p-2 sm:p-2.5">
+                  {iconUrl ? (
+                    <img
+                      src={iconUrl}
+                      alt={skill.name}
+                      className="w-full h-full object-contain drop-shadow-sm"
+                      onError={e => { e.target.style.display = 'none'; }}
+                    />
+                  ) : (
+                    <span className="text-xs font-bold text-gray-400">{skill.name[0]}</span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-[13px] sm:text-[15px] font-bold text-gray-900 leading-none truncate tracking-tight">{skill.name}</p>
+                  <p className="text-[10px] sm:text-[12px] text-gray-500 mt-1 sm:mt-1.5 truncate font-medium">{skill.desc}</p>
+                </div>
+                <span
+                  className="flex-shrink-0 text-[8px] sm:text-[10px] font-bold px-2 sm:px-3 py-1 sm:py-1.5 rounded-full tracking-wider sm:tracking-widest uppercase shadow-sm"
+                  style={{ background: skill.catColor.bg, color: skill.catColor.text }}
+                >
+                  {skill.cat}
+                </span>
+              </div>
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-800 leading-none truncate">{skill.name}</p>
-              <p className="text-[10px] text-gray-400 mt-0.5 truncate">{skill.desc}</p>
-            </div>
-            <span
-              className="flex-shrink-0 text-[9px] font-bold px-2 py-0.5 rounded-full tracking-wider uppercase"
-              style={{ background: skill.catColor.bg, color: skill.catColor.text }}
-            >
-              {skill.cat}
-            </span>
           </div>
         );
       })}
@@ -169,9 +174,23 @@ const SkillSection = () => {
   return (
     <section id="skills" ref={containerRef} className="py-20 sm:py-24 lg:py-32 bg-transparent relative overflow-hidden">
       <style>{`
-        @keyframes notif-drop {
-          from { opacity: 0; transform: translateY(-18px) scale(0.96); }
-          to   { opacity: 1; transform: translateY(0)     scale(1); }
+        @keyframes notif-enter {
+          0% {
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transform: translateY(-24px) scale(0.9);
+            filter: blur(8px);
+          }
+          100% {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+          }
+        }
+        .notif-item {
+          display: grid;
+          animation: notif-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
       `}</style>
 

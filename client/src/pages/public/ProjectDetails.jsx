@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useMascot } from '../../context/MascotContext';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { ArrowLeft, ExternalLink, ArrowUpRight } from 'lucide-react';
@@ -59,11 +60,18 @@ const ProjectDetails = () => {
 
   const { data: projectData, loading, error } = useFetch(`/projects/${id}`);
   const { data: allProjects } = useFetch('/projects');
+  const { notifyMascot } = useMascot();
 
   useEffect(() => { window.scrollTo(0, 0); }, [id]);
 
   // Use API data or fallback
   const project = projectData || FALLBACK_PROJECT;
+
+  useEffect(() => {
+    if (!loading && project) {
+      notifyMascot(`Ah, ${project.title}! That was a really fun ${project.category || 'project'} to build.`, "happy");
+    }
+  }, [loading, project.title, project.category, notifyMascot]);
   const heroImg = project.image?.url || project.heroImage;
   const gallery = project.gallery?.length ? project.gallery : (project.screenshots || []);
 

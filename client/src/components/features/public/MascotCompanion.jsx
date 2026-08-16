@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { JellyBlobMascot } from 'feral-blob';
 import 'feral-blob/blob.css';
 import { useMascot } from '../../../context/MascotContext';
@@ -9,13 +9,16 @@ const MascotCompanion = () => {
   const location = useLocation();
   const [scrollDepth, setScrollDepth] = useState(0);
 
-  // Do not show on admin routes
-  if (location.pathname.startsWith('/admin') || !isVisible) {
-    return null;
-  }
+  const shouldHide = location.pathname.startsWith('/admin') || !isVisible;
+
+  const moodRef = useRef(mood);
+  useEffect(() => {
+    moodRef.current = mood;
+  }, [mood]);
 
   // Scroll listener for sweet messages
   useEffect(() => {
+    if (shouldHide) return;
     let lastScrollY = window.scrollY;
     
     const handleScroll = () => {
@@ -41,10 +44,11 @@ const MascotCompanion = () => {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [notifyMascot, scrollDepth]);
+  }, [notifyMascot, scrollDepth, shouldHide]);
 
   // Idle timer and Random Greetings
   useEffect(() => {
+    if (shouldHide) return;
     let idleTimer;
     let greetingTimer;
     let intervalTimer;
@@ -52,8 +56,8 @@ const MascotCompanion = () => {
     const resetIdle = () => {
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
-        if (mood !== 'sad') notifyMascot("Zzz... still there?", "sad", 5000);
-      }, 45000); // 45 seconds of idle
+        if (moodRef.current !== 'sad') notifyMascot("Zzz... still there?", "sad", 5000);
+      }, 20000); // 20 seconds of idle
     };
 
     const fetchRandomGreeting = async () => {
@@ -94,7 +98,11 @@ const MascotCompanion = () => {
       clearTimeout(greetingTimer);
       clearInterval(intervalTimer);
     };
-  }, [notifyMascot, mood]);
+  }, [notifyMascot, shouldHide]);
+
+  if (shouldHide) {
+    return null;
+  }
 
   return (
     <div className="fixed bottom-6 right-6 z-50 pointer-events-none">

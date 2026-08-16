@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useMascot } from '../../context/MascotContext';
 import { iconMap } from '../../utils/iconMap';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -147,6 +148,7 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
 const BentoProject = ({ projects = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { notifyMascot } = useMascot();
 
   const containerRef = useRef(null);
   const indexRef = useRef(0);
@@ -170,8 +172,14 @@ const BentoProject = ({ projects = [] }) => {
     const total = displayProjects.length;
     setCurrentIndex(((idx % total) + total) % total);
   };
-  const handleNext = () => goToIndex(currentIndex + 1);
-  const handlePrev = () => goToIndex(currentIndex - 1);
+  const handleNext = () => {
+    goToIndex(currentIndex + 1);
+    notifyMascot("Ooh, let's see the next one!", "excited", 3000);
+  };
+  const handlePrev = () => {
+    goToIndex(currentIndex - 1);
+    notifyMascot("Wait, go back! That looked cool!", "hmm", 3000);
+  };
 
   const syncPaused = () => {
     const { hover, touch, focus } = interactionRef.current;
@@ -397,18 +405,18 @@ const BentoProject = ({ projects = [] }) => {
 
       {/* Controls */}
       {displayProjects.length > 0 && (
-        <div className="z-20 mt-6 flex items-center gap-4 pointer-coarse:gap-5 sm:mt-8 md:mt-10">
+        <div className="z-20 mt-6 flex w-full max-w-full items-center justify-center gap-2 px-2 sm:gap-4 sm:mt-8 md:mt-10">
           <button
             type="button"
             onClick={handlePrev}
             aria-label="Previous project"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#232323]/20 text-[#232323] shadow-sm transition-all duration-300 hover:border-[#0448a8] hover:bg-[#0448a8] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2"
+            className="flex h-9 w-9 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#232323]/20 text-[#232323] shadow-sm transition-all duration-300 hover:border-[#0448a8] hover:bg-[#0448a8] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
 
           {/* Pagination, each active dot doubles as an autoplay progress bar */}
-          <div className="flex items-center gap-2 pointer-coarse:gap-3">
+          <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2">
             {displayProjects.map((project, idx) => (
               <button
                 key={project._id || idx}
@@ -416,7 +424,7 @@ const BentoProject = ({ projects = [] }) => {
                 onClick={() => goToIndex(idx)}
                 aria-label={`Go to project ${idx + 1} of ${displayProjects.length}: ${project.title}`}
                 aria-current={idx === currentIndex}
-                className="group flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center focus:outline-none"
+                className="group flex h-8 w-8 sm:h-12 sm:w-12 shrink-0 items-center justify-center focus:outline-none"
               >
                 <div
                   className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 group-focus-visible:ring-2 group-focus-visible:ring-[#0448a8] group-focus-visible:ring-offset-2 ${
@@ -438,9 +446,9 @@ const BentoProject = ({ projects = [] }) => {
             type="button"
             onClick={handleNext}
             aria-label="Next project"
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-[#232323]/20 text-[#232323] shadow-sm transition-all duration-300 hover:border-[#0448a8] hover:bg-[#0448a8] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2"
+            className="flex h-9 w-9 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#232323]/20 text-[#232323] shadow-sm transition-all duration-300 hover:border-[#0448a8] hover:bg-[#0448a8] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0448a8] focus-visible:ring-offset-2"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
       )}

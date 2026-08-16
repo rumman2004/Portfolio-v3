@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { useMascot } from '../../context/MascotContext';
 
 gsap.registerPlugin(useGSAP);
 
@@ -222,6 +223,7 @@ const CertificateCard = ({ cert, isActive, onActivate }) => {
 const Bentocertificate = ({ certificates = [] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const { notifyMascot } = useMascot();
 
   const containerRef = useRef(null);
   const indexRef = useRef(0);
@@ -243,8 +245,14 @@ const Bentocertificate = ({ certificates = [] }) => {
     const total = displayCertificates.length;
     setCurrentIndex(((idx % total) + total) % total);
   };
-  const handleNext = () => goToIndex(currentIndex + 1);
-  const handlePrev = () => goToIndex(currentIndex - 1);
+  const handleNext = () => {
+    goToIndex(currentIndex + 1);
+    notifyMascot("More achievements! You've been busy!", "excited", 3000);
+  };
+  const handlePrev = () => {
+    goToIndex(currentIndex - 1);
+    notifyMascot("Let's review that last credential!", "hmm", 3000);
+  };
 
   const syncPaused = () => {
     const { hover, touch, focus } = interactionRef.current;
@@ -455,17 +463,17 @@ const Bentocertificate = ({ certificates = [] }) => {
       </div>
 
       {displayCertificates.length > 0 && (
-        <div className="z-20 mt-4 flex items-center gap-4 sm:mt-6 md:mt-8">
+        <div className="z-20 mt-4 flex w-full max-w-full items-center justify-center gap-2 px-2 sm:gap-4 sm:mt-6 md:mt-8">
           <button
             type="button"
             onClick={handlePrev}
             aria-label="Previous certificate"
-            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#E8E8E8] bg-white text-[#333] shadow-sm transition-all duration-300 hover:border-[#3B4FFF] hover:bg-[#3B4FFF] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B4FFF] focus-visible:ring-offset-2"
+            className="flex h-9 w-9 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#E8E8E8] bg-white text-[#333] shadow-sm transition-all duration-300 hover:border-[#3B4FFF] hover:bg-[#3B4FFF] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B4FFF] focus-visible:ring-offset-2"
           >
-            <ChevronLeft className="h-5 w-5" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap justify-center items-center gap-1.5 sm:gap-2">
             {displayCertificates.map((cert, idx) => (
               <button
                 key={cert._id || cert.id || idx}
@@ -473,7 +481,7 @@ const Bentocertificate = ({ certificates = [] }) => {
                 onClick={() => goToIndex(idx)}
                 aria-label={`Go to certificate ${idx + 1}`}
                 aria-current={idx === currentIndex}
-                className="group flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center focus:outline-none"
+                className="group flex h-8 w-8 sm:h-12 sm:w-12 shrink-0 items-center justify-center focus:outline-none"
               >
                 <div
                   className={`relative h-1.5 overflow-hidden rounded-full transition-[width,background-color] duration-300 group-focus-visible:ring-2 group-focus-visible:ring-[#3B4FFF] group-focus-visible:ring-offset-2 ${
@@ -495,9 +503,9 @@ const Bentocertificate = ({ certificates = [] }) => {
             type="button"
             onClick={handleNext}
             aria-label="Next certificate"
-            className="flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#E8E8E8] bg-white text-[#333] shadow-sm transition-all duration-300 hover:border-[#3B4FFF] hover:bg-[#3B4FFF] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B4FFF] focus-visible:ring-offset-2"
+            className="flex h-9 w-9 shrink-0 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#E8E8E8] bg-white text-[#333] shadow-sm transition-all duration-300 hover:border-[#3B4FFF] hover:bg-[#3B4FFF] hover:text-white hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3B4FFF] focus-visible:ring-offset-2"
           >
-            <ChevronRight className="h-5 w-5" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
         </div>
       )}

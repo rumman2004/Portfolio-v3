@@ -57,7 +57,9 @@ const BentoHackathon = ({ hackathons = [], loading = false }) => {
   const containerRef = useRef();
 
   useGSAP(() => {
-    gsap.set('.hack-card', { opacity: 1, y: 0 });
+    if (!loading && hackathons.length > 0) {
+      gsap.set('.hack-card', { opacity: 1, y: 0 });
+    }
   }, { scope: containerRef, dependencies: [loading, hackathons.length] });
 
   return (

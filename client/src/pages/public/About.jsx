@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 import { useFetch } from '../../hooks/useFetch';
+import { useMascot } from '../../context/MascotContext';
 import {
   GraduationCap, Landmark, School, BookOpen, FileText,
   Award, MapPin, Trophy, Medal, Users, Box
@@ -250,7 +251,7 @@ const SkillsPanel = () => {
     // Shuffle the unique skills array once
     const shuffled = [...unique].sort(() => Math.random() - 0.5);
     setRandomizedSkills(shuffled);
-  }, [display]);
+  }, [skills]);
 
   useGSAP(() => {
     if (randomizedSkills.length === 0) return;
@@ -787,8 +788,15 @@ import SEO from '../../components/common/SEO.jsx';
 /* ─────────────────────────────────────────────────────────────
    PAGE ASSEMBLY
 ──────────────────────────────────────────────────────────────*/
-const About = () => (
-  <div className="pt-24">
+const About = () => {
+  const { notifyMascot } = useMascot();
+
+  React.useEffect(() => {
+    notifyMascot("Here is a little bit about my journey. Don't forget to check out my social media links at the bottom!", "happy");
+  }, [notifyMascot]);
+
+  return (
+    <div className="pt-24">
     <SEO 
       title="About | Rumman Ahmed" 
       description="Learn more about Rumman Ahmed's background, experience, and journey in web development." 
@@ -801,6 +809,7 @@ const About = () => (
     <CertificatesSection />
     <HackathonsSection />
   </div>
-);
+  );
+};
 
 export default About;

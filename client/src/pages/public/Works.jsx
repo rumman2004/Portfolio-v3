@@ -1,4 +1,5 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
+import { useMascot } from '../../context/MascotContext';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import gsap from 'gsap';
@@ -179,6 +180,7 @@ const Works = () => {
   const { data: projects, loading, error } = useFetch('/projects');
   const [activeCategory, setActiveCategory] = useState('All');
   const [viewMode, setViewMode] = useState('grid');
+  const { notifyMascot } = useMascot();
   const containerRef = useRef();
   const ghostRef = useRef();
   const rafRef = useRef();
@@ -214,6 +216,13 @@ const Works = () => {
     if (ghostRef.current) ghostRef.current.classList.remove('active');
   }, []);
 
+  useEffect(() => {
+    if (!loading && list.length > 0) {
+      const randomProject = list[Math.floor(Math.random() * list.length)];
+      notifyMascot(`So many projects! Have you checked out ${randomProject.title} yet? I highly recommend it!`, "happy");
+    }
+  }, [loading, list.length, notifyMascot]); // Only trigger when loading finishes
+
   useGSAP(() => {
     const pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (pref || loading || error) return;
@@ -234,12 +243,15 @@ const Works = () => {
 
     gsap.from('.wk-filter-bar', { opacity: 0, y: 12, duration: 0.5, ease: 'power2.out', delay: 0.6 });
 
-    gsap.from('.wk-row', {
-      opacity: 0, x: -16, stagger: 0.06, duration: 0.5, ease: 'power2.out',
-      scrollTrigger: { trigger: '.wk-list', start: 'top 80%' },
-    });
+    const rows = gsap.utils.toArray('.wk-row');
+    if (rows.length > 0) {
+      gsap.from(rows, {
+        opacity: 0, x: -16, stagger: 0.06, duration: 0.5, ease: 'power2.out',
+        scrollTrigger: { trigger: '.wk-list', start: 'top 80%' },
+      });
+    }
 
-  }, { scope: containerRef, dependencies: [loading] });
+  }, { scope: containerRef, dependencies: [loading, viewMode] });
 
   return (
     <div

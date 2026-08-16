@@ -100,28 +100,18 @@ const HeroSection = () => {
       </div>
 
 
-      {/* Layer 4: Text Content & CTAs */}
-      <div className="hero-info absolute inset-x-0 bottom-12 sm:bottom-16 md:bottom-auto md:inset-auto md:right-[6%] lg:right-[8%] md:top-[75%] md:-translate-y-1/2 z-40 hidden lg:flex flex-col items-center md:items-end gap-5 md:gap-6 text-center md:text-right md:w-[360px] px-4 md:px-0">
-
-        <div className="flex w-full max-w-[24rem] md:max-w-full flex-col items-center md:items-end bg-[#F4F4F4]/85 backdrop-blur-md rounded-2xl p-5 md:p-6 shadow-sm border border-white/60">
-          <p className="font-inter text-2xl sm:text-3xl md:text-3xl lg:text-4xl text-[#1A1A1A] font-bold leading-tight">
-            {firstName} {lastName && <span className="text-[#0448a8]">{lastName}</span>}
-          </p>
-          <p className="font-inter text-sm sm:text-base text-[#595959] font-medium mt-1.5 leading-snug">
-            {role}
-          </p>
-        </div>
-
-        <div className="flex flex-row flex-wrap items-center justify-center md:justify-end gap-3 w-full max-w-[24rem] md:max-w-full">
+      {/* Layer 4: CTAs (Floating Dock) */}
+      <div className="hero-info absolute right-24 sm:right-32 md:right-48 lg:right-[12%] bottom-4 sm:bottom-12 z-40 hidden lg:flex pointer-events-none">
+        <div className="flex items-center p-1.5 bg-white/70 backdrop-blur-xl rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.08)] border border-white/80 pointer-events-auto">
           <a
             href="#work"
-            className="flex-1 md:flex-none flex justify-center items-center min-h-12 px-6 py-3 bg-[#0448a8] !text-white hover:!text-[#0448a8] font-inter text-sm md:text-base font-semibold rounded-full hover:bg-white/80 hover:shadow-lg hover:shadow-[#0448a8]/20 transition-all duration-300 transform hover:-translate-y-0.5 whitespace-nowrap"
+            className="flex items-center justify-center px-8 h-[46px] bg-[#0448a8] !text-white font-inter text-[15px] font-semibold rounded-full shadow-[0_4px_12px_rgba(4,72,168,0.25)] hover:bg-[#033b8a] transition-colors duration-300"
           >
             View Work
           </a>
           <a
             href="#contact"
-            className="flex-1 md:flex-none flex justify-center items-center min-h-12 px-6 py-3 border border-[#1A1A1A]/15 bg-white/60 text-[#1A1A1A] font-inter text-sm md:text-base font-semibold rounded-full hover:border-[#0448a8] hover:text-[#0448a8] hover:bg-white transition-all duration-300 whitespace-nowrap"
+            className="flex items-center justify-center px-8 h-[46px] bg-transparent text-[#1A1A1A] font-inter text-[15px] font-medium rounded-full hover:bg-white/60 transition-colors duration-300"
           >
             Contact Me
           </a>
