@@ -19,6 +19,7 @@ const About          = lazyWithDelay(() => import('../pages/public/About'));
 const Works          = lazyWithDelay(() => import('../pages/public/Works'));
 const ProjectDetails = lazyWithDelay(() => import('../pages/public/ProjectDetails'));
 const Contact        = lazyWithDelay(() => import('../pages/public/Contact'));
+const NotFound       = lazyWithDelay(() => import('../pages/public/NotFound'));
 
 /* ─────────────────────────────────────────────────────────────
    FALLBACK LOADER
@@ -37,6 +38,7 @@ const PublicRoutes = () => (
         <Route path="/works/:id"  element={<ProjectDetails />} />
         <Route path="/contact"    element={<Contact />} />
       </Route>
+      <Route path="*"           element={<NotFound />} />
     </Routes>
   </Suspense>
 );
