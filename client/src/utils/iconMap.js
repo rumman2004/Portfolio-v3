@@ -25,6 +25,7 @@ import Code_javascript from '../assets/skills/Code/javascript.svg';
 import Code_kotlin from '../assets/skills/Code/kotlin.svg';
 import Code_php from '../assets/skills/Code/php.svg';
 import Code_python from '../assets/skills/Code/python.svg';
+import Code_typescript from '../assets/skills/Code/typescript.svg';
 import Database_mongodbIconLight from '../assets/skills/Database/mongodb-icon-light.svg';
 import Database_mysqlIconLight from '../assets/skills/Database/mysql-icon-light.svg';
 import Database_postgresql from '../assets/skills/Database/postgresql.svg';
@@ -100,6 +101,7 @@ export const iconMap = {
   'kotlin': Code_kotlin,
   'php': Code_php,
   'python': Code_python,
+  'typescript': Code_typescript,
   'mongodbiconlight': Database_mongodbIconLight,
   'mysqliconlight': Database_mysqlIconLight,
   'postgresql': Database_postgresql,

@@ -7,6 +7,7 @@ import javascript from './javascript.svg';
 import kotlin from './kotlin.svg';
 import php from './php.svg';
 import python from './python.svg';
+import typescript from './typescript.svg';
 
 export {
   cPlusplus,
@@ -17,5 +18,6 @@ export {
   javascript,
   kotlin,
   php,
-  python
+  python,
+  typescript
 };
