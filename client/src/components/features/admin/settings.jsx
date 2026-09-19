@@ -19,6 +19,7 @@ const Settings = () => {
     about: '',
     profileImage: '',
     heroImage: '',
+    aboutStampImage: '',
     resumeUrl: '',
     isAvailable: true,
   });
@@ -41,6 +42,7 @@ const Settings = () => {
           about: data.about || '',
           profileImage: data.profileImage || '',
           heroImage: data.heroImage || '',
+          aboutStampImage: data.aboutStampImage || '',
           resumeUrl: data.resumeUrl || '',
           isAvailable: data.isAvailable ?? true,
         });
@@ -126,6 +128,7 @@ const Settings = () => {
               <div className="space-y-6">
                 <Input label="Avatar Image URL (Optional)" name="profileImage" placeholder="https://..." value={formData.profileImage} onChange={handleChange} />
                 <Input label="Hero Image URL (Optional)" name="heroImage" placeholder="https://..." value={formData.heroImage} onChange={handleChange} />
+                <Input label="About Stamp Image URL (Optional)" name="aboutStampImage" placeholder="https://..." value={formData.aboutStampImage} onChange={handleChange} />
                 <Input label="Resume Document URL (PDF Link)" type="url" name="resumeUrl" placeholder="https://..." value={formData.resumeUrl} onChange={handleChange} />
               </div>
             </Card>
@@ -171,6 +174,12 @@ const Settings = () => {
                   <div>
                     <p className="text-xs text-gray-400 mb-2 font-medium">Hero Image</p>
                     <img src={formData.heroImage} alt="Hero Preview" className="w-full h-32 rounded-lg object-cover border border-gray-200" />
+                  </div>
+                )}
+                {formData.aboutStampImage && (
+                  <div>
+                    <p className="text-xs text-gray-400 mb-2 font-medium">About Stamp Image</p>
+                    <img src={formData.aboutStampImage} alt="Stamp Preview" className="w-full h-32 rounded-lg object-cover border border-gray-200" />
                   </div>
                 )}
               </div>

@@ -87,6 +87,7 @@ const profileSchema = new mongoose.Schema(
     },
     profileImage: String,
     heroImage: String,
+    aboutStampImage: String,
     socialLinks: [linkSchema],
     stats: [statSchema],
     isAvailable: {

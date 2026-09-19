@@ -146,7 +146,8 @@ const AboutHero = () => {
         { clipPath: 'inset(0 100% 0 0)', opacity: 0 },
         { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.25')
       .from('.ah-body', { y: 14, opacity: 0, duration: 0.45, ease: 'power2.out' }, '-=0.2')
-      .from('.ah-tags a', { y: 10, opacity: 0, stagger: 0.05, duration: 0.35, ease: 'power2.out' }, '-=0.2');
+      .from('.ah-tags a', { y: 10, opacity: 0, stagger: 0.05, duration: 0.35, ease: 'power2.out' }, '-=0.2')
+      .fromTo('.ah-stamp', { opacity: 0, scale: 0.9, rotation: -10 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.7, ease: 'back.out(1.5)', clearProps: 'all' }, '-=0.4');
 
     if (window.matchMedia('(min-width: 768px)').matches) {
       const move = (e) => {
@@ -173,9 +174,9 @@ const AboutHero = () => {
                  selection:bg-[#0448a8] selection:text-white"
     >
 
-      <div className="relative z-10 max-w-[90rem] mx-auto w-full px-8 md:px-16 flex flex-col md:flex-row items-center justify-between gap-12">
+      <div className="relative z-10 max-w-[90rem] mx-auto w-full px-8 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-12">
         {/* Left */}
-        <div className="w-full flex flex-col justify-center">
+        <div className="w-full lg:w-[55%] flex flex-col justify-center">
           <div className="ah-intro inline-flex items-center gap-3 p-1.5 pr-6 mb-6 rounded-full bg-white/[0.45] backdrop-blur-[20px] border border-white/60 shadow-[0_8px_32px_rgba(0,0,0,0.04)] w-max">
             {profile?.profileImage && (
               <img src={profile.profileImage} alt={profile?.name || 'Admin'} className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover shadow-sm" />
@@ -221,8 +222,146 @@ const AboutHero = () => {
             </a>
           </div>
         </div>
+        
+        {/* Right - Photo Card (lg only) */}
+        <div className="ah-stamp-container hidden lg:flex w-[42%] flex-shrink-0 justify-center items-start pt-20">
+          <div className="ah-stamp relative group" style={{ perspective: '800px' }}>
+            {/* Outer card */}
+            <div
+              className="relative bg-white rounded-2xl overflow-visible shadow-[0_32px_80px_rgba(0,0,0,0.12)] transition-all duration-700 ease-out group-hover:shadow-[0_40px_100px_rgba(4,72,168,0.15)] group-hover:-translate-y-2"
+              style={{ transform: 'rotate(-3deg)', transition: 'transform 0.7s cubic-bezier(.22,1,.36,1), box-shadow 0.7s' }}
+              onMouseEnter={e => e.currentTarget.style.transform = 'rotate(0deg)'}
+              onMouseLeave={e => e.currentTarget.style.transform = 'rotate(-3deg)'}
+            >
+              {/* Image */}
+              <div className="rounded-t-2xl overflow-hidden relative">
+                <style>{`
+                  .stamp-seal {
+                    opacity: 0.95;
+                    transform: scale(0.92) rotate(12deg) rotateY(0deg);
+                    transform-style: preserve-3d;
+                    transition: all 0.05s ease;
+                  }
+                  .stamp-wrap:hover .stamp-seal {
+                    opacity: 1;
+                    animation: stampFlip 1.4s cubic-bezier(.45,.05,.22,.95) forwards;
+                  }
+                  @keyframes stampFlip {
+                    0%   { transform: scale(0.92) rotate(12deg) rotateY(0deg); opacity: 0.95; }
+                    30%  { transform: scale(1.3) translateY(-25px) rotate(0deg) rotateY(0deg); opacity: 1; }
+                    70%  { transform: scale(1.3) translateY(-25px) rotate(0deg) rotateY(360deg); opacity: 1; }
+                    100% { transform: scale(1) rotate(12deg) rotateY(360deg); opacity: 1; }
+                  }
+                  .stamp-seal .spin-ring {
+                    animation: none;
+                  }
+                  .stamp-wrap:hover .stamp-seal .spin-ring {
+                    animation: spin 12s linear infinite;
+                  }
+                  @keyframes spin { to { transform: rotate(360deg); } }
+                  .stamp-ink {
+                    opacity: 0;
+                    transition: opacity 0.3s ease 0.3s;
+                  }
+                  .stamp-wrap:hover .stamp-ink {
+                    opacity: 1;
+                  }
+                `}</style>
 
+                <img 
+                  src={profile?.aboutStampImage || profile?.heroImage || profile?.profileImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png"} 
+                  alt={firstName} 
+                  className="w-[380px] h-[480px] object-cover object-top block"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = `https://ui-avatars.com/api/?name=${firstName}&size=600&background=EEF0F4&color=1A1A1A`;
+                  }}
+                />
+              </div>
+
+              {/* Stamp — centered on top-right corner, ink idle + animated hover */}
+              <div className="stamp-wrap absolute top-0 right-0 translate-x-1/2 -translate-y-1/2 z-30 cursor-default" style={{ perspective: '800px' }}>
+                <div className="stamp-seal">
+                  {/* Outer glow shell */}
+                  <div
+                    className="w-[170px] h-[170px] rounded-full flex items-center justify-center"
+                    style={{
+                      background: 'radial-gradient(circle, rgba(26,26,26,0.05) 0%, rgba(26,26,26,0.01) 70%, transparent 100%)',
+                      boxShadow: '0 0 0 1px rgba(26,26,26,0.1), 0 0 20px rgba(26,26,26,0.15)',
+                    }}
+                  >
+                    {/* Ring 1 (Thin outer) */}
+                    <div className="w-[160px] h-[160px] rounded-full border border-[#1a1a1a]/50 flex items-center justify-center relative p-[3px]">
+                      {/* Ring 2 (Thick) */}
+                      <div className="w-full h-full rounded-full border-[2.5px] border-[#1a1a1a] flex items-center justify-center relative p-[3px]">
+                        {/* Ring 3 (Thin inner) */}
+                        <div className="w-full h-full rounded-full border-[1.2px] border-[#1a1a1a] flex items-center justify-center relative">
+                          
+                          {/* Spinning text ring */}
+                          <svg
+                            className="spin-ring absolute inset-0 w-full h-full"
+                            viewBox="0 0 130 130"
+                          >
+                            <defs>
+                              <path id="stamp-path" d="M 65,15 A 50,50 0 1,1 64.9,15" />
+                            </defs>
+                            <text style={{ fontSize: '10.5px', fontFamily: 'Inter,sans-serif', fontWeight: 700, letterSpacing: '2.5px' }} fill="#1a1a1a">
+                              <textPath href="#stamp-path" startOffset="0%">
+                                AVAILABLE FOR WORK ★ VERIFIED ★ AVAILABLE FOR WORK ★ VERIFIED ★ 
+                              </textPath>
+                            </text>
+                          </svg>
+
+                          {/* Inner Ring structure */}
+                          <div className="w-[98px] h-[98px] rounded-full border-[1.2px] border-[#1a1a1a] flex items-center justify-center relative p-[3.5px]">
+                            {/* Inner Wavy/Dashed Ring */}
+                            <div className="absolute inset-0 w-full h-full rounded-full border-[1.5px] border-dashed border-[#1a1a1a]/70" style={{ transform: 'scale(0.92)' }}></div>
+                            
+                            {/* Center Profile Picture */}
+                            <div className="w-full h-full rounded-full overflow-hidden relative z-10 border border-[#1a1a1a]/30 bg-white">
+                              <img 
+                                src={profile?.profileImage || profile?.heroImage || profile?.aboutStampImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png"} 
+                                alt="Profile Logo" 
+                                className="w-full h-full object-cover filter contrast-125 saturate-50 grayscale"
+                              />
+                              {/* Ink blending overlay for the image */}
+                              <div className="absolute inset-0 bg-[#1a1a1a]/20 mix-blend-multiply" />
+                            </div>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Ink splatter effect on hover */}
+                <div className="stamp-ink absolute inset-0 rounded-full pointer-events-none"
+                  style={{ background: 'radial-gradient(circle at 60% 40%, rgba(26,26,26,0.08) 0%, transparent 70%)' }}
+                />
+              </div>
+
+              {/* Bottom label strip */}
+              <div className="bg-white rounded-b-2xl">
+                <div className="h-[3px] bg-gradient-to-r from-[#0448a8] via-[#3b82f6] to-transparent" />
+                <div className="px-5 pt-4 pb-5 flex items-center justify-between gap-3">
+                  <div>
+                    <p className="font-headline text-[16px] text-[#0f172a] uppercase tracking-[0.12em] leading-none">{profile?.name || 'Rumman Ahmed'}</p>
+                    <p className="font-inter text-[11px] text-[#94a3b8] tracking-[0.15em] font-semibold mt-1.5">04 / 12 / 2004</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Decorative dot grid behind */}
+            <div
+              className="absolute -bottom-6 -right-6 w-32 h-32 -z-10 opacity-30 pointer-events-none"
+              style={{ backgroundImage: 'radial-gradient(circle, #0448a8 1px, transparent 1px)', backgroundSize: '10px 10px' }}
+            />
+            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-8 bg-black/10 blur-2xl rounded-full -z-10" />
+          </div>
         </div>
+      </div>
 
       {/* Scroll hint */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-50">

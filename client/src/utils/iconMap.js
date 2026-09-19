@@ -163,14 +163,20 @@ export const resolveIcon = (tool) => {
   // 1. Try exact / normalized match on all available fields
   const candidates = [tool.icon, tool.name, tool.platform, tool.logoUrl, tool.image].filter(Boolean);
   for (const candidate of candidates) {
-    const normalized = candidate.toLowerCase().replace(/[-_.  ]+/g, '');
+    const normalized = candidate.toLowerCase()
+      .replace(/\+/g, 'plus')
+      .replace(/#/g, 'sharp')
+      .replace(/[-_.  ]+/g, '');
     if (iconMap[normalized]) return iconMap[normalized];
     if (iconMap[candidate]) return iconMap[candidate];
   }
 
   // 2. Fuzzy fallback — check if any iconMap key starts with or contains the display name
   for (const candidate of candidates) {
-    const clean = candidate.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const clean = candidate.toLowerCase()
+      .replace(/\+/g, 'plus')
+      .replace(/#/g, 'sharp')
+      .replace(/[^a-z0-9]/g, '');
     if (!clean) continue;
 
     const prefixMatch = allIconKeys.find((k) => k.startsWith(clean));
