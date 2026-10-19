@@ -80,8 +80,8 @@ const MessagesInbox = () => {
   };
 
   const filteredMessages = messages?.filter(msg => 
-    msg.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    msg.subject.toLowerCase().includes(searchTerm.toLowerCase())
+    (msg.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (msg.subject || '').toLowerCase().includes(searchTerm.toLowerCase())
   ) || [];
 
   const getStatusColor = (status) => {
@@ -97,8 +97,6 @@ const MessagesInbox = () => {
   // Base styling constants for liquid glass
   const dropClass = "bg-white/40 backdrop-blur-md shadow-sm border border-white/60 rounded-3xl";
   const insetClass = "bg-white/50 border border-white/60 rounded-3xl";
-  const btnClass = "p-2 rounded-full text-gray-500 hover:text-blue-500 hover:bg-white/60 transition-all";
-
   return (
     <div className="h-[calc(100vh-80px)] flex flex-col pt-6 font-inter overflow-hidden">
       
@@ -131,10 +129,12 @@ const MessagesInbox = () => {
                   const isSelected = selectedMessage?._id === msg._id;
                   const isNew = msg.status === 'new' || !msg.status;
                   return (
-                    <div 
-                      key={msg._id}
-                      onClick={() => handleSelectMessage(msg)}
-                      className={`cursor-pointer p-3 rounded-2xl transition-all ${isSelected ? 'bg-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-white' : 'hover:bg-white/50 border border-transparent'}`}
+                      <button
+                        type="button"
+                        key={msg._id}
+                        onClick={() => handleSelectMessage(msg)}
+                        aria-pressed={isSelected}
+                        className={`w-full text-left cursor-pointer p-3 rounded-2xl transition-all ${isSelected ? 'bg-white/80 shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)] border border-white' : 'hover:bg-white/50 border border-transparent'}`}
                     >
                       <div className="flex justify-between items-start mb-1">
                         <div className="flex items-center gap-2 overflow-hidden">
@@ -146,7 +146,7 @@ const MessagesInbox = () => {
                         </span>
                       </div>
                       <p className="text-xs text-gray-500 truncate">{msg.subject}</p>
-                    </div>
+                    </button>
                   );
                 })
               )}
@@ -163,7 +163,7 @@ const MessagesInbox = () => {
               <div className="h-16 shrink-0 border-b border-white/40 px-4 md:px-6 flex items-center justify-between bg-white/30 backdrop-blur-sm">
                 <div className="flex items-center gap-4 overflow-hidden">
                   {isMobileView && (
-                    <button onClick={() => setSelectedMessage(null)} className="p-2 text-gray-500 hover:text-md-on-surface shrink-0">
+                     <button type="button" onClick={() => setSelectedMessage(null)} className="p-2 text-gray-500 hover:text-md-on-surface shrink-0" aria-label="Back to messages">
                       <ArrowLeft size={20} />
                     </button>
                   )}
@@ -178,11 +178,11 @@ const MessagesInbox = () => {
 
                 <div className="flex items-center gap-2 shrink-0 ml-4">
                   <div className="hidden sm:flex bg-gray-100 p-1 rounded-lg mr-2">
-                    <button onClick={() => handleStatusChange('read')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'read' ? 'bg-md-surface shadow-sm text-md-on-surface' : 'text-gray-500 hover:text-md-on-surface'}`}>Read</button>
-                    <button onClick={() => handleStatusChange('replied')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'replied' ? 'bg-md-surface shadow-sm text-green-600' : 'text-gray-500 hover:text-md-on-surface'}`}>Replied</button>
-                    <button onClick={() => handleStatusChange('archived')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'archived' ? 'bg-md-surface shadow-sm text-purple-600' : 'text-gray-500 hover:text-md-on-surface'}`}>Archive</button>
+                     <button type="button" onClick={() => handleStatusChange('read')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'read' ? 'bg-md-surface shadow-sm text-md-on-surface' : 'text-gray-500 hover:text-md-on-surface'}`}>Read</button>
+                     <button type="button" onClick={() => handleStatusChange('replied')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'replied' ? 'bg-md-surface shadow-sm text-green-600' : 'text-gray-500 hover:text-md-on-surface'}`}>Replied</button>
+                     <button type="button" onClick={() => handleStatusChange('archived')} className={`px-3 py-1 rounded-md text-xs font-semibold transition-all ${selectedMessage.status === 'archived' ? 'bg-md-surface shadow-sm text-purple-600' : 'text-gray-500 hover:text-md-on-surface'}`}>Archive</button>
                   </div>
-                  <button onClick={() => handleDelete(selectedMessage._id)} className="p-2 text-gray-400 hover:text-red-500 transition-colors bg-md-surface border border-gray-100 rounded-lg shadow-sm">
+                   <button type="button" onClick={() => handleDelete(selectedMessage._id)} className="p-2 text-gray-400 hover:text-red-500 transition-colors bg-md-surface border border-gray-100 rounded-lg shadow-sm" aria-label="Delete conversation" title="Delete conversation">
                     <Archive size={16} />
                   </button>
                 </div>
@@ -272,7 +272,8 @@ const MessagesInbox = () => {
                   </div>
                 </div>
                 
-                <button 
+                <button
+                  type="button"
                   onClick={handleSendReply}
                   disabled={!draftReply.trim() || isSending}
                   className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 transition-all shadow-sm ${(!draftReply.trim() || isSending) ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md active:scale-95'}`}
@@ -292,7 +293,7 @@ const MessagesInbox = () => {
               <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-6 shadow-sm border border-gray-200">
                 <Mail size={32} className="text-gray-400" />
               </div>
-              <h2 className="text-2xl font-headline text-md-on-surface tracking-tight mb-2">WhatsApp Web... sort of!</h2>
+               <h2 className="text-2xl font-headline text-md-on-surface tracking-tight mb-2">Your inbox</h2>
               <p className="text-gray-500 max-w-sm text-sm leading-relaxed">
                 Select a conversation from the list to read the message and view automated replies.
               </p>

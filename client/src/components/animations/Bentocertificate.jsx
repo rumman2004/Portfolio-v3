@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useMascot } from '../../context/MascotContext';
+import { useMascot } from '../../hooks/useMascot';
 
 gsap.registerPlugin(useGSAP);
 
@@ -11,127 +11,18 @@ const AUTOPLAY_MS = 4000;
 const SWIPE_THRESHOLD = 50; // px of horizontal travel that counts as a swipe
 const DRAG_THRESHOLD = 8; // px of travel before a touch is treated as a drag, not a tap
 
-const FALLBACK_CERTIFICATES = [
-  { id: 'f1', title: 'Google UX Design Professional Certificate', issuer: 'Coursera', year: '2024', color: 'light', brand: 'Google' },
-  { id: 'f2', title: 'Meta Front-End Developer Professional Certificate', issuer: 'Coursera', year: '2024', color: 'light', brand: 'Meta' },
-  { id: 'f3', title: 'Adobe Certified Professional Visual Design', issuer: 'Adobe', year: '2023', color: 'light', brand: 'Adobe' },
-  { id: 'f4', title: 'Responsive Web Design Certification', issuer: 'freeCodeCamp', year: '2023', color: 'light', brand: 'freeCodeCamp' },
-];
-
 const getCircularOffset = (idx, current, total) => {
   let raw = (idx - current) % total;
   if (raw < 0) raw += total;
   return raw > Math.floor(total / 2) ? raw - total : raw;
 };
 
-/* ── Branded placeholder thumbnail (from original file) ───────────────── */
-const brandConfig = {
-  Google: {
-    logo: (
-      <span style={{ fontFamily: 'Inter, sans-serif', fontSize: 13, fontWeight: 700, letterSpacing: 0 }}>
-        <span style={{ color: '#4285F4' }}>G</span>
-        <span style={{ color: '#EA4335' }}>o</span>
-        <span style={{ color: '#FBBC05' }}>o</span>
-        <span style={{ color: '#4285F4' }}>g</span>
-        <span style={{ color: '#34A853' }}>l</span>
-        <span style={{ color: '#EA4335' }}>e</span>
-      </span>
-    ),
-    accentColor: '#4285F4',
-  },
-  Meta: {
-    logo: <span style={{ color: '#1877F2', fontWeight: 700, fontSize: 13 }}>∞ Meta</span>,
-    accentColor: '#1877F2',
-  },
-  Adobe: {
-    logo: <span style={{ color: '#E53935', fontWeight: 800, fontSize: 14 }}>⬡ Adobe</span>,
-    accentColor: '#E53935',
-  },
-  freeCodeCamp: {
-    logo: <span style={{ color: '#0A0A23', fontWeight: 700, fontSize: 12 }}>freeCodeCamp(🔥)</span>,
-    accentColor: '#0A0A23',
-  },
-};
-
-const BadgeSeal = ({ isDark, brand }) => {
-  const ringColor = isDark ? '#444' : '#CCC';
-  const fillColor = isDark ? '#222' : '#F2F2F2';
-  const textColor = isDark ? '#AAA' : '#888';
-
-  const shortLabel =
-    brand === 'Adobe' ? 'CERTIFIED'
-    : brand === 'freeCodeCamp' ? 'CERTIFIED'
-    : brand === 'Google' ? 'Coursera'
-    : brand === 'Meta' ? '∞ META'
-    : 'CERT';
-
-  return (
-    <div style={{ position: 'absolute', right: 12, bottom: 12 }}>
-      <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
-        <circle cx="22" cy="22" r="20" stroke={ringColor} strokeWidth="1.2" fill={fillColor} />
-        <circle cx="22" cy="22" r="14" stroke={ringColor} strokeWidth="0.7" />
-        <text x="22" y="25" textAnchor="middle" fontSize="6" fill={textColor} fontWeight="700">
-          {shortLabel}
-        </text>
-      </svg>
-    </div>
-  );
-};
-
-const BrandedThumbnail = ({ brand, title, issuer, isDark }) => {
-  const cfg = brandConfig[brand] ?? null;
-  const bg  = isDark ? '#111111' : '#FFFFFF';
-  const fg  = isDark ? '#FFFFFF' : '#111111';
-  const sub = isDark ? '#999999' : '#666666';
-  const bdr = isDark ? 'none' : '0.5px solid #E8E8E8';
-
-  return (
-    <div
-      className="w-full h-full flex flex-col justify-between p-4 relative overflow-hidden"
-      style={{ background: bg, border: bdr, boxSizing: 'border-box' }}
-    >
-      {cfg ? (
-        <div>{cfg.logo}</div>
-      ) : (
-        <div style={{ color: sub, fontSize: 12, fontWeight: 600 }}>{issuer}</div>
-      )}
-
-      <p
-        style={{
-          color: fg,
-          fontSize: 13,
-          fontWeight: 700,
-          lineHeight: 1.35,
-          margin: '10px 0 0 0',
-        }}
-      >
-        {title}
-      </p>
-
-      <BadgeSeal isDark={isDark} brand={brand} />
-
-      {brand === 'Adobe' && (
-        <svg
-          style={{ position: 'absolute', right: -10, top: 0, bottom: 0, width: '55%', opacity: 0.12 }}
-          viewBox="0 0 100 160"
-          fill="none"
-        >
-          <path d="M80 10 Q20 50 70 90 Q120 130 30 160" stroke="#E53935" strokeWidth="1.5" fill="none" />
-          <path d="M90 5 Q25 55 75 95 Q125 135 35 165" stroke="#E53935" strokeWidth="1" fill="none" />
-          <path d="M70 15 Q15 55 65 85 Q115 125 25 155" stroke="#E53935" strokeWidth="0.8" fill="none" />
-        </svg>
-      )}
-    </div>
-  );
-};
-
 // ---- Certificate Card Component ------------------------------------------
 const CertificateCard = ({ cert, isActive, onActivate }) => {
-  const isDark = false;
   const title   = cert.title ?? cert.name ?? 'Certificate';
   const issuer  = cert.issuer ?? cert.platform ?? '';
   const year    = cert.year ?? (cert.issuedAt ? new Date(cert.issuedAt).getFullYear() : '');
-  const link    = cert.link ?? cert.credentialUrl ?? cert.url ?? '#';
+  const link    = cert.link ?? cert.credentialUrl ?? cert.url;
   const image   = cert.imageUrl ?? cert.image;
 
   const handleClick = (e) => {
@@ -159,12 +50,9 @@ const CertificateCard = ({ cert, isActive, onActivate }) => {
               draggable={false}
             />
           ) : (
-            <BrandedThumbnail
-              brand={cert.brand}
-              title={title}
-              issuer={issuer}
-              isDark={isDark}
-            />
+            <div className="flex h-full w-full items-center justify-center bg-[#ECEEF2] px-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-[#767676]">
+              Certificate preview unavailable
+            </div>
           )}
         </div>
       </div>
@@ -184,19 +72,18 @@ const CertificateCard = ({ cert, isActive, onActivate }) => {
           <span className="font-inter text-[12px] text-[#595959]">
             {[issuer, year].filter(Boolean).join(' • ')}
           </span>
-          <a
-            href={link}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Open ${title}`}
-            tabIndex={isActive ? 0 : -1}
-            onClick={(e) => {
-              if (!isActive) {
-                e.preventDefault();
-              }
-            }}
-            className="flex-shrink-0 w-7 h-7 rounded-full border border-[#DDD] flex items-center justify-center text-[#333] transition-all duration-150 hover:bg-[#3B4FFF] hover:border-[#3B4FFF] hover:text-white group-hover:border-[#3B4FFF]"
-          >
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open ${title}`}
+              tabIndex={isActive ? 0 : -1}
+              onClick={(e) => {
+                if (!isActive) e.preventDefault();
+              }}
+              className="flex-shrink-0 w-7 h-7 rounded-full border border-[#DDD] flex items-center justify-center text-[#333] transition-all duration-150 hover:bg-[#3B4FFF] hover:border-[#3B4FFF] hover:text-white group-hover:border-[#3B4FFF]"
+            >
             <svg
               width="11"
               height="11"
@@ -212,7 +99,8 @@ const CertificateCard = ({ cert, isActive, onActivate }) => {
                 strokeLinejoin="round"
               />
             </svg>
-          </a>
+            </a>
+          )}
         </div>
       </div>
     </article>
@@ -236,10 +124,7 @@ const Bentocertificate = ({ certificates = [] }) => {
   const dragRef = useRef({ startX: 0, startY: 0, dragging: false });
   const touchResumeTimer = useRef(null);
 
-  const displayCertificates = useMemo(
-    () => (certificates && certificates.length > 0 ? certificates : FALLBACK_CERTIFICATES),
-    [certificates]
-  );
+  const displayCertificates = useMemo(() => certificates.filter(Boolean), [certificates]);
 
   const goToIndex = (idx) => {
     const total = displayCertificates.length;

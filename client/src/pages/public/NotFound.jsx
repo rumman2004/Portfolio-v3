@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { useMascot } from '../../context/MascotContext';
+import { useMascot } from '../../hooks/useMascot';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 import { JellyBlobMascot } from 'feral-blob';
 import 'feral-blob/blob.css';
+import SEO from '../../components/common/SEO.jsx';
 
 gsap.registerPlugin(useGSAP);
 
@@ -52,10 +53,11 @@ const NotFound = () => {
   }, { scope: containerRef });
 
   return (
-    <div 
-      ref={containerRef}
-      className="h-screen w-screen flex flex-col items-center justify-center bg-[#F8F9FA] relative overflow-hidden"
-    >
+      <div
+        ref={containerRef}
+        className="h-screen w-screen flex flex-col items-center justify-center bg-[#F8F9FA] relative overflow-hidden"
+      >
+        <SEO title="Page not found | Rumman Ahmed" description="The page you requested could not be found." />
       <div className="relative z-10 flex flex-col items-center">
         
         {/* Mascot & Speech Bubble */}

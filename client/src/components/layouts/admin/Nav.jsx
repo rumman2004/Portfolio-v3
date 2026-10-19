@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 import { LogOut, Bell, Menu, Mail } from 'lucide-react';
 import { useFetch } from '../../../hooks/useFetch';
@@ -24,6 +25,17 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    if (!showLogoutModal) return undefined;
+
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') setShowLogoutModal(false);
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [showLogoutModal]);
+
   const messages = messagesResponse || [];
   const unreadCount = messages.filter(m => m.status === 'new' || !m.status).length;
 
@@ -44,8 +56,9 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
       <div className="flex items-center gap-4 sm:gap-6">
         {/* Notification Bell */}
         <div className="relative" ref={notificationRef}>
-          <button 
-            onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+           <button
+             type="button"
+             onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
             className="min-h-[48px] min-w-[48px] p-2 text-md-on-surface-variant hover:text-md-on-surface hover:bg-md-surface-container-highest rounded-full transition-all relative group"
             aria-label="Open notifications"
             aria-expanded={isNotificationsOpen}
@@ -85,7 +98,7 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
                 )}
               </div>
               <div className="p-3 bg-md-surface-container-low border-t border-md-surface-variant text-center">
-                <a href="/admin/messages" className="text-xs font-semibold text-md-primary hover:text-md-on-primary-container transition-colors">View All Messages</a>
+                 <Link to="/admin/messages" className="text-xs font-semibold text-md-primary hover:text-md-on-primary-container transition-colors">View All Messages</Link>
               </div>
             </div>
           )}
@@ -103,7 +116,7 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setShowLogoutModal(false); }}>
           <style>
             {`
               @keyframes float-sync {
@@ -124,7 +137,7 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
             `}
           </style>
 
-          <div className="bg-md-surface p-8 rounded-[2.5rem] shadow-2xl max-w-sm w-full mx-4 border border-md-surface-variant transform transition-all text-center flex flex-col items-center">
+          <div className="bg-md-surface p-8 rounded-[2.5rem] shadow-2xl max-w-sm w-full mx-4 border border-md-surface-variant transform transition-all text-center flex flex-col items-center" role="dialog" aria-modal="true" aria-labelledby="logout-title">
             
             {/* Grouped Floating Container for Mascot and Bubble */}
             <div className="float-group relative flex flex-col items-center mb-6 mt-4">
@@ -149,22 +162,24 @@ const Nav = ({ toggleSidebar, isSidebarOpen }) => {
               </div>
             </div>
             
-            <h3 className="text-2xl font-bold text-md-on-surface mb-2 tracking-tight">Leaving so soon?</h3>
+            <h3 id="logout-title" className="text-2xl font-bold text-md-on-surface mb-2 tracking-tight">Leaving so soon?</h3>
             <p className="text-md-on-surface-variant text-sm mb-8 px-2 leading-relaxed">
               Are you sure you want to log out of the admin dashboard?
             </p>
             
             <div className="flex gap-4 w-full">
               <button
-                onClick={() => setShowLogoutModal(false)}
+                 type="button"
+                 onClick={() => setShowLogoutModal(false)}
                 onMouseEnter={() => { setLogoutBlobMood('happy'); setLogoutMessage('Yay, stay with me!'); }}
                 onMouseLeave={() => { setLogoutBlobMood('neutral'); setLogoutMessage('Going somewhere?'); }}
                 className="flex-1 py-4 px-4 bg-md-surface-container-highest text-md-on-surface font-semibold rounded-2xl hover:bg-md-surface-container hover:scale-105 transition-all active:scale-95"
               >
                 Cancel
               </button>
-              <button
-                onClick={logout}
+               <button
+                 type="button"
+                 onClick={logout}
                 onMouseEnter={() => { setLogoutBlobMood('sad'); setLogoutMessage("Aww, don't go..."); }}
                 onMouseLeave={() => { setLogoutBlobMood('neutral'); setLogoutMessage('Going somewhere?'); }}
                 className="flex-1 py-4 px-4 bg-[#b91c1c] text-white font-semibold rounded-2xl hover:bg-[#991b1b] hover:scale-105 transition-all shadow-lg shadow-red-500/20 active:scale-95"

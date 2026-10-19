@@ -16,7 +16,7 @@ PORT=5000
 NODE_ENV=development
 
 # MongoDB Atlas Database Connection String
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/portfolio_v3?retryWrites=true&w=majority
+MONGO_URL=mongodb+srv://<username>:<password>@cluster0.mongodb.net/portfolio_v3?retryWrites=true&w=majority
 
 # JWT Authentication Secret (Use a strong 64-character random alphanumeric string)
 JWT_SECRET=super_secret_jwt_key_change_me_in_production
@@ -84,7 +84,7 @@ npm run dev
 2. Deploy a free **M0 Cluster**.
 3. Under **Database Access**, create a database user with Read/Write permissions.
 4. Under **Network Access**, add `0.0.0.0/0` (or your specific server IP) to the IP Whitelist.
-5. Click **Connect -> Connect your application** and copy the connection string into `server/.env` as `MONGO_URI`.
+5. Click **Connect -> Connect your application** and copy the connection string into `server/.env` as `MONGO_URL`.
 
 ### 2. Cloudinary CDN Setup
 1. Create a free account at [Cloudinary](https://cloudinary.com/).

@@ -1,12 +1,11 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { useMascot } from '../../context/MascotContext';
+import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react';
+import { useMascot } from '../../hooks/useMascot';
 import { Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ArrowRight, LayoutGrid, List } from 'lucide-react';
-import { resolveIcon } from '../../utils/iconMap';
 import ProjectCard from '../../components/features/projects/ProjectCard';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -156,7 +155,7 @@ const WorkRow = ({ project, index, onEnter, onLeave }) => {
 
         {/* Year */}
         <span className="wk-font-inter text-[11px] font-bold tracking-widest text-[#bbb] hidden md:block flex-shrink-0">
-          {project.year || new Date(project.createdAt || Date.now()).getFullYear()}
+          {project.year || (project.createdAt ? new Date(project.createdAt).getFullYear() : '—')}
         </span>
 
         {/* Category pill */}
@@ -185,7 +184,7 @@ const Works = () => {
   const ghostRef = useRef();
   const rafRef = useRef();
 
-  const list = projects || [];
+  const list = useMemo(() => projects || [], [projects]);
 
   const categories = ['All', ...new Set(list.map(p => p.filterCategory || p.category).filter(Boolean))];
 
@@ -221,7 +220,7 @@ const Works = () => {
       const randomProject = list[Math.floor(Math.random() * list.length)];
       notifyMascot(`So many projects! Have you checked out ${randomProject.title} yet? I highly recommend it!`, "happy");
     }
-  }, [loading, list.length, notifyMascot]); // Only trigger when loading finishes
+  }, [loading, list, notifyMascot]); // Only trigger when loading finishes
 
   useGSAP(() => {
     const pref = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useMascot } from '../../context/MascotContext';
+import { useMascot } from '../../hooks/useMascot';
 import { iconMap } from '../../utils/iconMap';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -12,15 +12,6 @@ gsap.registerPlugin(useGSAP);
 const AUTOPLAY_MS = 4000;
 const SWIPE_THRESHOLD = 50; // px of horizontal travel that counts as a swipe
 const DRAG_THRESHOLD = 8; // px of travel before a touch is treated as a drag, not a tap
-const PLACEHOLDER_IMAGE = 'https://via.placeholder.com/800x600/e5e5e5/1a1a1a?text=Project';
-
-const FALLBACK_PROJECTS = [
-  { _id: 1, title: 'Dr. Crop', category: 'Agriculture', shortDescription: 'AI-powered web app that detects crop diseases and suggests effective treatments.', technologies: ['React', 'Node.js', 'MongoDB', 'Gemini API'], image: { url: 'https://via.placeholder.com/800x600/e5e5e5/1a1a1a?text=Web+App' } },
-  { _id: 2, title: 'Neumorphic Calculator', category: 'Productivity', shortDescription: 'A modern scientific calculator with adaptive neumorphic UI and history log.', technologies: ['React Native', 'Expo', 'TypeScript', 'AsyncStorage'], image: { url: 'https://via.placeholder.com/800x600/cccccc/1a1a1a?text=Mobile+App' } },
-  { _id: 3, title: 'BookHaven', category: 'E-Commerce', shortDescription: 'A clean and fast book store web application with modern UI and smooth UX.', technologies: ['Next.js', 'Tailwind CSS', 'MongoDB', 'Stripe'], image: { url: 'https://via.placeholder.com/800x600/b3b3b3/1a1a1a?text=E-Commerce' } },
-  { _id: 4, title: 'Crypto Dashboard', category: 'Finance', shortDescription: 'Real-time cryptocurrency tracking dashboard with interactive charts.', technologies: ['React', 'Chart.js', 'Firebase'], image: { url: 'https://via.placeholder.com/800x600/a3a3a3/1a1a1a?text=Finance' } },
-  { _id: 5, title: 'Travel Buddy', category: 'Travel', shortDescription: 'Plan your trips efficiently with an AI-powered travel assistant.', technologies: ['Next.js', 'OpenAI', 'Prisma'], image: { url: 'https://via.placeholder.com/800x600/8c8c8c/1a1a1a?text=Travel' } },
-];
 
 /** Shortest signed circular distance from `current` to `idx` among `total` slides. */
 const getCircularOffset = (idx, current, total) => {
@@ -51,7 +42,7 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
     () => [project.heroImage || project.image?.url, ...(project.gallery || [])].filter(Boolean),
     [project]
   );
-  const currentImage = images.length > 0 ? images[imageIndex % images.length] : PLACEHOLDER_IMAGE;
+  const currentImage = images.length > 0 ? images[imageIndex % images.length] : null;
 
   // Cycle through gallery images on hover -- fine-pointer devices only, since
   // "hover" on touchscreens is a confusing first-tap/second-tap simulation.
@@ -90,13 +81,19 @@ const ProjectCard = ({ project, isActive, onActivate }) => {
       {/* Image */}
       <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-[#F4F4F4] p-3 sm:p-4">
         <div className="relative h-full w-full overflow-hidden rounded-lg border border-[#232323]/5 shadow-md transition-transform duration-500 group-hover:-translate-y-1.5 group-hover:scale-[1.04]">
-          <img
-            src={currentImage}
-            alt={project.title}
-            loading="lazy"
-            draggable={false}
-            className="h-full w-full object-cover object-top transition-opacity duration-300"
-          />
+          {currentImage ? (
+            <img
+              src={currentImage}
+              alt={project.title}
+              loading="lazy"
+              draggable={false}
+              className="h-full w-full object-cover object-top transition-opacity duration-300"
+            />
+          ) : (
+            <div className="h-full w-full flex items-center justify-center bg-[#ECEEF2] px-4 text-center text-xs font-semibold uppercase tracking-[0.14em] text-[#767676]">
+              Image unavailable
+            </div>
+          )}
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
         </div>
 
@@ -161,12 +158,7 @@ const BentoProject = ({ projects = [] }) => {
   const dragRef = useRef({ startX: 0, startY: 0, dragging: false });
   const touchResumeTimer = useRef(null);
 
-  // Memoized so the fallback array doesn't get recreated (and re-trigger
-  // every GSAP/effect dependency) on every autoplay tick.
-  const displayProjects = useMemo(
-    () => (projects && projects.length > 0 ? projects : FALLBACK_PROJECTS),
-    [projects]
-  );
+  const displayProjects = useMemo(() => projects.filter(Boolean), [projects]);
 
   const goToIndex = (idx) => {
     const total = displayProjects.length;

@@ -21,10 +21,8 @@ const HeroSection = () => {
 
   }, { scope: containerRef, dependencies: [loading] });
 
-  const nameParts = profile?.name?.split(' ') || ['Rumman', 'Ahmed'];
-  const firstName = nameParts[0] || 'Rumman';
-  const lastName = nameParts.slice(1).join(' ') || 'Ahmed';
-  const role = profile?.headline || profile?.role || 'Creative Developer';
+  const nameParts = profile?.name?.trim().split(/\s+/) || [];
+  const firstName = nameParts[0] || 'Portfolio';
   // Optimize Cloudinary URL by injecting responsive transform params
   const optimizeCloudinary = (url) => {
     if (url && url.includes('cloudinary.com') && !url.includes('w_600')) {
@@ -32,7 +30,7 @@ const HeroSection = () => {
     }
     return url;
   };
-  const heroImage = optimizeCloudinary(profile?.heroImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png");
+  const heroImage = optimizeCloudinary(profile?.heroImage);
 
   return (
     <section
@@ -81,21 +79,20 @@ const HeroSection = () => {
       <div className="hero-image relative z-10 w-full min-h-[100svh] max-w-7xl mx-auto flex items-end justify-center pt-12 md:pt-20">
         <div className="relative w-full max-w-[100%] sm:max-w-[100%] md:max-w-[480px] lg:max-w-[600px] h-[85svh] md:h-[80svh] flex items-end justify-center scale-110 sm:scale-100 origin-bottom">
           {/* Main Hero Image */}
-          <img
-            src={heroImage}
-            alt={profile?.name || "Rumman"}
-            fetchPriority="high"
-            crossOrigin="anonymous"
-            className="w-full h-full object-contain object-bottom drop-shadow-2xl relative z-20"
-            style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 35%)', maskImage: 'linear-gradient(to top, transparent 0%, black 35%)' }}
-            onError={(e) => {
-              // Fallback to a placeholder if the image fails to load
-              e.target.src = `https://ui-avatars.com/api/?name=${firstName}&size=600&background=F4F4F4&color=1A1A1A&font-size=0.33`;
-              e.target.className = "w-[300px] h-[300px] rounded-full object-cover mb-20 drop-shadow-xl relative z-20";
-              e.target.style.maskImage = 'none';
-              e.target.style.WebkitMaskImage = 'none';
-            }}
-          />
+          {heroImage ? (
+            <img
+              src={heroImage}
+              alt={profile?.name || 'Profile'}
+              fetchPriority="high"
+              crossOrigin="anonymous"
+              className="w-full h-full object-contain object-bottom drop-shadow-2xl relative z-20"
+              style={{ WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 35%)', maskImage: 'linear-gradient(to top, transparent 0%, black 35%)' }}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center pb-20 text-center text-sm font-semibold uppercase tracking-[0.2em] text-[#767676]">
+              Profile image unavailable
+            </div>
+          )}
         </div>
       </div>
 

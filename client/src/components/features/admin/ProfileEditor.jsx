@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../UI/Input';
 import Textarea from '../../UI/Textarea';
 import Button from '../../UI/Button';
@@ -9,24 +9,16 @@ import api from '../../../services/api';
 
 const ProfileEditor = () => {
   const { user } = useAuth();
+  const initialFormData = {
+    name: user?.name || '',
+    title: user?.title || '',
+    bio: user?.bio || '',
+    email: user?.email || '',
+  };
   const [formData, setFormData] = useState({
-    name: '',
-    title: '',
-    bio: '',
-    email: '',
+    ...initialFormData,
   });
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (user) {
-      setFormData({
-        name: user.name || '',
-        title: user.title || '',
-        bio: user.bio || '',
-        email: user.email || '',
-      });
-    }
-  }, [user]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

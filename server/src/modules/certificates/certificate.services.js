@@ -1,5 +1,6 @@
 import slugify from "slugify";
 import Certificate from "./certificate.model.js";
+import { assertValidObjectId, notFoundError } from "../../utils/mongo.js";
 
 const ensureSlug = (payload) => {
   if (payload.slug || !payload.title) {
@@ -32,28 +33,37 @@ export const getCertificateBySlug = async (slug, { admin = false } = {}) => {
 
 export const createCertificate = async (payload) => Certificate.create(ensureSlug(payload));
 
+export const getCertificateById = async (id) => {
+  assertValidObjectId(id, "certificate");
+  const certificate = await Certificate.findById(id).lean();
+
+  if (!certificate) {
+    throw notFoundError("Certificate");
+  }
+
+  return certificate;
+};
+
 export const updateCertificate = async (id, payload) => {
+  assertValidObjectId(id, "certificate");
   const certificate = await Certificate.findByIdAndUpdate(id, ensureSlug(payload), {
     new: true,
     runValidators: true,
   }).lean();
 
   if (!certificate) {
-    const error = new Error("Certificate not found");
-    error.statusCode = 404;
-    throw error;
+    throw notFoundError("Certificate");
   }
 
   return certificate;
 };
 
 export const deleteCertificate = async (id) => {
+  assertValidObjectId(id, "certificate");
   const certificate = await Certificate.findByIdAndDelete(id).lean();
 
   if (!certificate) {
-    const error = new Error("Certificate not found");
-    error.statusCode = 404;
-    throw error;
+    throw notFoundError("Certificate");
   }
 
   return certificate;

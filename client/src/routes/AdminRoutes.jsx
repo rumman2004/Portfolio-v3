@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import ProtectedRoute from '../components/common/ProtectedRoute';
 
 // Admin Pages
@@ -19,6 +19,22 @@ const Settings = lazy(() => import('../pages/admin/Settings'));
 const Loading = () => (
   <div className="flex justify-center items-center h-screen bg-gray-100">
     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+  </div>
+);
+
+const AdminRouteFallback = () => (
+  <div className="min-h-screen bg-[#F4F4F4] flex items-center justify-center px-6 py-16">
+    <div className="max-w-md text-center liquid-glass rounded-3xl p-8 shadow-lg">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-md-primary mb-3">Admin area</p>
+      <h1 className="text-3xl font-bold text-md-on-surface mb-3">Page not found</h1>
+      <p className="text-md-on-surface-variant mb-6">That admin destination does not exist.</p>
+      <Link
+        to="/admin"
+        className="inline-flex min-h-11 items-center justify-center rounded-full bg-md-primary px-6 py-3 text-sm font-bold text-md-on-primary hover:opacity-90"
+      >
+        Return to dashboard
+      </Link>
+    </div>
   </div>
 );
 
@@ -43,6 +59,8 @@ const AdminRoutes = () => {
           <Route path="/messages" element={<Messages />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
+
+        <Route path="*" element={<AdminRouteFallback />} />
       </Routes>
     </Suspense>
   );

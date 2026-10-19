@@ -78,11 +78,11 @@ const HackathonsList = () => {
                     <Calendar size={14} className="mr-1.5 shrink-0" />
                     <span className="truncate">{hack.date ? new Date(hack.date).toLocaleDateString() : 'N/A'}</span>
                     
-                    {hack.location && (
+                    {hack.organization && (
                       <>
                         <span className="mx-2">•</span>
                         <MapPin size={14} className="mr-1.5 shrink-0" />
-                        <span className="truncate">{hack.location}</span>
+                        <span className="truncate">{hack.organization}</span>
                       </>
                     )}
                   </div>
@@ -116,22 +116,22 @@ const HackathonsList = () => {
 
               <div className="flex items-center justify-between pt-4 border-t border-white/40">
                 <div className="flex items-center gap-3">
-                  {hack.projectUrl && (
-                    <a href={hack.projectUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 font-semibold text-sm flex items-center transition-colors">
-                      <ExternalLink size={14} className="mr-1" /> Project
+                  {hack.link && (
+                    <a href={hack.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-600 font-semibold text-sm flex items-center transition-colors">
+                      <ExternalLink size={14} className="mr-1" /> View link
                     </a>
                   )}
-                  {hack.certificateUrl && (
-                    <a href={hack.certificateUrl} target="_blank" rel="noopener noreferrer" className="text-indigo-500 hover:text-indigo-600 font-semibold text-sm flex items-center transition-colors">
-                      <ExternalLink size={14} className="mr-1" /> Certificate
-                    </a>
+                  {hack.projectId && (
+                    <span className="text-sm text-gray-500 truncate max-w-[10rem]" title={hack.projectId.title || 'Linked project'}>
+                      {hack.projectId.title || 'Linked project'}
+                    </span>
                   )}
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setSelectedHackathon(hack)} className={btnClass} title="Edit">
+                   <button onClick={() => setSelectedHackathon(hack)} className={btnClass} title="Edit hackathon" aria-label="Edit hackathon">
                     <Edit2 size={16} />
                   </button>
-                  <button onClick={() => handleDelete(hack._id)} className={`${btnClass} hover:text-red-500 hover:border-red-200`} title="Delete">
+                   <button onClick={() => handleDelete(hack._id)} className={`${btnClass} hover:text-red-500 hover:border-red-200`} title="Delete hackathon" aria-label="Delete hackathon">
                     <Trash2 size={16} />
                   </button>
                 </div>

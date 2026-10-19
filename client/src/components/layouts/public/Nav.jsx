@@ -33,6 +33,10 @@ const Nav = () => {
           z-index: 50;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .lg-nav.scrolled .lg-glass {
+          background: rgba(255,255,255,0.32);
+          box-shadow: 0 12px 40px rgba(99,102,241,0.16), 0 1.5px 0 rgba(255,255,255,0.8) inset;
+        }
         @media (min-width: 1024px) {
           .lg-nav { left: auto; right: 2.5rem; transform: none; }
         }
@@ -148,7 +152,7 @@ const Nav = () => {
         .lg-cta-label { display: none; }
       `}</style>
 
-      <header className="lg-nav">
+      <header className={`lg-nav${scrolled ? ' scrolled' : ''}`}>
         <div className="lg-glass">
           {/* Logo */}
           <Link to="/" aria-label="Home" className="lg-logo lg-logo-wrap" style={{ display: 'none' }}>

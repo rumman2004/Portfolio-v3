@@ -11,9 +11,9 @@ const getGreetingMessage = () => {
   
   const eyeCatchingMessages = [
     { text: "Welcome to my portfolio! Glad you're here.", icon: "Hand" },
-    { text: "Have you tried my new app? Go listen to ads-free music on Gaan apk, it's totally free!", icon: "Music" },
+    { text: "Have you explored the latest project yet?", icon: "Music" },
     { text: "Full-Stack Developer turning ideas into real-world applications.", icon: "Code2" },
-    { text: "Checkout Gaan App in my projects for the ultimate music experience!", icon: "Headphones" },
+    { text: "Take a look through the projects for recent work.", icon: "Headphones" },
     { text: "Always building, always learning, always improving.", icon: "Rocket" },
     { text: "Have a project or idea? Let's build it together!", icon: "Users" },
     { text: "Coffee, code, and creativity — my favorite combination.", icon: "Coffee" },

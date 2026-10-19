@@ -4,19 +4,27 @@ export const adminServices = {
   /**
    * Log in the admin user
    * @param {Object} credentials - { username, password } or { email, password }
-   * @returns {Promise<Object>} - Contains token and user data on success
+   * @returns {Promise<Object>} - Contains the server response and admin data
    */
   login: async (credentials) => {
     try {
       const response = await api.post('/admin/login', credentials);
-      return response.data.data; // Returns { token, user }
+      return response.data.data;
     } catch (error) {
-      throw error.response?.data || error.message;
+      throw error.response?.data || new Error(error.message);
     }
   },
 
   /**
-   * Verify the current stored token
+   * End the server-side admin session. The API clears its httpOnly cookie.
+   */
+  logout: async () => {
+    const response = await api.post('/admin/logout');
+    return response.data;
+  },
+
+  /**
+   * Verify the current server-owned session cookie
    * @returns {Promise<Object>} - Admin user data
    */
   checkAuth: async () => {
@@ -24,7 +32,7 @@ export const adminServices = {
       const response = await api.get('/admin/me');
       return response.data.data;
     } catch (error) {
-      throw error.response?.data || error.message;
+      throw error.response?.data || new Error(error.message);
     }
   },
 

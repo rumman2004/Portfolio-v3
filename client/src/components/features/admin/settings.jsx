@@ -55,7 +55,8 @@ const Settings = () => {
   }, []);
 
   useEffect(() => {
-    fetchProfile();
+    const request = window.setTimeout(() => { fetchProfile(); }, 0);
+    return () => window.clearTimeout(request);
   }, [fetchProfile]);
 
   const handleChange = (e) => {

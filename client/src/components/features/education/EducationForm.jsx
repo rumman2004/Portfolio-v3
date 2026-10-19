@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
+import { toMonthInputValue } from '../../../utils/payload';
 
 const EducationForm = ({ initialData, onSubmit, loading }) => {
-  const [formData, setFormData] = useState({
-    degree: '',
-    institution: '',
-    location: '',
-    startDate: '',
-    endDate: '',
-    description: ''
-  });
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        ...initialData,
-        startDate: initialData.startDate ? new Date(initialData.startDate).toISOString().slice(0, 7) : '',
-        endDate: initialData.endDate ? new Date(initialData.endDate).toISOString().slice(0, 7) : '',
-        description: initialData.description || ''
-      });
-    }
-  }, [initialData]);
+  const [formData, setFormData] = useState(() => ({
+    degree: initialData?.degree || '',
+    institution: initialData?.institution || '',
+    location: initialData?.location || '',
+    startDate: toMonthInputValue(initialData?.startDate),
+    endDate: toMonthInputValue(initialData?.endDate),
+    description: initialData?.description || '',
+  }));
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 

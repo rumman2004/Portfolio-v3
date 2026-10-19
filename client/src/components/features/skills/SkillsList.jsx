@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
-import DataTable from '../admin/DataTable';
 import PageHeader from '../../common/PageHeader';
 import Modal from '../../UI/Modal';
 import Button from '../../UI/Button';
@@ -63,10 +62,10 @@ const SkillsList = () => {
             return (
               <div key={skill._id || skill.id} className="bg-md-surface border border-md-outline-variant rounded-3xl p-5 flex flex-col items-center justify-center text-center relative group shadow-sm hover:shadow-md transition-all hover:border-md-primary">
                 <div className="absolute top-2 right-2 flex items-center gap-1">
-                  <button onClick={() => setSelectedSkill(skill)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-primary transition-colors opacity-0 group-hover:opacity-100">
+                   <button type="button" onClick={() => setSelectedSkill(skill)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-primary transition-colors opacity-0 group-hover:opacity-100 focus-visible:opacity-100" aria-label={`Edit ${skill.name}`} title="Edit skill">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" /></svg>
                   </button>
-                  <button onClick={() => handleDelete(skill._id || skill.id)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-error transition-colors opacity-0 group-hover:opacity-100">
+                   <button type="button" onClick={() => handleDelete(skill._id || skill.id)} className="p-2 rounded-full text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-error transition-colors opacity-0 group-hover:opacity-100 focus-visible:opacity-100" aria-label={`Delete ${skill.name}`} title="Delete skill">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                   </button>
                 </div>

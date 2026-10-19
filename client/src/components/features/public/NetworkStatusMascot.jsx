@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useMascot } from '../../../context/MascotContext';
+import { useMascot } from '../../../hooks/useMascot';
 
 const NetworkStatusMascot = () => {
   const { notifyMascot } = useMascot();

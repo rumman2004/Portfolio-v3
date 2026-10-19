@@ -4,37 +4,31 @@ import Button from '../../UI/Button';
 import Textarea from '../../UI/Textarea';
 import { useFetch } from '../../../hooks/useFetch';
 import { iconMap } from '../../../utils/iconMap';
+import { toMonthInputValue } from '../../../utils/payload';
+import { Upload, X } from 'lucide-react';
 
 const HackathonForm = ({ initialData, onSubmit, loading }) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    organization: '',
-    achievement: '',
-    date: '',
-    technologies: '',
-    description: '',
-    link: '',
-    projectId: '',
-    isFeatured: false
-  });
+  const [formData, setFormData] = useState(() => ({
+    title: initialData?.title || '',
+    organization: initialData?.organization || '',
+    achievement: initialData?.achievement || '',
+    date: toMonthInputValue(initialData?.date),
+    technologies: initialData?.technologies?.join(', ') || '',
+    description: initialData?.description || '',
+    link: initialData?.link || '',
+    projectId: initialData?.projectId?._id || (typeof initialData?.projectId === 'string' ? initialData.projectId : ''),
+    isFeatured: initialData?.isFeatured || false,
+  }));
   // Fetch projects for the dropdown
   const { data: projectsData } = useFetch('/projects');
   const projects = Array.isArray(projectsData) ? projectsData : (projectsData?.data || []);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(() => initialData?.image || null);
+  const [removeImage, setRemoveImage] = useState(false);
 
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        ...initialData,
-        technologies: initialData.technologies?.join(', ') || '',
-        organization: initialData.organization || '',
-        description: initialData.description || '',
-        link: initialData.link || '',
-        projectId: initialData.projectId?._id || (typeof initialData.projectId === 'string' ? initialData.projectId : ''),
-        isFeatured: initialData.isFeatured || false,
-        date: initialData.date ? initialData.date.substring(0, 7) : ''
-      });
-    }
-  }, [initialData]);
+  useEffect(() => () => {
+    if (imagePreview?.startsWith('blob:')) URL.revokeObjectURL(imagePreview);
+  }, [imagePreview]);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -44,10 +38,12 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const techArray = formData.technologies.split(',').map(t => t.trim()).filter(Boolean);
-    const data = {
-      ...formData,
-      technologies: techArray
-    };
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      data.append(key, key === 'technologies' ? JSON.stringify(techArray) : value);
+    });
+    if (imageFile) data.append('image', imageFile);
+    if (initialData) data.append('removeImage', String(removeImage));
     onSubmit(data);
   };
 
@@ -64,6 +60,43 @@ const HackathonForm = ({ initialData, onSubmit, loading }) => {
       </div>
       
       <Input label="External Link" type="url" name="link" value={formData.link} onChange={handleChange} placeholder="https://..." />
+
+      <div>
+        <label className="block text-sm font-semibold text-md-on-surface-variant mb-1.5 ml-1 tracking-wide">Hackathon Image</label>
+        <div className="bg-[#f8fafc] border border-gray-200 shadow-inner rounded-3xl p-4 flex flex-col items-center justify-center relative overflow-hidden">
+          {imagePreview ? (
+            <div className="relative w-full h-40 group">
+              <img src={imagePreview} alt="Hackathon preview" className="w-full h-full object-contain rounded-lg" />
+              <button
+                type="button"
+                onClick={() => { setImageFile(null); setImagePreview(null); setRemoveImage(Boolean(initialData)); }}
+                className="absolute top-2 right-2 z-20 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
+                aria-label="Remove hackathon image"
+                title="Remove hackathon image"
+              >
+                <X size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className="py-6 flex flex-col items-center text-gray-400">
+              <Upload size={24} className="mb-2" />
+              <span className="text-sm font-medium">Click to upload image</span>
+            </div>
+          )}
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              setImageFile(file);
+              setImagePreview(URL.createObjectURL(file));
+              setRemoveImage(false);
+            }}
+            className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer ${imagePreview ? 'pointer-events-none' : ''}`}
+          />
+        </div>
+      </div>
 
       <div className="mt-4">
         <label className="block text-sm font-semibold text-md-on-surface-variant mb-2 ml-1 tracking-wide">Tech Stack Icons</label>

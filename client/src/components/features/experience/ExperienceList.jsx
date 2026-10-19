@@ -106,10 +106,10 @@ const ExperienceList = () => {
                 )}
 
                 <div className="flex items-center justify-end gap-2 pt-4 border-t border-white/40">
-                  <button onClick={() => setSelectedRecord(exp)} className={btnClass} title="Edit Record">
+                   <button type="button" onClick={() => setSelectedRecord(exp)} className={btnClass} title="Edit experience" aria-label={`Edit ${exp.position || 'experience record'}`}>
                     <Edit2 size={16} />
                   </button>
-                  <button onClick={() => handleDelete(exp._id)} className={`${btnClass} hover:text-red-500`} title="Delete Record">
+                   <button type="button" onClick={() => handleDelete(exp._id)} className={`${btnClass} hover:text-red-500`} title="Delete experience" aria-label={`Delete ${exp.position || 'experience record'}`}>
                     <Trash2 size={16} />
                   </button>
                 </div>

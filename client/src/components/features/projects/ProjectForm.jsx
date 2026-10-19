@@ -1,46 +1,48 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from '../../UI/Input';
 import Textarea from '../../UI/Textarea';
 import { Upload, X, Image as ImageIcon } from 'lucide-react';
 import { iconMap } from '../../../utils/iconMap';
 
 const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
-  const [formData, setFormData] = useState({
-    title: '', category: 'Web App', shortDescription: '', description: '',
-    liveUrl: '', githubUrl: '', techStack: '', role: '', timeline: '', 
-    problem: '', solution: '', results: '', featured: false
-  });
+  const [formData, setFormData] = useState(() => ({
+    title: initialData?.title || '',
+    category: initialData?.category || 'Web App',
+    shortDescription: initialData?.shortDescription || '',
+    description: initialData?.description || '',
+    liveUrl: initialData?.liveUrl || '',
+    githubUrl: initialData?.githubUrl || '',
+    techStack: initialData?.techStack?.join(', ') || '',
+    role: initialData?.role || '',
+    timeline: initialData?.timeline || '',
+    problem: initialData?.problem || '',
+    solution: initialData?.solution || '',
+    results: initialData?.results || '',
+    featured: initialData?.featured || false,
+  }));
 
   const categories = ['Web App', 'Mobile App', 'Desktop App', 'UI / UX', 'Branding', 'Backend', 'Other'];
 
   const [heroFile, setHeroFile] = useState(null);
-  const [heroPreview, setHeroPreview] = useState(null);
+  const [heroPreview, setHeroPreview] = useState(() => initialData?.heroImage || null);
 
   const [galleryFiles, setGalleryFiles] = useState([]);
   const [galleryPreviews, setGalleryPreviews] = useState([]);
-  const [existingGallery, setExistingGallery] = useState([]);
+  const [existingGallery, setExistingGallery] = useState(() => initialData?.gallery || []);
+  const [removeHeroImage, setRemoveHeroImage] = useState(false);
+  const galleryPreviewsRef = useRef(galleryPreviews);
 
   useEffect(() => {
-    if (initialData) {
-      setFormData({
-        title: initialData.title || '',
-        category: initialData.category || 'Web App',
-        shortDescription: initialData.shortDescription || '',
-        description: initialData.description || '',
-        liveUrl: initialData.liveUrl || '',
-        githubUrl: initialData.githubUrl || '',
-        techStack: initialData.techStack?.join(', ') || '',
-        role: initialData.role || '',
-        timeline: initialData.timeline || '',
-        problem: initialData.problem || '',
-        solution: initialData.solution || '',
-        results: initialData.results || '',
-        featured: initialData.featured || false
-      });
-      if (initialData.heroImage) setHeroPreview(initialData.heroImage);
-      if (initialData.gallery) setExistingGallery(initialData.gallery);
-    }
-  }, [initialData]);
+    galleryPreviewsRef.current = galleryPreviews;
+  }, [galleryPreviews]);
+
+  useEffect(() => () => {
+    galleryPreviewsRef.current.forEach((preview) => URL.revokeObjectURL(preview));
+  }, []);
+
+  useEffect(() => () => {
+    if (heroPreview?.startsWith('blob:')) URL.revokeObjectURL(heroPreview);
+  }, [heroPreview]);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -52,6 +54,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
     if (file) {
       setHeroFile(file);
       setHeroPreview(URL.createObjectURL(file));
+      setRemoveHeroImage(false);
     }
   };
 
@@ -88,9 +91,20 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
     const data = new FormData();
     Object.keys(formData).forEach(key => data.append(key, formData[key]));
     
-    if (heroFile) data.append('heroImage', heroFile);
+    if (heroFile) {
+      data.append('heroImage', heroFile);
+    } else if (initialData && removeHeroImage) {
+      // Keep the explicit empty value in the multipart update payload.
+      data.append('heroImage', '');
+    }
     galleryFiles.forEach(file => data.append('gallery', file));
-    existingGallery.forEach(url => data.append('existingGallery', url));
+    if (initialData) {
+      // An empty field is intentional: the server treats it as an empty
+      // gallery, which makes removing the final existing image persist.
+      existingGallery.forEach(url => data.append('existingGallery', url));
+      if (existingGallery.length === 0) data.append('existingGallery', '');
+      data.append('removeHeroImage', String(removeHeroImage));
+    }
 
     onSubmit(data);
   };
@@ -188,7 +202,13 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
             {heroPreview ? (
               <div className="relative w-full h-40 group">
                 <img src={heroPreview} alt="Hero preview" className="w-full h-full object-cover rounded-3xl" />
-                <button type="button" onClick={() => { setHeroFile(null); setHeroPreview(null); }} className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                <button
+                  type="button"
+                  onClick={() => { setHeroFile(null); setHeroPreview(null); setRemoveHeroImage(Boolean(initialData)); }}
+                  className="absolute top-2 right-2 z-20 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity"
+                  aria-label="Remove hero image"
+                  title="Remove hero image"
+                >
                   <X size={16} />
                 </button>
               </div>
@@ -198,7 +218,7 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
                 <span className="text-sm font-medium">Click to upload hero image</span>
               </div>
             )}
-            <input type="file" accept="image/*" onChange={handleHeroChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+            <input type="file" accept="image/*" onChange={handleHeroChange} className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer ${heroPreview ? 'pointer-events-none' : ''}`} />
           </div>
         </div>
 
@@ -217,13 +237,13 @@ const ProjectForm = ({ initialData, onSubmit, loading, onCancel }) => {
               {existingGallery.map((url, i) => (
                 <div key={`ex-${i}`} className="relative h-24 rounded-3xl overflow-hidden shadow-md rounded-3xl border border-md-surface-variant">
                   <img src={url} alt="Gallery" className="w-full h-full object-cover" />
-                  <button type="button" onClick={() => removeExistingGallery(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-1 rounded-full"><X size={14} /></button>
+                   <button type="button" onClick={() => removeExistingGallery(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-2 rounded-full" aria-label={`Remove gallery image ${i + 1}`} title="Remove gallery image"><X size={14} /></button>
                 </div>
               ))}
               {galleryPreviews.map((url, i) => (
                 <div key={`new-${i}`} className="relative h-24 rounded-3xl overflow-hidden shadow-md rounded-3xl border border-md-surface-variant">
                   <img src={url} alt="Gallery" className="w-full h-full object-cover" />
-                  <button type="button" onClick={() => removeGalleryFile(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-1 rounded-full"><X size={14} /></button>
+                   <button type="button" onClick={() => removeGalleryFile(i)} className="absolute top-1 right-1 bg-red-500/80 hover:bg-red-500 text-white p-2 rounded-full" aria-label={`Remove new gallery image ${i + 1}`} title="Remove gallery image"><X size={14} /></button>
                 </div>
               ))}
             </div>

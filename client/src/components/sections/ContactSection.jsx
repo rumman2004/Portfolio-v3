@@ -16,10 +16,18 @@ const ContactSection = () => {
   const { data: socialMedia, loading: socialLoading } = useFetch('/social-media');
 
   const contactDetails = [
-    { icon: Mail, label: 'Email', value: profile?.email || 'hello@example.com', href: profile?.email ? `mailto:${profile.email}` : '#' },
-    { icon: Phone, label: 'Phone', value: profile?.phone || '+1 234 567 890', href: profile?.phone ? `tel:${profile.phone}` : '#' },
-    { icon: MapPin, label: 'Location', value: profile?.location || 'Worldwide' },
-    { icon: Send, label: 'Availability', value: profile?.isAvailable ? 'Open to freelance & full-time opportunities' : 'Currently not available for new projects' }
+    profile?.email
+      ? { icon: Mail, label: 'Email', value: profile.email, href: `mailto:${profile.email}` }
+      : { icon: Mail, label: 'Email', value: 'Not provided' },
+    profile?.phone
+      ? { icon: Phone, label: 'Phone', value: profile.phone, href: `tel:${profile.phone}` }
+      : { icon: Phone, label: 'Phone', value: 'Not provided' },
+    { icon: MapPin, label: 'Location', value: profile?.location || 'Not provided' },
+    {
+      icon: Send,
+      label: 'Availability',
+      value: profile ? (profile.isAvailable ? 'Open to opportunities' : 'Currently unavailable') : 'Not provided',
+    },
   ];
 
   const socialLinks = socialMedia || [];

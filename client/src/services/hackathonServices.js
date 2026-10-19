@@ -1,4 +1,5 @@
 import api from './api';
+import { stripImmutableFields } from '../utils/payload';
 
 export const hackathonServices = {
   getAll: async () => {
@@ -22,7 +23,10 @@ export const hackathonServices = {
     return response.data.data;
   },
   update: async (id, data) => {
-    const response = await api.patch(`/hackathon/${id}`, data);
+    const payload = typeof FormData !== 'undefined' && data instanceof FormData
+      ? data
+      : stripImmutableFields(data);
+    const response = await api.patch(`/hackathon/${id}`, payload);
     return response.data.data;
   },
   delete: async (id) => {

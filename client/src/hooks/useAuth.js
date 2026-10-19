@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../context/auth-context';
 
 /**
- * Custom hook to consume the AuthContext
- * Provides access to user, token, loading state, login() and logout() functions.
+ * Custom hook to consume the AuthContext.
+ * Provides access to user, loading state, login() and logout() functions.
  */
 export const useAuth = () => {
   const context = useContext(AuthContext);

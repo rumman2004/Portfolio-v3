@@ -21,6 +21,7 @@ export const env = {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     apiKey: process.env.CLOUDINARY_API_KEY,
     apiSecret: process.env.CLOUDINARY_API_SECRET,
+    uploadPreset: process.env.CLOUDINARY_UPLOAD_PRESET || "portfolio_uploads",
     folder: process.env.CLOUDINARY_FOLDER || "portfolio-v3",
   },
   email: {

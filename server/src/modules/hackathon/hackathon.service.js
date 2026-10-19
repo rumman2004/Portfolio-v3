@@ -1,12 +1,30 @@
 import slugify from "slugify";
 import Hackathon from "./hackathon.model.js";
 import Project from "../projects/project.model.js";
+import { assertValidObjectId, notFoundError } from "../../utils/mongo.js";
 
 const sanitizePayload = (payload) => {
   const cleaned = { ...payload };
+  if (typeof cleaned.technologies === "string") {
+    try {
+      const parsed = JSON.parse(cleaned.technologies);
+      cleaned.technologies = Array.isArray(parsed)
+        ? parsed
+        : cleaned.technologies.split(",").map((item) => item.trim()).filter(Boolean);
+    } catch {
+      cleaned.technologies = cleaned.technologies
+        .split(",")
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+  }
+
   // Empty string can't be cast to ObjectId — remove it so Mongoose doesn't choke
   if (cleaned.projectId === '' || cleaned.projectId === undefined) {
     cleaned.projectId = null;
+  }
+  if (cleaned.projectId !== null) {
+    assertValidObjectId(cleaned.projectId, "project");
   }
   return cleaned;
 };
@@ -45,28 +63,37 @@ export const getHackathonBySlug = async (slug, { admin = false } = {}) => {
 
 export const createHackathon = async (payload) => Hackathon.create(ensureSlug(payload));
 
+export const getHackathonById = async (id) => {
+  assertValidObjectId(id, "hackathon");
+  const hackathon = await Hackathon.findById(id).lean();
+
+  if (!hackathon) {
+    throw notFoundError("Hackathon");
+  }
+
+  return hackathon;
+};
+
 export const updateHackathon = async (id, payload) => {
+  assertValidObjectId(id, "hackathon");
   const hackathon = await Hackathon.findByIdAndUpdate(id, ensureSlug(payload), {
     new: true,
     runValidators: true,
   }).lean();
 
   if (!hackathon) {
-    const error = new Error("Hackathon not found");
-    error.statusCode = 404;
-    throw error;
+    throw notFoundError("Hackathon");
   }
 
   return hackathon;
 };
 
 export const deleteHackathon = async (id) => {
+  assertValidObjectId(id, "hackathon");
   const hackathon = await Hackathon.findByIdAndDelete(id).lean();
 
   if (!hackathon) {
-    const error = new Error("Hackathon not found");
-    error.statusCode = 404;
-    throw error;
+    throw notFoundError("Hackathon");
   }
 
   return hackathon;

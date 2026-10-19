@@ -1,4 +1,5 @@
 import api from './api';
+import { stripImmutableFields } from '../utils/payload';
 
 export const socialMediaServices = {
   getAll: async () => {
@@ -14,7 +15,7 @@ export const socialMediaServices = {
     return response.data.data;
   },
   update: async (id, data) => {
-    const response = await api.patch(`/social-media/${id}`, data);
+    const response = await api.patch(`/social-media/${id}`, stripImmutableFields(data));
     return response.data.data;
   },
   delete: async (id) => {

@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { env } from "../config/env.js";
 import Admin from "../modules/admin/admin.model.js";
+import { assertValidObjectId } from "../utils/mongo.js";
 
 export const protectAdmin = async (req, res, next) => {
   try {
@@ -9,23 +10,33 @@ export const protectAdmin = async (req, res, next) => {
     const token = req.cookies?.adminToken || bearerToken;
 
     if (!token) {
-      res.status(401);
-      throw new Error("Authentication required");
+      const error = new Error("Authentication required");
+      error.statusCode = 401;
+      throw error;
     }
 
     const decoded = jwt.verify(token, env.jwtSecret);
+    assertValidObjectId(decoded?.id, "admin");
+
+    if (decoded.role !== "admin") {
+      const error = new Error("Invalid admin session");
+      error.statusCode = 401;
+      throw error;
+    }
+
     const admin = await Admin.findById(decoded.id).select("-password");
 
     if (!admin || !admin.isActive) {
-      res.status(401);
-      throw new Error("Invalid admin session");
+      const error = new Error("Invalid admin session");
+      error.statusCode = 401;
+      throw error;
     }
 
     req.admin = admin;
     next();
   } catch (error) {
-    if (res.statusCode === 200) {
-      res.status(401);
+    if (!error.statusCode || error.statusCode === 400) {
+      error.statusCode = 401;
     }
     next(error);
   }

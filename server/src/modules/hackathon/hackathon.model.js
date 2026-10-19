@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 import slugify from "slugify";
+import validator from "validator";
+
+const optionalUrl = {
+  validator: (value) => !value || validator.isURL(value, { require_protocol: true }),
+  message: "Please provide a valid URL with protocol",
+};
 
 const hackathonSchema = new mongoose.Schema(
   {
@@ -43,6 +49,7 @@ const hackathonSchema = new mongoose.Schema(
     link: {
       type: String,
       trim: true,
+      validate: optionalUrl,
     },
     image: {
       type: String,

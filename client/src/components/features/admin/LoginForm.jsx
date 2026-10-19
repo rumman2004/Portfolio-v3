@@ -161,7 +161,7 @@ const LoginForm = () => {
               onFocus={() => { setBlobMood('happy'); setBlobMessage("Hmm, let's see..."); setBlobGaze({ x: Math.min(30, credentials.email.length * 1.5 - 15), y: 10 }); }}
               onBlur={() => { setBlobMood('neutral'); setBlobMessage("Waiting for you..."); setBlobGaze({ x: 0, y: 0 }); }}
               required
-              placeholder="you@example.com"
+              placeholder="Admin email address"
               className="w-full bg-white/40 border border-white/60 rounded-2xl px-5 py-4 text-[#111827] placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#4F46E5]/40 transition-all duration-300 font-['Inter'] shadow-sm hover:bg-white/60 backdrop-blur-md"
             />
           </div>

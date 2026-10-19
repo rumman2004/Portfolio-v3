@@ -8,12 +8,20 @@ import {
 
 export const submitContact = async (req, res, next) => {
   try {
-    const contact = await createContactMessage(req.body);
+    const { contact, emailDelivery } = await createContactMessage(req.body);
+    const attempts = [emailDelivery.notification, emailDelivery.thankYou];
+    const allDelivered = attempts.every((attempt) => attempt.success);
+    const anyDelivered = attempts.some((attempt) => attempt.success);
 
     res.status(201).json({
       success: true,
-      message: "Message sent successfully",
+      message: allDelivered
+        ? "Message sent successfully"
+        : anyDelivered
+          ? "Message saved, but some email notifications could not be delivered"
+          : "Message saved, but email notifications could not be delivered",
       data: contact,
+      emailDelivery,
     });
   } catch (error) {
     next(error);

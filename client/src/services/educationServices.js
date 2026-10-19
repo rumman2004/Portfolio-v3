@@ -1,4 +1,5 @@
 import api from './api';
+import { stripImmutableFields } from '../utils/payload';
 
 export const educationServices = {
   getAll: async () => {
@@ -18,7 +19,7 @@ export const educationServices = {
     return response.data.data;
   },
   update: async (id, data) => {
-    const response = await api.patch(`/education/${id}`, data);
+    const response = await api.patch(`/education/${id}`, stripImmutableFields(data));
     return response.data.data;
   },
   delete: async (id) => {

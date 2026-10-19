@@ -1,0 +1,11 @@
+{
+  "name": "portfolio-v3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Reproducible workspace scripts for the Portfolio V3 application",
+  "scripts": {
+    "test": "npm --prefix server test && npm --prefix client run lint && npm --prefix client run build",
+    "lint": "npm --prefix client run lint",
+    "build": "npm --prefix client run build"
+  }
+}

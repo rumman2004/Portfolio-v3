@@ -16,13 +16,6 @@ const STAT_ICONS = {
   'Projects Built': Users,
 };
 
-const FALLBACK_STATS = [
-  { icon: Trophy, value: '0+', label: 'Hackathons Participated' },
-  { icon: Medal, value: '0', label: 'Top 10 Finishes' },
-  { icon: Award, value: '0', label: 'Winning Positions' },
-  { icon: Users, value: '0+', label: 'Projects Built' }
-];
-
 const HackathonSection = () => {
   const { data: hackathons, loading, error } = useFetch('/hackathon/featured');
   const { data: statsData, loading: statsLoading } = useFetch('/hackathon/stats');
@@ -30,7 +23,7 @@ const HackathonSection = () => {
 
   const stats = statsData?.length
     ? statsData.map((s) => ({ ...s, icon: STAT_ICONS[s.label] || Trophy }))
-    : FALLBACK_STATS;
+    : [];
 
   useGSAP(() => {
     if (loading || statsLoading) return;
@@ -114,7 +107,7 @@ const HackathonSection = () => {
         <div className="flex flex-col lg:flex-row lg:items-start gap-12 lg:gap-10 mb-16 md:mb-20 w-full max-w-6xl justify-center">
           <div className="w-full max-w-4xl bg-white border border-[#1A1A1A]/10 rounded-2xl shadow-sm p-6 md:p-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
-              {stats.map(({ icon: Icon, value, label }, i) => (
+              {stats.length > 0 ? stats.map(({ icon: Icon, value, label }, i) => (
                 <div key={i} className="stat-card flex flex-col items-center text-center gap-3">
                   <Icon className="w-7 h-7 text-[#0448a8]" aria-hidden="true" />
                   <span className="stat-value font-headline text-3xl md:text-4xl text-[#1A1A1A]" data-value={value}>
@@ -122,7 +115,9 @@ const HackathonSection = () => {
                   </span>
                   <span className="font-inter text-xs md:text-sm text-[#595959] leading-snug">{label}</span>
                 </div>
-              ))}
+              )) : (
+                <p className="col-span-full py-6 text-center text-sm text-[#767676]">Hackathon statistics are not available yet.</p>
+              )}
             </div>
           </div>
         </div>

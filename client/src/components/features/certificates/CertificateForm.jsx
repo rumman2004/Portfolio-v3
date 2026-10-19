@@ -1,34 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import { Upload, X } from 'lucide-react';
+import { toMonthInputValue } from '../../../utils/payload';
 
 const CertificateForm = ({ initialData, onSubmit, loading }) => {
-  const [formData, setFormData] = useState({
-    title: '',
-    issuer: '',
-    issuedAt: '',
-    credentialId: '',
-    credentialUrl: '',
-    isFeatured: false
-  });
+  const [formData, setFormData] = useState(() => ({
+    title: initialData?.title || '',
+    issuer: initialData?.issuer || '',
+    issuedAt: toMonthInputValue(initialData?.issuedAt),
+    credentialId: initialData?.credentialId || '',
+    credentialUrl: initialData?.credentialUrl || '',
+    isFeatured: initialData?.isFeatured || false,
+  }));
 
   const [imageFile, setImageFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        title: initialData.title || '',
-        issuer: initialData.issuer || '',
-        issuedAt: initialData.issuedAt ? String(initialData.issuedAt).substring(0, 7) : '',
-        credentialId: initialData.credentialId || '',
-        credentialUrl: initialData.credentialUrl || '',
-        isFeatured: initialData.isFeatured || false
-      });
-      if (initialData.image) setImagePreview(initialData.image);
-    }
-  }, [initialData]);
+  const [imagePreview, setImagePreview] = useState(() => initialData?.image || null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -40,6 +28,7 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
     if (file) {
       setImageFile(file);
       setImagePreview(URL.createObjectURL(file));
+      setRemoveImage(false);
     }
   };
 
@@ -49,6 +38,10 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
     Object.keys(formData).forEach(key => data.append(key, formData[key]));
     if (imageFile) {
       data.append('image', imageFile);
+    } else if (initialData && removeImage) {
+      // Certificate updates accept an empty image value to clear an existing
+      // URL when no replacement file is uploaded.
+      data.append('image', '');
     }
     onSubmit(data);
   };
@@ -85,7 +78,7 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
           {imagePreview ? (
             <div className="relative w-full h-40 group">
               <img src={imagePreview} alt="Certificate preview" className="w-full h-full object-contain rounded-lg" />
-              <button type="button" onClick={() => { setImageFile(null); setImagePreview(null); }} className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+               <button type="button" onClick={() => { setImageFile(null); setImagePreview(null); setRemoveImage(Boolean(initialData)); }} className="absolute top-2 right-2 z-20 bg-red-500 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-opacity" aria-label="Remove certificate image" title="Remove certificate image">
                 <X size={16} />
               </button>
             </div>
@@ -95,7 +88,7 @@ const CertificateForm = ({ initialData, onSubmit, loading }) => {
               <span className="text-sm font-medium">Click to upload image</span>
             </div>
           )}
-          <input type="file" accept="image/*" onChange={handleImageChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+          <input type="file" accept="image/*" onChange={handleImageChange} className={`absolute inset-0 w-full h-full opacity-0 cursor-pointer ${imagePreview ? 'pointer-events-none' : ''}`} />
         </div>
       </div>
 

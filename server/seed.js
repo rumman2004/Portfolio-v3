@@ -6,38 +6,42 @@ dotenv.config();
 
 const seedAdmin = async () => {
   try {
-    if (!process.env.MONGO_URL) {
-      console.error('MONGO_URL is not defined in .env file');
-      process.exit(1);
+    const { MONGO_URL, ADMIN_EMAIL, ADMIN_PASSWORD } = process.env;
+
+    if (!MONGO_URL || !ADMIN_EMAIL || !ADMIN_PASSWORD) {
+      throw new Error(
+        'MONGO_URL, ADMIN_EMAIL, and ADMIN_PASSWORD must be set before seeding an admin.'
+      );
     }
 
-    await mongoose.connect(process.env.MONGO_URL);
+    if (ADMIN_PASSWORD.length < 8) {
+      throw new Error('ADMIN_PASSWORD must be at least 8 characters long.');
+    }
+
+    await mongoose.connect(MONGO_URL);
     console.log('Connected to MongoDB');
 
-    const email = 'rumman.ahmed.work@gmail.com';
-    const password = 'rumman@143';
+    const email = ADMIN_EMAIL.toLowerCase().trim();
 
-    // Check if admin already exists
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
-      console.log(`Admin with email ${email} already exists. Updating password...`);
-      existingAdmin.password = password; // pre-save hook will hash it
-      await existingAdmin.save();
+      console.log(`Admin with email ${email} already exists. No changes made.`);
     } else {
       console.log('Creating new admin...');
       const admin = new Admin({
-        name: 'Rumman Ahmed',
+        name: process.env.ADMIN_NAME || 'Admin',
         email,
-        password,
+        password: ADMIN_PASSWORD,
       });
       await admin.save();
     }
 
     console.log('✅ Admin seeded successfully');
-    process.exit(0);
   } catch (error) {
-    console.error('❌ Error seeding admin:', error);
-    process.exit(1);
+    console.error('❌ Error seeding admin:', error.message);
+    process.exitCode = 1;
+  } finally {
+    await mongoose.disconnect();
   }
 };
 

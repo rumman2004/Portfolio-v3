@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useMascot } from "../../context/MascotContext";
+import { useMascot } from "../../hooks/useMascot";
 import HeroSection from "../../components/sections/HeroSection.jsx";
 import AboutSection from "../../components/sections/AboutSection.jsx";
 import SkillSection from "../../components/sections/SkillSection.jsx";
@@ -22,8 +22,8 @@ const Home = () => {
   return (
     <div>
       <SEO
-        title="Home | Rumman Ahmed"
-        description="Portfolio of Rumman Ahmed, showcasing web development projects and skills."
+        title="Rumman Ahmed — Portfolio"
+        description="Explore Rumman Ahmed's projects, skills, experience, and professional work."
       />
       <HeroSection />
       <AboutSection />

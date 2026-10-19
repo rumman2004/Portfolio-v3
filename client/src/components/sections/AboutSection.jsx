@@ -46,14 +46,11 @@ const AboutSection = () => {
     }
   }, { scope: containerRef, dependencies: [loading] });
 
-  const nameParts = (profile?.name || 'Rumman Ahmed').split(' ');
-  const firstName = nameParts[0] || 'Rumman';
-  
-  const role = profile?.role || profile?.headline || 'Creative Developer';
+  const role = profile?.role || profile?.headline || 'Role not provided';
   const roleParts = role.split(' ');
   const roleFirst = roleParts[0] || 'Creative';
   const roleLast = roleParts.slice(1).join(' ') || 'Developer';
-  const heroImage = profile?.heroImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png";
+  const heroImage = profile?.heroImage || profile?.profileImage;
 
   return (
     <section 
@@ -96,14 +93,11 @@ const AboutSection = () => {
           <div className="about-intro flex flex-row items-center gap-3 sm:gap-4 mb-10 sm:mb-14 liquid-glass p-2 sm:p-3 rounded-full pr-6 sm:pr-8 w-max">
             <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-[2px] border-white/60 shadow-sm shrink-0 relative group">
               <div className="absolute inset-0 bg-[#0448a8]/10 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
-              <img 
-                src={heroImage} 
-                alt={firstName} 
-                className="w-full h-full object-cover relative z-0"
-                onError={(e) => {
-                  e.target.src = `https://ui-avatars.com/api/?name=${firstName}&size=100&background=F4F4F4&color=1A1A1A`;
-                }}
-              />
+              {heroImage ? (
+                <img src={heroImage} alt={profile?.name || 'Profile'} className="w-full h-full object-cover relative z-0" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-[#EEF0F4] text-xs font-bold uppercase tracking-wider text-[#98A2B3]">No image</div>
+              )}
             </div>
             <div className="flex items-center">
               <p className="font-inter text-xs sm:text-sm text-[#4B5563] font-semibold tracking-widest uppercase flex items-center gap-2 m-0">
@@ -143,9 +137,7 @@ const AboutSection = () => {
             
             <div className="space-y-4 sm:space-y-5 relative z-10">
               <div className="font-inter text-[#374151] leading-[1.8] text-[0.95rem] md:text-[1.05rem] font-light whitespace-pre-wrap">
-                {profile?.about ? profile.about : (
-                  <>Hi there! I'm a passionate freelancer focused on building immersive and engaging digital experiences. I thrive on bringing creative ideas to life through modern web technologies.{"\n\n"}With a keen eye for aesthetics and a strong foundation in frontend architecture, I strive to create visually stunning applications that are both intuitive and highly functional. I love working on challenging projects that push the boundaries of what's possible on the web.</>
-                )}
+                {profile?.about || profile?.shortBio || 'About information is not available yet.'}
               </div>
             </div>
           </div>

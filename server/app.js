@@ -1,4 +1,7 @@
 import express from "express";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
@@ -19,6 +22,8 @@ import educationRoutes from "./src/modules/education/education.routes.js";
 import notificationRoutes from "./src/modules/notifications/notifications.routes.js";
 
 const app = express();
+const serverDirectory = path.dirname(fileURLToPath(import.meta.url));
+const clientDistDirectory = path.resolve(serverDirectory, "../client/dist");
 
 app.set("trust proxy", 1);
 
@@ -62,14 +67,6 @@ if (!isProduction) {
 app.get("/favicon.png", (req, res) => res.status(204).end());
 app.get("/favicon.ico", (req, res) => res.status(204).end());
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Portfolio API is running. Access endpoints at /api",
-    environment: env.nodeEnv,
-  });
-});
-
 app.get("/api/health", (req, res) => {
   res.status(200).json({
     success: true,
@@ -89,6 +86,27 @@ app.use("/api/experience", experienceRoutes);
 app.use("/api/hackathon", hackathonRoutes);
 app.use("/api/education", educationRoutes);
 app.use("/api/notifications", notificationRoutes);
+
+// The container build places the Vite output next to the API. Serving it here
+// keeps the Docker deployment single-origin while leaving Vercel/API-only
+// deployments unchanged when the directory is absent.
+if (fs.existsSync(clientDistDirectory)) {
+  app.use(express.static(clientDistDirectory));
+  app.get("/", (req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "index.html"));
+  });
+  app.get(/^(?!\/api(?:\/|$)).*/, (req, res) => {
+    res.sendFile(path.join(clientDistDirectory, "index.html"));
+  });
+} else {
+  app.get("/", (req, res) => {
+    res.status(200).json({
+      success: true,
+      message: "Portfolio API is running. Access endpoints at /api",
+      environment: env.nodeEnv,
+    });
+  });
+}
 
 app.use(notFound);
 app.use(errorHandler);

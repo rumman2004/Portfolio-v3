@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { FALLBACK_CATEGORIES } from '../../utils/skillsData';
 import { resolveIcon } from '../../utils/iconMap';
 
 const normalizeSkill = (skill, fallbackCategory = 'Tools') => {
@@ -11,37 +10,29 @@ const normalizeSkill = (skill, fallbackCategory = 'Tools') => {
   };
 };
 
-const flattenFallbackSkills = () =>
-  FALLBACK_CATEGORIES.flatMap((category) =>
-    (category.tools || []).map((tool) =>
-      normalizeSkill(tool, category.category || category.name || 'Tools')
-    )
-  );
-
 const BentoSkills = ({ skills = [] }) => {
-  const allSkills = skills.length ? skills.map(s => normalizeSkill(s)) : flattenFallbackSkills();
-
-  const getSkillsForCategories = (categories) => {
-    const seen = new Set();
-    const items = [];
-    
-    for (const skill of allSkills) {
-      const cat = skill.category?.toLowerCase() || '';
-      if (categories.some(c => cat.includes(c.toLowerCase()))) {
-        const url = resolveIcon(skill);
-        // Deduplicate by name and URL
-        const key = `${skill.name}-${url}`;
-        if (url && !seen.has(key)) {
-          seen.add(key);
-          items.push({ name: skill.name, url });
-        }
-      }
-    }
-    
-    return items;
-  };
+  const allSkills = skills.map(s => normalizeSkill(s));
 
   const rings = useMemo(() => {
+    const getSkillsForCategories = (categories) => {
+      const seen = new Set();
+      const items = [];
+
+      for (const skill of allSkills) {
+        const cat = skill.category?.toLowerCase() || '';
+        if (categories.some(c => cat.includes(c.toLowerCase()))) {
+          const url = resolveIcon(skill);
+          const key = `${skill.name}-${url}`;
+          if (url && !seen.has(key)) {
+            seen.add(key);
+            items.push({ name: skill.name, url });
+          }
+        }
+      }
+
+      return items;
+    };
+
     let groups = [
       { label: "Database", items: getSkillsForCategories(["database"]) },
       { label: "Server", items: getSkillsForCategories(["server", "programming", "code"]) },

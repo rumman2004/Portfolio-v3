@@ -10,7 +10,7 @@ const CertificateCard = ({ certificate }) => {
         <div className="h-48 w-full overflow-hidden bg-gray-50 border-b border-gray-100 p-4 flex items-center justify-center">
           <img 
             src={certificate.image} 
-            alt={certificate.name} 
+             alt={certificate.title}
             className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" 
           />
         </div>
@@ -22,15 +22,15 @@ const CertificateCard = ({ certificate }) => {
       
       <div className="p-6 flex flex-col flex-grow">
         <h4 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-amber-500 transition-colors">
-          {certificate.name}
+           {certificate.title}
         </h4>
         <p className="text-md-on-surface-variant text-sm mb-4">{certificate.issuer}</p>
         
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-500">{certificate.date}</span>
+           <span className="text-sm font-medium text-gray-500">{certificate.issuedAt ? new Date(certificate.issuedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }) : 'Date not provided'}</span>
           
-          {certificate.url && (
-            <a href={certificate.url} target="_blank" rel="noreferrer">
+           {certificate.credentialUrl && (
+             <a href={certificate.credentialUrl} target="_blank" rel="noreferrer">
               <Button variant="ghost" size="sm" className="px-2">
                 <span className="text-amber-400 text-sm flex items-center gap-1">Verify <ExternalLink className="w-3 h-3" /></span>
               </Button>

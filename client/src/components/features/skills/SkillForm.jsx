@@ -1,22 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 import IconPicker from '../../common/IconPicker';
 
 const SkillForm = ({ initialData, onSubmit, loading }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    category: 'Frontend',
-    icon: '',
-    isFeatured: false,
-    order: 0
-  });
+  const [formData, setFormData] = useState(() => ({
+    name: initialData?.name || '',
+    category: initialData?.category || 'Frontend',
+    icon: initialData?.icon || '',
+    isFeatured: initialData?.isFeatured || false,
+    order: initialData?.order || 0,
+  }));
 
   const categories = ['Programming Language', 'Frontend', 'Server', 'Database', 'Tools', 'AI', 'DevOps', 'Apps'];
-
-  useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;

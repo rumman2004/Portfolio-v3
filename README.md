@@ -61,56 +61,65 @@
 
 ## 🚀 Getting Started
 
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-Make sure you have Node.js and npm installed on your machine.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+The project is pinned to Node.js `22.17.1` in `.nvmrc`. Use the repository-local
+lockfiles and do not install dependencies globally.
 
 ### Installation
 
-1. **Clone the repo**
-   ```sh
-   git clone https://github.com/rumman2004/Portfolio-v3.git
-   ```
+```sh
+git clone https://github.com/rumman2004/Portfolio-v3.git
+cd Portfolio-v3
+npm ci
+npm --prefix server ci
+npm --prefix client ci
+cp server/.env.example server/.env
+cp client/.env.example client/.env
+```
 
-2. **Setup the Backend**
-   ```sh
-   cd "Portfolio V3"/server
-   npm install
-   ```
-   *Create a `.env` file in the `server` directory and add the following keys:*
-   ```env
-   PORT=5000
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   CLOUDINARY_CLOUD_NAME=your_cloud_name
-   CLOUDINARY_API_KEY=your_api_key
-   CLOUDINARY_API_SECRET=your_api_secret
-   ```
+Fill in the required values in `server/.env`; never commit that file. The client
+only needs:
 
-3. **Setup the Frontend**
-   ```sh
-   cd ../client
-   npm install
-   ```
-   *Create a `.env` file in the `client` directory and add the backend URL:*
-   ```env
-   VITE_API_URL=http://localhost:5000/api
-   ```
+```env
+VITE_API_URL=http://localhost:5000/api
+```
 
-4. **Run the Application Locally**
-   *Start the Backend Server (from the `server` directory):*
-   ```sh
-   npm run dev
-   ```
-   *Start the Frontend App (from the `client` directory):*
-   ```sh
-   npm run dev
-   ```
+The server environment includes `MONGO_URL`, `JWT_SECRET`, the Cloudinary
+credentials and upload preset, `ADMIN_EMAIL`, and `ADMIN_PASSWORD`. Use a strong
+unique admin password.
+
+### Run locally
+
+Start these in separate terminals from the repository root:
+
+```sh
+npm --prefix server run dev
+npm --prefix client run dev
+```
+
+The Vite development server serves the frontend; the API runs on port `5000`.
+
+### Checks
+
+The single reproducible offline check command, after dependencies are installed, is:
+
+```sh
+npm test
+```
+
+It runs the server image-conversion tests, client lint, and the client production
+build. `make test` is provided as an equivalent Unix alias.
+
+### Docker deployment
+
+Create and fill `server/.env`, then build and run the complete single-origin image:
+
+```sh
+docker build -t portfolio-v3 .
+docker run --rm --env-file server/.env -p 5000:5000 portfolio-v3
+```
+
+The web application is available at `http://localhost:5000` and the API at
+`http://localhost:5000/api`.
 
 ---
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMascot } from '../../context/MascotContext';
+import { useMascot } from '../../hooks/useMascot';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useFetch } from '../../hooks/useFetch';
 import { ArrowLeft, ExternalLink, ArrowUpRight } from 'lucide-react';
@@ -7,53 +7,9 @@ import TechnologiesUsed from '../../components/common/TechnologiesUsed';
 import ProjectObjective from '../../components/common/ProjectObjective';
 import ProjectCaseStudy from '../../components/common/projectCaseStudy';
 import ProjectCard from '../../components/features/projects/ProjectCard';
-
-/* ─────────────────────────────────────────────────────────────
-   FALLBACK PROJECT (for demo when API is absent)
-──────────────────────────────────────────────────────────────*/
-const FALLBACK_PROJECT = {
-  title: 'Dr. Crop',
-  category: 'Web App',
-  year: '2024',
-  role: 'Full-Stack Developer',
-  timeline: '6 weeks',
-  shortDescription: 'AI-powered web app that detects crop diseases and suggests effective treatments in real time.',
-  problem: 'Smallholder farmers lack access to agricultural experts, leading to misdiagnosis of crop diseases, chemical waste, and significant yield losses. Existing tools are either too complex or require high-speed internet, which is often unavailable in rural areas.',
-  solution: 'Dr. Crop is a mobile-first web application designed specifically for low-bandwidth environments. It utilizes the Gemini Vision API to analyze photos of crop leaves and instantly return a diagnosis. To handle connectivity issues, we implemented a local caching system that stores common regional disease signatures offline, ensuring farmers can get help even without a signal.',
-  results: 'The application successfully reduced misdiagnosis in testing by 40% and improved response times for treatment recommendations from days to seconds. It is currently being piloted by over 200 farmers in the region.',
-  features: [
-    'Camera-based leaf disease detection using AI',
-    'Multi-language support for regional farmer accessibility',
-    'Treatment recommendation engine with organic and chemical options',
-    'Offline mode with cached common disease signatures',
-    'Dashboard for tracking field scan history',
-  ],
-  technologies: ['React', 'Node.js', 'MongoDB', 'Gemini API', 'Tailwind CSS', 'Express'],
-  image: { url: 'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=1600&q=85' },
-  gallery: [
-    'https://images.unsplash.com/photo-1592982537447-6f2a6a0a3835?w=1600&q=85',
-    'https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1600&q=85',
-    'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1600&q=85'
-  ],
-  liveUrl: 'https://example.com',
-  githubUrl: 'https://github.com',
-};
-
-const FALLBACK_RELATED = [
-  { _id: 'r1', slug: 'bookhaven', title: 'BookHaven', category: 'E-Commerce', image: { url: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&q=80' } },
-  { _id: 'r2', slug: 'medi-track', title: 'MediTrack', category: 'Health Tech', image: { url: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80' } },
-  { _id: 'r3', slug: 'event-flow', title: 'EventFlow', category: 'SaaS', image: { url: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80' } },
-];
-
-/* ─────────────────────────────────────────────────────────────
-   LOADER
-──────────────────────────────────────────────────────────────*/
 import Loader from '../../components/UI/Loader';
 import SEO from '../../components/common/SEO.jsx';
 
-/* ─────────────────────────────────────────────────────────────
-   MAIN COMPONENT
-──────────────────────────────────────────────────────────────*/
 const ProjectDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -64,25 +20,24 @@ const ProjectDetails = () => {
 
   useEffect(() => { window.scrollTo(0, 0); }, [id]);
 
-  // Use API data or fallback
-  const project = projectData || FALLBACK_PROJECT;
+  const project = projectData;
 
   useEffect(() => {
     if (!loading && project) {
       notifyMascot(`Ah, ${project.title}! That was a really fun ${project.category || 'project'} to build.`, "happy");
     }
-  }, [loading, project.title, project.category, notifyMascot]);
-  const heroImg = project.image?.url || project.heroImage;
-  const gallery = project.gallery?.length ? project.gallery : (project.screenshots || []);
+  }, [loading, project, notifyMascot]);
+  const heroImg = project?.image?.url || project?.heroImage;
+  const gallery = project?.gallery?.length ? project.gallery : (project?.screenshots || []);
 
   // Related: filter out current, take 3
-  const related = allProjects
+  const related = Array.isArray(allProjects)
     ? allProjects.filter(p => (p.slug || p._id) !== id).slice(0, 3)
-    : FALLBACK_RELATED;
+    : [];
 
   if (loading) return <Loader fullScreen={true} text="Loading project..." />;
 
-  if (error && !projectData) {
+  if ((error || !project) && !loading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] flex flex-col items-center justify-center gap-5 px-6">
         <h2 className="font-headline text-4xl text-[#1A1A1A] uppercase tracking-tight">Project not found</h2>

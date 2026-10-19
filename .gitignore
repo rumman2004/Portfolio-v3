@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Builds and coverage
+dist/
+coverage/
+.nyc_output/
+
+# Environment files and local secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local tooling
+*.log
+.eslintcache
+.DS_Store
+Thumbs.db

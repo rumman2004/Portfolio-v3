@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useId, useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { X } from 'lucide-react';
@@ -8,6 +8,8 @@ gsap.registerPlugin(useGSAP);
 const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => {
   const overlayRef = useRef(null);
   const modalRef = useRef(null);
+  const previouslyFocusedRef = useRef(null);
+  const titleId = `modal-title-${useId().replace(/:/g, '')}`;
 
   useGSAP(() => {
     if (isOpen) {
@@ -36,6 +38,19 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
 
   // Handle escape key
   useEffect(() => {
+    if (isOpen) {
+      previouslyFocusedRef.current = document.activeElement;
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => modalRef.current?.querySelector('button')?.focus());
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      previouslyFocusedRef.current?.focus?.();
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isOpen) handleClose();
     };
@@ -48,26 +63,29 @@ const Modal = ({ isOpen, onClose, title, children, maxWidth = 'max-w-2xl' }) => 
   return (
     <div className="fixed inset-0 z-[100] flex justify-center items-start pt-4 sm:pt-10 px-4 pb-10">
       {/* Backdrop */}
-      <div 
+      <div
         ref={overlayRef}
         className="absolute inset-0 bg-black/20 backdrop-blur-sm"
-        onClick={handleClose}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) handleClose();
+        }}
       ></div>
 
       {/* Modal Box */}
-      <div 
-        ref={modalRef}
+         <div
+           ref={modalRef}
         className={`relative w-full ${maxWidth} max-h-full liquid-glass border border-white/40 shadow-2xl rounded-3xl flex flex-col opacity-0`}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="modal-title"
-      >
+           aria-labelledby={titleId}
+         >
         {/* Header */}
         <div className="flex items-center justify-between p-6 md:p-8 shrink-0 border-b border-white/20">
-          <h2 id="modal-title" className="min-w-0 text-2xl font-headline text-md-on-surface tracking-tight break-words">
+           <h2 id={titleId} className="min-w-0 text-2xl font-headline text-md-on-surface tracking-tight break-words">
             {title}
           </h2>
-          <button 
+           <button
+             type="button"
             onClick={handleClose}
             className="w-10 h-10 rounded-full flex items-center justify-center text-md-on-surface-variant hover:bg-white/30 hover:text-md-error transition-colors"
             aria-label="Close modal"

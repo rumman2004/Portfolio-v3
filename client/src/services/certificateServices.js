@@ -1,4 +1,5 @@
 import api from './api';
+import { stripImmutableFields } from '../utils/payload';
 
 export const certificateServices = {
   getAll: async () => {
@@ -18,7 +19,10 @@ export const certificateServices = {
     return response.data.data;
   },
   update: async (id, data) => {
-    const response = await api.patch(`/certificates/${id}`, data);
+    const payload = typeof FormData !== 'undefined' && data instanceof FormData
+      ? data
+      : stripImmutableFields(data);
+    const response = await api.patch(`/certificates/${id}`, payload);
     return response.data.data;
   },
   delete: async (id) => {

@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 
 const EditProject = ({ project, onClose, onUpdated }) => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleUpdate = async (formData) => {
     setLoading(true);
@@ -15,7 +14,6 @@ const EditProject = ({ project, onClose, onUpdated }) => {
       onUpdated();
       onClose();
     } catch (err) {
-      console.error("Update error:", err);
       toast.error(err.response?.data?.message || err.message || 'Failed to update project');
     } finally {
       setLoading(false);

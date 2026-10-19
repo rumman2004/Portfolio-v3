@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { JellyBlobMascot } from 'feral-blob';
 import 'feral-blob/blob.css';
-import { useMascot } from '../../../context/MascotContext';
+import { useMascot } from '../../../hooks/useMascot';
 import { useLocation } from 'react-router-dom';
+import api from '../../../services/api';
 
 const MascotCompanion = () => {
-  const { mood, setMood, message, notifyMascot, isVisible } = useMascot();
+  const { mood, message, notifyMascot, isVisible } = useMascot();
   const location = useLocation();
   const [scrollDepth, setScrollDepth] = useState(0);
 
@@ -24,7 +25,7 @@ const MascotCompanion = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercent = (scrollY / docHeight) * 100;
+       const scrollPercent = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
       
       // Only trigger if we've moved a decent amount to avoid spam
       if (Math.abs(scrollY - lastScrollY) > 200) {
@@ -62,8 +63,6 @@ const MascotCompanion = () => {
 
     const fetchRandomGreeting = async () => {
       try {
-        // Assume api is imported from services
-        const { default: api } = await import('../../../services/api');
         const response = await api.get('/notifications/random');
         if (response.data && response.data.success) {
           const text = `${response.data.greeting?.text} ${response.data.message?.text}`;

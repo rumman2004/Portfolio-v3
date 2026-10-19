@@ -7,11 +7,12 @@ const Button = ({
   className = '',
   isLoading = false,
   disabled = false,
+  type = 'button',
   ...props
 }) => {
   const base = `
     inline-flex items-center justify-center font-bold rounded-full
-    transition-all duration-300 active:scale-95 focus:outline-none
+    transition-all duration-300 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-md-primary focus-visible:ring-offset-2
     border select-none
   `;
 
@@ -51,6 +52,7 @@ const Button = ({
 
   return (
     <button
+      type={type}
       className={`${base} ${variants[variant]} ${sizes[size]} ${
         disabled || isLoading ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''
       } ${className}`}

@@ -84,21 +84,30 @@ const ProjectsList = () => {
 
         <div className="flex items-center gap-4">
           <div className="flex items-center bg-md-surface p-1 rounded-full border border-md-outline-variant">
-            <button 
+            <button
+              type="button"
               onClick={() => setViewMode('grid')}
+              aria-label="Show projects in a grid"
+              aria-pressed={viewMode === 'grid'}
+              title="Grid view"
               className={`p-2 rounded-full transition-all flex items-center justify-center ${viewMode === 'grid' ? 'bg-md-primary-container text-md-on-primary-container' : 'text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-on-surface'}`}
             >
               <LayoutGrid size={18} />
             </button>
-            <button 
+            <button
+              type="button"
               onClick={() => setViewMode('list')}
+              aria-label="Show projects in a list"
+              aria-pressed={viewMode === 'list'}
+              title="List view"
               className={`p-2 rounded-full transition-all flex items-center justify-center ${viewMode === 'list' ? 'bg-md-primary-container text-md-on-primary-container' : 'text-md-on-surface-variant hover:bg-md-surface-container-highest hover:text-md-on-surface'}`}
             >
               <List size={18} />
             </button>
           </div>
 
-          <button 
+          <button
+            type="button"
             onClick={openAddDrawer}
             className="flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-md-on-primary bg-md-primary shadow-sm hover:shadow-md hover:opacity-90 active:scale-95 transition-all"
           >
@@ -153,10 +162,10 @@ const ProjectsList = () => {
 
                 {/* Actions */}
                 <div className={`flex items-center gap-3 shrink-0 ${viewMode === 'list' ? '' : 'mt-auto pt-4 border-t border-white/50'}`}>
-                  <button onClick={() => openEditDrawer(proj)} className={btnClass} title="Edit Project">
+                   <button type="button" onClick={() => openEditDrawer(proj)} className={btnClass} title="Edit project" aria-label={`Edit ${proj.title}`}>
                     <Edit2 size={16} />
                   </button>
-                  <button onClick={() => handleDelete(proj._id)} className={btnClass + " hover:text-red-500"} title="Delete Project">
+                   <button type="button" onClick={() => handleDelete(proj._id)} className={btnClass + " hover:text-red-500"} title="Delete project" aria-label={`Delete ${proj.title}`}>
                     <Trash2 size={16} />
                   </button>
                   <div className="w-px h-6 bg-gray-300 mx-1"></div>
@@ -193,9 +202,12 @@ const ProjectsList = () => {
             <h2 className="text-2xl font-headline text-md-on-surface tracking-tight">
               {drawerMode === 'add' ? 'Add New Project' : 'Edit Project'}
             </h2>
-            <button 
-              onClick={closeDrawer}
-              className="p-2 bg-md-surface shadow-md rounded-3xl border border-md-surface-variant rounded-full text-gray-500 hover:text-red-500 active:border border-md-outline-variant transition-all"
+             <button
+               type="button"
+               onClick={closeDrawer}
+               className="p-2 bg-md-surface shadow-md rounded-3xl border border-md-surface-variant rounded-full text-gray-500 hover:text-red-500 active:border border-md-outline-variant transition-all"
+               aria-label="Close project editor"
+               title="Close"
             >
               <X size={20} />
             </button>

@@ -1,19 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Input from '../../UI/Input';
 import Button from '../../UI/Button';
 
 import IconPicker from '../../common/IconPicker';
 
 const SocialLinkForm = ({ initialData, onSubmit, loading }) => {
-  const [formData, setFormData] = useState({
-    platform: '',
-    url: '',
-    icon: ''
-  });
-
-  useEffect(() => {
-    if (initialData) setFormData(initialData);
-  }, [initialData]);
+  const [formData, setFormData] = useState(() => ({
+    platform: initialData?.platform || '',
+    url: initialData?.url || '',
+    icon: initialData?.icon || '',
+  }));
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 

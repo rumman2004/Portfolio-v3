@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { protectAdmin } from "../../middleware/authMiddleware.js";
-import { upload } from "../../middleware/uploadMiddleware.js";
+import {
+  upload,
+  validateUploadedImages,
+} from "../../middleware/uploadMiddleware.js";
 import {
   addHackathon,
   editHackathon,
@@ -19,8 +22,8 @@ router.get("/featured", listFeaturedHackathons);
 router.get("/admin/all", protectAdmin, listAdminHackathons);
 router.get("/stats", getHackathonStats);
 router.get("/:slug", getHackathon);
-router.post("/", protectAdmin, upload.single("image"), addHackathon);
-router.patch("/:id", protectAdmin, upload.single("image"), editHackathon);
+router.post("/", protectAdmin, upload.single("image"), validateUploadedImages, addHackathon);
+router.patch("/:id", protectAdmin, upload.single("image"), validateUploadedImages, editHackathon);
 router.delete("/:id", protectAdmin, removeHackathon);
 
 export default router;

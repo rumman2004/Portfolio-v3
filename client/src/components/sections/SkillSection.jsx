@@ -77,15 +77,9 @@ const NOTIF_SKILLS = [
 
 /* ── Notification panel inner component ── */
 const NotifSkillPanel = () => {
-  const [visible, setVisible] = useState([]);
-  const [idx, setIdx] = useState(0);
+  const [visible, setVisible] = useState(() => [{ ...NOTIF_SKILLS[0], uid: 0 }]);
+  const [idx, setIdx] = useState(1);
   const VISIBLE_MAX = 4;
-
-  useEffect(() => {
-    // Seed first card immediately
-    setVisible([{ ...NOTIF_SKILLS[0], uid: 0 }]);
-    setIdx(1);
-  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {

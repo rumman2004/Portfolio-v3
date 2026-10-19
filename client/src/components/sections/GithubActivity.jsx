@@ -32,13 +32,32 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
   const [total, setTotal]               = useState(0);
   const [monthLabels, setMonthLabels]   = useState([]);
   const [loading, setLoading]           = useState(true);
-  const [tooltip, setTooltip]           = useState(null); // { text, x, y }
+  const [error, setError]               = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${selectedYear}`)
-      .then(r => r.json())
+    const controller = new AbortController();
+    let active = true;
+
+    queueMicrotask(() => {
+      if (!active) return;
+      setLoading(true);
+      setError(null);
+      setWeeks([]);
+      setMonthLabels([]);
+      setTotal(0);
+    });
+
+    fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=${selectedYear}`, {
+      signal: controller.signal,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`GitHub activity request failed (${response.status})`);
+        }
+        return response.json();
+      })
       .then(data => {
+        if (!active) return;
         const raw = data?.contributions ?? [];
         setTotal(raw.reduce((s, d) => s + (d.count || 0), 0));
 
@@ -67,8 +86,18 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
         });
         setMonthLabels(labels);
       })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+      .catch((requestError) => {
+        if (!active || requestError.name === 'AbortError') return;
+        setError('GitHub activity is unavailable right now.');
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+      controller.abort();
+    };
   }, [username, selectedYear]);
 
   const gridWidth = weeks.length * STEP - GAP;
@@ -121,6 +150,15 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
             <div className="h-36 flex items-center justify-center">
               <div className="w-6 h-6 rounded-full border-2 border-[#216e39] border-t-transparent animate-spin" />
             </div>
+          ) : error ? (
+            <div className="h-36 flex flex-col items-center justify-center gap-2 px-4 text-center">
+              <p className="text-sm font-semibold text-gray-700">{error}</p>
+              <p className="text-xs text-gray-400">Try again later or view the public profile.</p>
+            </div>
+          ) : weeks.length === 0 ? (
+            <div className="h-36 flex items-center justify-center px-4 text-center text-sm text-gray-500">
+              No public contributions found for {selectedYear}.
+            </div>
           ) : (
             <div className="flex gap-6 items-start">
 
@@ -156,7 +194,6 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
                       gap:                `${GAP}px`,
                       position:           'relative',
                     }}
-                    onMouseLeave={() => setTooltip(null)}
                   >
                     {weeks.map((week, wi) => (
                       <div
@@ -177,11 +214,6 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
                             }}
                             onMouseEnter={e => {
                               e.currentTarget.style.transform = 'scale(1.5)';
-                              const rect = e.currentTarget.getBoundingClientRect();
-                              setTooltip({
-                                text: `${day.count} contribution${day.count !== 1 ? 's' : ''} · ${formatDate(day.date)}`,
-                                // use relative positioning in tooltip portaling via state
-                              });
                             }}
                             onMouseLeave={e => {
                               e.currentTarget.style.transform = 'scale(1)';
@@ -226,6 +258,8 @@ const GithubActivity = ({ username = 'rumman2004' }) => {
                   <button
                     key={y}
                     onClick={() => setSelectedYear(y)}
+                    aria-pressed={selectedYear === y}
+                    aria-label={`Show GitHub activity for ${y}`}
                     style={{
                       padding:       '6px 18px',
                       borderRadius:  '999px',

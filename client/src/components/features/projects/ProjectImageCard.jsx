@@ -11,9 +11,9 @@ const ProjectImageCard = ({ project, index }) => {
       
       {/* Image Side */}
       <div className="w-full md:w-1/2 relative rounded-3xl overflow-hidden shadow-2xl bg-neutral-800 aspect-[4/3]">
-        {project.image ? (
+        {project.heroImage || project.image?.url || project.image ? (
           <img 
-            src={project.image} 
+            src={project.heroImage || project.image?.url || project.image}
             alt={project.title} 
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />

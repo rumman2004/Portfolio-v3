@@ -2,12 +2,48 @@ import {
   createHackathon,
   deleteHackathon,
   getFeaturedHackathons,
+  getHackathonById,
   getHackathonBySlug,
   getHackathons,
   getStats,
   updateHackathon,
 } from "./hackathon.service.js";
-import cloudinary from "../../config/cloudinary.js";
+import Hackathon from "./hackathon.model.js";
+import { uploadToCloudinary } from "../../config/cloudinary.js";
+import { cleanupCloudinaryUrls } from "../../utils/assetCleanup.js";
+
+const cleanupHackathonImages = async (urls, excludedHackathonId) => {
+  const uniqueUrls = [...new Set(urls.filter(Boolean))];
+  if (uniqueUrls.length === 0) return;
+
+  const filter = { image: { $in: uniqueUrls } };
+  if (excludedHackathonId) {
+    filter._id = { $ne: excludedHackathonId };
+  }
+
+  let references;
+  try {
+    references = await Hackathon.find(filter).select("image").lean();
+  } catch (error) {
+    console.error("Hackathon image reference check failed:", error.message);
+    return;
+  }
+
+  const referencedUrls = new Set(
+    references.map((hackathon) => hackathon.image).filter(Boolean)
+  );
+
+  await cleanupCloudinaryUrls(uniqueUrls, {
+    allowedFolders: ["portfolio/hackathons"],
+    isReferenced: (url) => referencedUrls.has(url),
+  });
+};
+
+const rethrowInvalidImage = (error) => {
+  if (error?.code === "INVALID_IMAGE") {
+    throw error;
+  }
+};
 
 export const listHackathons = async (req, res, next) => {
   try {
@@ -66,37 +102,79 @@ export const getHackathon = async (req, res, next) => {
 };
 
 export const addHackathon = async (req, res, next) => {
+  const uploadedImageUrls = [];
+
   try {
     const payload = { ...req.body };
+    const uploadWarnings = [];
+
     if (req.file) {
-      payload.image = req.file.path;
+      try {
+        payload.image = await uploadToCloudinary(req.file.buffer, "portfolio/hackathons");
+        uploadedImageUrls.push(payload.image);
+      } catch (uploadErr) {
+        rethrowInvalidImage(uploadErr);
+        console.error("Hackathon image upload failed:", uploadErr.message);
+        uploadWarnings.push("Image upload failed: " + (uploadErr.http_code === 403 ? "Cloudinary credentials are invalid." : uploadErr.message));
+      }
+    } else if (String(payload.removeImage).toLowerCase() === "true") {
+      payload.image = "";
     }
+    delete payload.removeImage;
     const hackathon = await createHackathon(payload);
 
     res.status(201).json({
       success: true,
-      message: "Hackathon created successfully",
+      message: uploadWarnings.length > 0
+        ? "Hackathon created, but image upload failed: " + uploadWarnings.join("; ")
+        : "Hackathon created successfully",
+      ...(uploadWarnings.length > 0 ? { warnings: uploadWarnings } : {}),
       data: hackathon,
     });
   } catch (error) {
+    await cleanupHackathonImages(uploadedImageUrls);
     next(error);
   }
 };
 
 export const editHackathon = async (req, res, next) => {
+  const uploadedImageUrls = [];
+
   try {
+    const previousHackathon = await getHackathonById(req.params.id);
     const payload = { ...req.body };
+    const uploadWarnings = [];
+
     if (req.file) {
-      payload.image = req.file.path;
+      try {
+        payload.image = await uploadToCloudinary(req.file.buffer, "portfolio/hackathons");
+        uploadedImageUrls.push(payload.image);
+      } catch (uploadErr) {
+        rethrowInvalidImage(uploadErr);
+        console.error("Hackathon image upload failed:", uploadErr.message);
+        uploadWarnings.push("Image upload failed: " + (uploadErr.http_code === 403 ? "Cloudinary credentials are invalid." : uploadErr.message));
+        delete payload.image;
+      }
+    } else if (String(payload.removeImage).toLowerCase() === "true") {
+      payload.image = "";
     }
+    delete payload.removeImage;
     const hackathon = await updateHackathon(req.params.id, payload);
+
+    if (previousHackathon.image && previousHackathon.image !== hackathon.image) {
+      await cleanupHackathonImages([previousHackathon.image], hackathon._id);
+    }
 
     res.status(200).json({
       success: true,
-      message: "Hackathon updated successfully",
+      message: uploadWarnings.length > 0
+        ? "Hackathon saved, but image upload failed: " + uploadWarnings.join("; ")
+        : "Hackathon updated successfully",
+      ...(uploadWarnings.length > 0 ? { warnings: uploadWarnings } : {}),
       data: hackathon,
     });
   } catch (error) {
+    await cleanupHackathonImages(uploadedImageUrls);
     res.status(error.statusCode || 500);
     next(error);
   }
@@ -104,7 +182,8 @@ export const editHackathon = async (req, res, next) => {
 
 export const removeHackathon = async (req, res, next) => {
   try {
-    await deleteHackathon(req.params.id);
+    const hackathon = await deleteHackathon(req.params.id);
+    await cleanupHackathonImages([hackathon.image]);
 
     res.status(200).json({
       success: true,

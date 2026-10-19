@@ -164,7 +164,7 @@ const ExperienceRow = ({ exp, index }) => {
           </p>
           <div className="flex items-center gap-1.5 text-[12px] text-[#555]">
             <LocationPin />
-            {exp.location ?? 'Remote'}
+            {exp.location || 'Location not provided'}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import SocialMedia from "../socialmedia/socialmedia.model.js";
 
 const cookieOptions = {
   httpOnly: true,
+  path: "/",
   secure: isProduction,
   sameSite: isProduction ? "none" : "lax",
   maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -30,7 +31,14 @@ export const login = async (req, res, next) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("adminToken", cookieOptions);
+  const clearCookieOptions = {
+    httpOnly: cookieOptions.httpOnly,
+    path: cookieOptions.path,
+    sameSite: cookieOptions.sameSite,
+    secure: cookieOptions.secure,
+  };
+
+  res.clearCookie("adminToken", clearCookieOptions);
   res.status(200).json({
     success: true,
     message: "Logged out successfully",

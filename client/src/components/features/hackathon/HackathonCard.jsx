@@ -13,8 +13,8 @@ const HackathonCard = ({ hackathon }) => {
 
       <div className="relative z-10">
         <div className="flex justify-between items-start mb-4">
-          <h4 className="text-xl font-bold text-white max-w-[75%]">{hackathon.name}</h4>
-          <Badge variant="success" className="shrink-0">{hackathon.rank}</Badge>
+           <h4 className="text-xl font-bold text-white max-w-[75%]">{hackathon.title}</h4>
+           <Badge variant="success" className="shrink-0">{hackathon.achievement}</Badge>
         </div>
         
         <p className="text-neutral-400 text-sm mb-4">
@@ -23,7 +23,7 @@ const HackathonCard = ({ hackathon }) => {
         
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded">
-            {hackathon.tech}
+             {(hackathon.technologies || []).join(', ')}
           </span>
         </div>
       </div>

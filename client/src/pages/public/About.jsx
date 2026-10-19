@@ -4,10 +4,10 @@ import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Flip } from 'gsap/Flip';
 import { useFetch } from '../../hooks/useFetch';
-import { useMascot } from '../../context/MascotContext';
+import { useMascot } from '../../hooks/useMascot';
 import {
   GraduationCap, Landmark, School, BookOpen, FileText,
-  Award, MapPin, Trophy, Medal, Users, Box
+  Award, MapPin, Trophy, Box
 } from 'lucide-react';
 import { resolveIcon } from '../../utils/iconMap';
 
@@ -160,11 +160,11 @@ const AboutHero = () => {
     }
   }, { scope: ref });
 
-  const role = profile?.role || 'Freelancer';
-  const nameParts = (profile?.name || 'Rumman Ahmed').split(' ');
-  const firstName = nameParts[0] || 'Rumman';
-  const lastName = nameParts.slice(1).join(' ') || 'Ahmed.';
-  const aboutText = profile?.adminBio || profile?.about || profile?.shortBio || 'I build fast, reliable web applications from the ground up — with a focus on clean code, scalable architecture, and experiences that grow with the business.';
+  const role = profile?.role || profile?.headline || 'Role not provided';
+  const nameParts = profile?.name?.trim().split(/\s+/) || [];
+  const firstName = nameParts[0] || 'Profile';
+  const lastName = nameParts.slice(1).join(' ');
+  const aboutText = profile?.about || profile?.adminBio || profile?.shortBio || 'About information is not available yet.';
   
   return (
     <section
@@ -268,15 +268,17 @@ const AboutHero = () => {
                   }
                 `}</style>
 
-                <img 
-                  src={profile?.aboutStampImage || profile?.heroImage || profile?.profileImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png"} 
-                  alt={firstName} 
-                  className="w-[380px] h-[480px] object-cover object-top block"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src = `https://ui-avatars.com/api/?name=${firstName}&size=600&background=EEF0F4&color=1A1A1A`;
-                  }}
-                />
+                {profile?.aboutStampImage || profile?.heroImage || profile?.profileImage ? (
+                  <img
+                    src={profile.aboutStampImage || profile.heroImage || profile.profileImage}
+                    alt={profile?.name || 'Profile'}
+                    className="w-[380px] h-[480px] object-cover object-top block"
+                  />
+                ) : (
+                  <div className="w-[380px] h-[480px] flex items-center justify-center bg-[#EEF0F4] text-center text-xs font-bold uppercase tracking-[0.18em] text-[#98A2B3]">
+                    Profile image unavailable
+                  </div>
+                )}
               </div>
 
               {/* Stamp — centered on top-right corner, ink idle + animated hover */}
@@ -319,11 +321,15 @@ const AboutHero = () => {
                             
                             {/* Center Profile Picture */}
                             <div className="w-full h-full rounded-full overflow-hidden relative z-10 border border-[#1a1a1a]/30 bg-white">
-                              <img 
-                                src={profile?.profileImage || profile?.heroImage || profile?.aboutStampImage || "https://res.cloudinary.com/dtbytfxzs/image/upload/v1782067324/ChatGPT_Image_Jun_21_2026_11_33_04_PM_qdmy6z.png"} 
-                                alt="Profile Logo" 
-                                className="w-full h-full object-cover filter contrast-125 saturate-50 grayscale"
-                              />
+                              {profile?.profileImage || profile?.heroImage || profile?.aboutStampImage ? (
+                                <img
+                                  src={profile.profileImage || profile.heroImage || profile.aboutStampImage}
+                                  alt={profile?.name || 'Profile'}
+                                  className="w-full h-full object-cover filter contrast-125 saturate-50 grayscale"
+                                />
+                              ) : (
+                                <div className="w-full h-full flex items-center justify-center text-xs font-bold text-[#98A2B3]">—</div>
+                              )}
                               {/* Ink blending overlay for the image */}
                               <div className="absolute inset-0 bg-[#1a1a1a]/20 mix-blend-multiply" />
                             </div>
@@ -346,8 +352,7 @@ const AboutHero = () => {
                 <div className="h-[3px] bg-gradient-to-r from-[#0448a8] via-[#3b82f6] to-transparent" />
                 <div className="px-5 pt-4 pb-5 flex items-center justify-between gap-3">
                   <div>
-                    <p className="font-headline text-[16px] text-[#0f172a] uppercase tracking-[0.12em] leading-none">{profile?.name || 'Rumman Ahmed'}</p>
-                    <p className="font-inter text-[11px] text-[#94a3b8] tracking-[0.15em] font-semibold mt-1.5">04 / 12 / 2004</p>
+                    <p className="font-headline text-[16px] text-[#0f172a] uppercase tracking-[0.12em] leading-none">{profile?.name || 'Profile name not provided'}</p>
                   </div>
                 </div>
               </div>
@@ -378,18 +383,13 @@ const AboutHero = () => {
 const SkillsPanel = () => {
   const { data: skills } = useFetch('/skills');
   const ref = useRef();
-  const display = skills || [];
   
-  // Remove duplicates based on name and shuffle them once on load
-  const [randomizedSkills, setRandomizedSkills] = React.useState([]);
-
-  React.useEffect(() => {
+  const randomizedSkills = React.useMemo(() => {
+    const display = skills || [];
     const unique = display.filter((v, i, a) => 
       a.findIndex(t => (t.name || t).toLowerCase() === (v.name || v).toLowerCase()) === i
     );
-    // Shuffle the unique skills array once
-    const shuffled = [...unique].sort(() => Math.random() - 0.5);
-    setRandomizedSkills(shuffled);
+    return [...unique].sort((a, b) => String(a.name || a).localeCompare(String(b.name || b)));
   }, [skills]);
 
   useGSAP(() => {
@@ -508,7 +508,7 @@ const ExperienceItem = ({ exp, index, isLast }) => {
             <p className="font-inter text-[#767676] text-sm mt-1">{exp.company}</p>
             <div className="flex items-center gap-1.5 mt-3 text-[#555] text-xs font-inter">
               <MapPin size={11} className="text-[#0448a8]" />
-              {exp.location ?? 'Remote'}
+              {exp.location || 'Location not provided'}
             </div>
           </div>
           {/* Divider */}
@@ -890,7 +890,7 @@ const HackathonsSection = () => {
                 </span>
                 <span className="font-inter text-[11px] font-semibold text-white/70 bg-white/10 px-2.5 py-1 rounded-full flex items-center gap-1.5">
                   <Trophy size={11} className="text-white/40" />
-                  {h.achievement ?? h.position ?? h.rank ?? 'Top Finish'}
+                  {h.achievement || h.position || h.rank || 'Achievement not provided'}
                 </span>
               </div>
               
@@ -937,7 +937,7 @@ const About = () => {
   return (
     <div className="pt-24">
     <SEO 
-      title="About | Rumman Ahmed" 
+      title="About Rumman Ahmed | Portfolio"
       description="Learn more about Rumman Ahmed's background, experience, and journey in web development." 
     />
     <FontStyles />
